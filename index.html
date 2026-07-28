@@ -542,7 +542,7 @@ footer span { color: var(--green); }
 
 <!-- NAV -->
 <nav>
-  <div class="logo-wrap" onclick="showPage('landing')">
+  <div class="logo-wrap" onclick="showPage('home')">
     <div class="logo-circle">WR</div>
     <div class="logo-text">We Recruit <span>REPÚBLICA DOMINICANA</span></div>
   </div>
@@ -556,44 +556,6 @@ footer span { color: var(--green); }
   </div>
 </nav>
 
-<!-- ═══════════════ LANDING PAGE ═══════════════ -->
-<div id="page-landing" class="page active">
-  <div class="landing-split">
-    <div class="landing-half landing-left" onclick="showPage('para-empresas')">
-      <div class="landing-icon">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#CEE4CC" stroke-width="2">
-          <path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h1"/><path d="M14 9h1"/>
-          <path d="M9 13h1"/><path d="M14 13h1"/><path d="M9 21v-4h6v4"/>
-        </svg>
-      </div>
-      <h2>QUIERO CONTRATAR</h2>
-      <p class="landing-sub">Encuentra el talento que tu empresa necesita con nuestro equipo de reclutamiento especializado.</p>
-      <ul class="landing-bullets">
-        <li>Reclutamiento especializado</li>
-        <li>Headhunting ejecutivo</li>
-        <li>Evaluación de candidatos</li>
-      </ul>
-      <button class="landing-cta" onclick="event.stopPropagation(); showPage('para-empresas')">Ver servicios →</button>
-    </div>
-    <div class="landing-half landing-right" onclick="showPage('home')">
-      <div class="landing-icon">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2">
-          <circle cx="9" cy="7" r="4"/><path d="M17 11V7a4 4 0 00-4-4"/>
-          <path d="M2 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><rect x="15" y="13" width="7" height="6" rx="1"/>
-        </svg>
-      </div>
-      <h2>QUIERO TRABAJAR</h2>
-      <p class="landing-sub">Explora vacantes activas, crea tu CV profesional o regístrate como freelancer.</p>
-      <ul class="landing-bullets">
-        <li>Vacantes activas</li>
-        <li>CV Builder gratuito</li>
-        <li>Perfil freelancer</li>
-      </ul>
-      <button class="landing-cta" onclick="event.stopPropagation(); showPage('home')">Ver oportunidades →</button>
-    </div>
-  </div>
-</div>
-
 <!-- ═══════════════ PARA EMPRESAS PAGE ═══════════════ -->
 <div id="page-para-empresas" class="page">
   <div class="hero hero-sm">
@@ -604,7 +566,7 @@ footer span { color: var(--green); }
     </div>
   </div>
   <div class="empresas-main">
-    <button class="back-btn" style="margin-top:2rem" onclick="showPage('landing')">← Volver al inicio</button>
+    <button class="back-btn" style="margin-top:2rem" onclick="showPage('home')">← Volver al inicio</button>
     <div class="empresas-services">
       <div class="service-card">
         <div class="service-icon">
@@ -642,12 +604,16 @@ footer span { color: var(--green); }
 </div>
 
 <!-- ═══════════════ HOME PAGE ═══════════════ -->
-<div id="page-home" class="page">
+<div id="page-home" class="page active">
   <div class="hero">
     <div class="hero-inner">
       <div class="hero-tag"><span>Santo Domingo · República Dominicana</span></div>
       <h1>Tu próxima oportunidad<br>profesional <em>te espera</em></h1>
       <p>Conectamos el mejor talento dominicano con las empresas líderes del país y la región.</p>
+      <div class="hero-ctas" style="display:flex;gap:1rem;justify-content:center;margin:1.8rem 0 .5rem">
+        <button onclick="showPage('para-empresas')" style="padding:.9rem 2.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1.05rem;border:none;border-radius:8px;cursor:pointer;background:#CEE4CC;color:#063958;letter-spacing:.5px">QUIERO CONTRATAR</button>
+        <button onclick="document.querySelector('.filters-row').scrollIntoView({behavior:'smooth'})" style="padding:.9rem 2.2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1.05rem;border:none;border-radius:8px;cursor:pointer;background:#0F6B9F;color:#fff;letter-spacing:.5px">QUIERO TRABAJAR</button>
+      </div>
       <div class="search-bar">
         <input type="text" placeholder="Cargo, habilidad o empresa..." id="searchInput">
         <div class="search-divider"></div>
