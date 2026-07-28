@@ -285,6 +285,254 @@ nav {
 footer { background: var(--dark); padding: 2rem; text-align: center; margin-top: 3rem; }
 footer p { color: rgba(255,255,255,0.35); font-size: 12px; }
 footer span { color: var(--green); }
+
+/* ─── FREELANCERS ─── */
+.hero-sm { padding: 3.5rem 2rem 2.5rem; }
+.hero-sm h1 { font-size: clamp(1.7rem, 4vw, 2.6rem); }
+.hero-sm p { margin-bottom: 1.5rem; }
+
+.freelancers-main { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem; }
+.freelancers-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.freelancers-toolbar h2 { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.1rem; }
+.freelancers-toolbar span { font-size: 13px; color: var(--gray); font-weight: 400; }
+.register-cta-btn {
+  background: var(--mid); color: var(--white); border: none; padding: 10px 20px;
+  border-radius: 6px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer; transition: background 0.2s;
+}
+.register-cta-btn:hover { background: #0d5a87; }
+
+.freelancers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+
+.freelancer-card {
+  background: var(--white); border: 1.5px solid var(--light); border-radius: 10px;
+  padding: 1.4rem 1.5rem; transition: all 0.2s;
+}
+.freelancer-card:hover { border-color: var(--mid); box-shadow: 0 4px 18px rgba(15,107,159,0.1); transform: translateY(-1px); }
+.freelancer-top { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+.freelancer-photo {
+  width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+}
+.freelancer-initials {
+  width: 52px; height: 52px; border-radius: 50%; background: var(--green); color: var(--dark);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 16px; flex-shrink: 0;
+}
+.freelancer-name { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 15px; color: var(--dark); line-height: 1.2; }
+.freelancer-titulo { font-size: 12.5px; color: var(--gray); margin-top: 2px; }
+.freelancer-skills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1rem; }
+.freelancer-skill-tag { font-size: 11px; color: var(--gray); background: var(--cream); border: 1px solid var(--light); border-radius: 4px; padding: 3px 9px; }
+.freelancer-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--light); }
+.freelancer-rate { font-size: 13px; font-weight: 700; color: var(--dark); font-family: 'Nunito', sans-serif; }
+.avail-badge { font-size: 10.5px; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-family: 'Nunito', sans-serif; text-transform: uppercase; letter-spacing: 0.3px; }
+.avail-disponible { background: #DCFCE7; color: #15803D; }
+.avail-parcial { background: #FEF9C3; color: #A16207; }
+.avail-ocupado { background: #FEE2E2; color: #B91C1C; }
+.contact-btn {
+  background: var(--dark); color: var(--white); border: none; padding: 8px 18px;
+  border-radius: 6px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; cursor: pointer; transition: background 0.2s;
+  text-decoration: none; display: inline-block;
+}
+.contact-btn:hover { background: var(--mid); }
+
+@media (max-width: 640px) {
+  .freelancers-grid { grid-template-columns: 1fr; }
+  .freelancers-toolbar { flex-direction: column; align-items: flex-start; }
+}
+
+/* ─── CV BUILDER ─── */
+.cvb-main { max-width: 820px; margin: 0 auto; padding: 2.5rem 2rem; }
+.cvb-steps { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 2rem; }
+.cvb-step-dot {
+  width: 30px; height: 30px; border-radius: 50%; background: var(--light); color: var(--gray);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; flex-shrink: 0; transition: all 0.2s;
+}
+.cvb-step-dot.active { background: var(--mid); color: var(--white); }
+.cvb-step-dot.done { background: var(--dark); color: var(--green); }
+.cvb-step-line { width: 34px; height: 2px; background: var(--light); flex-shrink: 0; }
+.cvb-step-line.done { background: var(--dark); }
+.cvb-step-label { text-align: center; font-size: 12px; color: var(--gray); font-weight: 600; margin-bottom: 1.5rem; font-family: 'Nunito', sans-serif; letter-spacing: 0.3px; }
+
+.cvb-step { display: none; }
+.cvb-step.active { display: block; }
+
+.cvb-repeater-item {
+  border: 1.5px solid var(--light); border-radius: 8px; padding: 1.1rem; margin-bottom: 1rem; position: relative; background: var(--cream);
+}
+.cvb-remove-btn {
+  position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--red);
+  font-size: 12px; font-weight: 700; cursor: pointer; font-family: 'Nunito', sans-serif;
+}
+.cvb-add-btn {
+  background: none; border: 1.5px dashed var(--mid); color: var(--mid); border-radius: 8px;
+  padding: 10px; width: 100%; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13px;
+  cursor: pointer; transition: all 0.2s;
+}
+.cvb-add-btn:hover { background: #EBF4FA; }
+.cvb-checkbox-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.cvb-checkbox-row input { accent-color: var(--mid); width: 14px; height: 14px; }
+.cvb-checkbox-row label { font-size: 12.5px; color: var(--gray); cursor: pointer; }
+
+.cvb-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 1.5rem; }
+.cvb-btn-prev {
+  background: var(--white); color: var(--dark); border: 1.5px solid var(--light); padding: 12px 22px;
+  border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer;
+}
+.cvb-btn-prev:hover { border-color: var(--mid); }
+.cvb-btn-next {
+  background: var(--dark); color: var(--white); border: none; padding: 12px 26px;
+  border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer; margin-left: auto;
+}
+.cvb-btn-next:hover { background: var(--mid); }
+
+.cvb-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.cvb-tag {
+  background: var(--green); color: var(--dark); border-radius: 20px; padding: 5px 12px 5px 14px;
+  font-size: 12.5px; font-weight: 600; display: flex; align-items: center; gap: 8px;
+}
+.cvb-tag button { background: none; border: none; color: var(--dark); cursor: pointer; font-weight: 800; font-size: 13px; line-height: 1; }
+.cvb-skill-input-row { display: flex; gap: 8px; }
+.cvb-skill-input-row input { flex: 1; }
+.cvb-skill-input-row button {
+  background: var(--mid); color: var(--white); border: none; padding: 0 18px; border-radius: 6px;
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer;
+}
+
+/* CV PREVIEW / DOCUMENT */
+.cv-doc {
+  background: var(--white); border: 1.5px solid var(--light); border-radius: 10px; overflow: hidden;
+  max-width: 720px; margin: 0 auto;
+}
+.cv-doc-header {
+  background: var(--dark); color: var(--white); padding: 2rem 2.2rem; display: flex; align-items: center; gap: 1.4rem;
+}
+.cv-doc-photo { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid var(--green); }
+.cv-doc-photo-placeholder {
+  width: 84px; height: 84px; border-radius: 50%; background: var(--green); color: var(--dark);
+  display: flex; align-items: center; justify-content: center; font-family: 'Nunito', sans-serif;
+  font-weight: 900; font-size: 26px; flex-shrink: 0; border: 3px solid var(--green);
+}
+.cv-doc-name { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.5rem; }
+.cv-doc-title { color: var(--green); font-size: 13.5px; font-weight: 600; margin-top: 2px; }
+.cv-doc-contact { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font-size: 11.5px; color: rgba(255,255,255,0.7); }
+.cv-doc-body { padding: 1.8rem 2.2rem; }
+.cv-doc-section { margin-bottom: 1.4rem; }
+.cv-doc-section h4 {
+  font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 12px; color: var(--dark);
+  text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 2px solid var(--green); padding-bottom: 5px; margin-bottom: 10px;
+}
+.cv-doc-section p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+.cv-doc-entry { margin-bottom: 12px; }
+.cv-doc-entry-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 4px; }
+.cv-doc-entry-title { font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 13.5px; color: var(--dark); }
+.cv-doc-entry-sub { font-size: 12px; color: var(--mid); font-weight: 600; }
+.cv-doc-entry-dates { font-size: 11px; color: var(--gray); white-space: nowrap; }
+.cv-doc-entry-desc { font-size: 12.5px; color: var(--gray); margin-top: 4px; line-height: 1.55; }
+.cv-doc-skills { display: flex; flex-wrap: wrap; gap: 6px; }
+.cv-doc-skill { background: var(--cream); border: 1px solid var(--light); border-radius: 4px; padding: 4px 10px; font-size: 11.5px; color: var(--dark); }
+.cv-doc-langs { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.cv-doc-lang { font-size: 12.5px; color: var(--dark); }
+.cv-doc-lang b { color: var(--mid); }
+.cv-doc-footer { text-align: center; padding: 0.9rem; font-size: 10.5px; color: #B8C4C9; border-top: 1px solid var(--light); }
+
+.cvb-download-btn {
+  display: block; margin: 1.5rem auto 0; background: var(--dark); color: var(--white); border: none;
+  padding: 14px 30px; border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 14px; cursor: pointer;
+}
+.cvb-download-btn:hover { background: var(--mid); }
+.cvb-restart-btn {
+  display: block; margin: 0.8rem auto 0; background: none; border: none; color: var(--gray);
+  font-size: 12.5px; cursor: pointer; text-decoration: underline;
+}
+
+/* ─── LANDING SPLIT ─── */
+.landing-split {
+  display: flex; min-height: calc(100vh - 68px);
+}
+.landing-half {
+  flex: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  padding: 4rem 4rem; cursor: pointer; transition: filter 0.25s ease, transform 0.25s ease; position: relative;
+}
+.landing-half:hover { filter: brightness(1.06); }
+.landing-half:active { transform: scale(0.99); }
+.landing-left { background: var(--dark); color: var(--white); }
+.landing-right { background: var(--cream); color: var(--dark); }
+.landing-icon {
+  width: 64px; height: 64px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.6rem;
+}
+.landing-left .landing-icon { background: rgba(206,228,204,0.12); }
+.landing-right .landing-icon { background: var(--green); }
+.landing-half h2 {
+  font-family: 'Nunito', sans-serif; font-weight: 900; font-size: clamp(1.7rem, 3vw, 2.4rem);
+  margin-bottom: 0.7rem; line-height: 1.1;
+}
+.landing-left h2 { color: var(--white); }
+.landing-right h2 { color: var(--dark); }
+.landing-half p.landing-sub {
+  font-size: 14.5px; line-height: 1.7; max-width: 380px; margin-bottom: 1.6rem; font-weight: 300;
+}
+.landing-left p.landing-sub { color: rgba(255,255,255,0.6); }
+.landing-right p.landing-sub { color: var(--gray); }
+.landing-bullets { list-style: none; margin-bottom: 2.2rem; }
+.landing-bullets li {
+  font-size: 13.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-weight: 500;
+}
+.landing-left .landing-bullets li { color: rgba(255,255,255,0.8); }
+.landing-right .landing-bullets li { color: var(--dark); }
+.landing-bullets li::before {
+  content: '✓'; font-weight: 900; font-size: 12px; flex-shrink: 0;
+}
+.landing-left .landing-bullets li::before { color: var(--green); }
+.landing-right .landing-bullets li::before { color: var(--mid); }
+.landing-cta {
+  border: none; padding: 13px 26px; border-radius: 8px; font-family: 'Nunito', sans-serif;
+  font-weight: 800; font-size: 13.5px; cursor: pointer; transition: background 0.2s;
+}
+.landing-left .landing-cta { background: var(--mid); color: var(--white); }
+.landing-left .landing-cta:hover { background: #0d5a87; }
+.landing-right .landing-cta { background: var(--dark); color: var(--white); }
+.landing-right .landing-cta:hover { background: var(--mid); }
+
+@media (max-width: 800px) {
+  .landing-split { flex-direction: column; }
+  .landing-half { padding: 3rem 1.6rem; min-height: 50vh; }
+}
+
+/* ─── PARA EMPRESAS ─── */
+.empresas-main { max-width: 1000px; margin: 0 auto; padding: 0 2rem 3rem; }
+.empresas-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.4rem; margin-top: -2.5rem; position: relative; z-index: 2; }
+.service-card {
+  background: var(--white); border: 1.5px solid var(--light); border-radius: 12px; padding: 1.8rem 1.6rem;
+  box-shadow: 0 6px 24px rgba(6,57,88,0.08);
+}
+.service-card .service-icon {
+  width: 46px; height: 46px; border-radius: 10px; background: var(--green); display: flex;
+  align-items: center; justify-content: center; margin-bottom: 1rem;
+}
+.service-card h3 { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 16px; color: var(--dark); margin-bottom: 0.5rem; }
+.service-card p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+.empresas-contact {
+  background: var(--dark); border-radius: 14px; padding: 2.6rem 2rem; text-align: center; margin-top: 3rem;
+}
+.empresas-contact h3 { font-family: 'Nunito', sans-serif; font-weight: 900; color: var(--white); font-size: 1.5rem; margin-bottom: 0.6rem; }
+.empresas-contact p { color: rgba(255,255,255,0.6); font-size: 13.5px; margin-bottom: 1.6rem; }
+.empresas-contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.empresas-contact-links a {
+  background: var(--mid); color: var(--white); text-decoration: none; padding: 12px 24px;
+  border-radius: 8px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 13.5px;
+}
+.empresas-contact-links a:hover { background: #0d5a87; }
+.empresas-contact-links a.wa { background: var(--green); color: var(--dark); }
+.empresas-contact-links a.wa:hover { background: var(--green-dk); }
+
+@media print {
+  body * { visibility: hidden; }
+  #cv-print-area, #cv-print-area * { visibility: visible; }
+  #cv-print-area { position: absolute; top: 0; left: 0; width: 100%; }
+  .cv-doc { border: none; border-radius: 0; max-width: 100%; }
+  @page { size: A4; margin: 0; }
+}
 </style>
 </head>
 <body>
@@ -294,20 +542,107 @@ footer span { color: var(--green); }
 
 <!-- NAV -->
 <nav>
-  <div class="logo-wrap" onclick="showPage('home')">
+  <div class="logo-wrap" onclick="showPage('landing')">
     <div class="logo-circle">WR</div>
     <div class="logo-text">We Recruit <span>REPÚBLICA DOMINICANA</span></div>
   </div>
   <div class="nav-links">
     <a onclick="showPage('home')">Vacantes</a>
-    <a href="#" onclick="showToast('Próximamente disponible', 'success')">Para empresas</a>
-    <a href="#" onclick="showToast('Próximamente disponible', 'success')">Servicios</a>
+    <a onclick="showPage('freelancers')">Freelancers</a>
+    <a onclick="showPage('cv-builder')">CV Builder</a>
+    <a onclick="showPage('para-empresas')">Para empresas</a>
+    <a onclick="showPage('para-empresas')">Servicios</a>
     <button class="nav-cta" onclick="showToast('Contáctanos para publicar una vacante', 'success')">Publicar vacante</button>
   </div>
 </nav>
 
+<!-- ═══════════════ LANDING PAGE ═══════════════ -->
+<div id="page-landing" class="page active">
+  <div class="landing-split">
+    <div class="landing-half landing-left" onclick="showPage('para-empresas')">
+      <div class="landing-icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#CEE4CC" stroke-width="2">
+          <path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h1"/><path d="M14 9h1"/>
+          <path d="M9 13h1"/><path d="M14 13h1"/><path d="M9 21v-4h6v4"/>
+        </svg>
+      </div>
+      <h2>Quiero contratar</h2>
+      <p class="landing-sub">Encuentra el talento que tu empresa necesita con nuestro equipo de reclutamiento especializado.</p>
+      <ul class="landing-bullets">
+        <li>Reclutamiento especializado</li>
+        <li>Headhunting ejecutivo</li>
+        <li>Evaluación de candidatos</li>
+      </ul>
+      <button class="landing-cta" onclick="event.stopPropagation(); showPage('para-empresas')">Ver servicios →</button>
+    </div>
+    <div class="landing-half landing-right" onclick="showPage('home')">
+      <div class="landing-icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2">
+          <circle cx="9" cy="7" r="4"/><path d="M17 11V7a4 4 0 00-4-4"/>
+          <path d="M2 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><rect x="15" y="13" width="7" height="6" rx="1"/>
+        </svg>
+      </div>
+      <h2>Quiero trabajar</h2>
+      <p class="landing-sub">Explora vacantes activas, crea tu CV profesional o regístrate como freelancer.</p>
+      <ul class="landing-bullets">
+        <li>Vacantes activas</li>
+        <li>CV Builder gratuito</li>
+        <li>Perfil freelancer</li>
+      </ul>
+      <button class="landing-cta" onclick="event.stopPropagation(); showPage('home')">Ver oportunidades →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PARA EMPRESAS PAGE ═══════════════ -->
+<div id="page-para-empresas" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Para empresas</span></div>
+      <h1>Servicios <em>para empresas</em></h1>
+      <p>Soluciones de reclutamiento a la medida de tu empresa, con un enfoque especializado en el mercado dominicano.</p>
+    </div>
+  </div>
+  <div class="empresas-main">
+    <button class="back-btn" style="margin-top:2rem" onclick="showPage('landing')">← Volver al inicio</button>
+    <div class="empresas-services">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </div>
+        <h3>Reclutamiento Especializado</h3>
+        <p>Búsqueda y selección de talento para posiciones técnicas y operativas, adaptada a las necesidades específicas de tu empresa.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Headhunting Ejecutivo</h3>
+        <p>Identificación y captación directa de perfiles gerenciales y de alta dirección para posiciones estratégicas.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+        </div>
+        <h3>Evaluación de Fit Cultural</h3>
+        <p>Análisis de compatibilidad entre candidatos y la cultura organizacional para asegurar contrataciones exitosas y duraderas.</p>
+      </div>
+    </div>
+
+    <div class="empresas-contact">
+      <h3>¿Listo para encontrar el mejor talento?</h3>
+      <p>Escríbenos y conversemos sobre las necesidades de tu empresa.</p>
+      <div class="empresas-contact-links">
+        <a href="mailto:svetlana@werecruitdr.com">✉ svetlana@werecruitdr.com</a>
+        <a class="wa" href="https://wa.me/18493505577" target="_blank">WhatsApp +1 (849) 350-5577</a>
+      </div>
+    </div>
+  </div>
+  <footer><p>© 2025 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+</div>
+
 <!-- ═══════════════ HOME PAGE ═══════════════ -->
-<div id="page-home" class="page active">
+<div id="page-home" class="page">
   <div class="hero">
     <div class="hero-inner">
       <div class="hero-tag"><span>Santo Domingo · República Dominicana</span></div>
@@ -519,6 +854,340 @@ footer span { color: var(--green); }
       </button>
     </div>
   </div>
+</div>
+
+<!-- ═══════════════════════ FREELANCERS PAGE ═══════════════════════ -->
+<div id="page-freelancers" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Marketplace de talento</span></div>
+      <h1>Talento <em>Freelance</em></h1>
+      <p>Profesionales independientes verificados, listos para tu próximo proyecto.</p>
+    </div>
+  </div>
+
+  <div class="filters-row">
+    <button class="filter-chip active" onclick="filterFreelancers(this,'todos')">Todos</button>
+    <button class="filter-chip" onclick="filterFreelancers(this,'Diseño')">Diseño</button>
+    <button class="filter-chip" onclick="filterFreelancers(this,'Desarrollo')">Desarrollo</button>
+    <button class="filter-chip" onclick="filterFreelancers(this,'Marketing')">Marketing</button>
+    <button class="filter-chip" onclick="filterFreelancers(this,'Consultoría')">Consultoría</button>
+  </div>
+
+  <div class="freelancers-main">
+    <div class="freelancers-toolbar">
+      <h2>Freelancers disponibles <span id="freelancerCount">(cargando...)</span></h2>
+      <button class="register-cta-btn" onclick="resetFreelancerForm(); showPage('freelancer-register')">Registrarse como freelancer</button>
+    </div>
+    <div id="freelancersList" class="freelancers-grid"></div>
+  </div>
+
+  <footer><p>© 2025 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+</div>
+
+<!-- ═══════════════════════ FREELANCER REGISTER PAGE ═══════════════════════ -->
+<div id="page-freelancer-register" class="page">
+  <div class="form-page">
+    <button class="back-btn" onclick="showPage('freelancers')">← Volver a freelancers</button>
+
+    <div class="form-header">
+      <div class="fh-icon">WR</div>
+      <div>
+        <div class="fh-title">Regístrate como freelancer</div>
+        <div class="fh-sub">Forma parte de nuestro directorio de talento independiente</div>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-screen" id="freelancerSuccessScreen">
+      <div class="success-icon">✅</div>
+      <h3>¡Perfil enviado!</h3>
+      <p>Tu perfil fue enviado. Lo revisaremos y lo publicaremos pronto.</p>
+      <button onclick="showPage('freelancers')">Ver freelancers</button>
+    </div>
+
+    <!-- FORM -->
+    <div id="freelancerForm">
+      <div class="form-section">
+        <h3>Información personal</h3>
+        <div class="form-row">
+          <div class="field">
+            <label>Nombre <span class="req">*</span></label>
+            <input type="text" id="fl-nombre" placeholder="Juan Pérez">
+            <div class="error-msg" id="err-fl-nombre">Campo requerido</div>
+          </div>
+          <div class="field">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="fl-email" placeholder="juan@email.com">
+            <div class="error-msg" id="err-fl-email">Email válido requerido</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Teléfono</label>
+            <input type="tel" id="fl-telefono" placeholder="+1 (809) 000-0000">
+          </div>
+          <div class="field">
+            <label>LinkedIn</label>
+            <input type="url" id="fl-linkedin" placeholder="linkedin.com/in/...">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Perfil profesional</h3>
+        <div class="form-row">
+          <div class="field">
+            <label>Título profesional <span class="req">*</span></label>
+            <input type="text" id="fl-titulo" placeholder="Ej: Diseñadora UX/UI">
+            <div class="error-msg" id="err-fl-titulo">Campo requerido</div>
+          </div>
+          <div class="field">
+            <label>Sector</label>
+            <select id="fl-sector">
+              <option value="">Seleccionar</option>
+              <option>Tecnología</option><option>Diseño</option><option>Marketing</option>
+              <option>Consultoría</option><option>Finanzas</option><option>Legal</option>
+              <option>Operaciones</option><option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Años de experiencia <span class="req">*</span></label>
+            <select id="fl-experiencia">
+              <option value="">Seleccionar</option>
+              <option value="0-2 años">0–2 años</option>
+              <option value="2-5 años">2–5 años</option>
+              <option value="5-10 años">5–10 años</option>
+              <option value="10+ años">10+ años</option>
+            </select>
+            <div class="error-msg" id="err-fl-experiencia">Campo requerido</div>
+          </div>
+          <div class="field">
+            <label>Habilidades <span class="req">*</span></label>
+            <input type="text" id="fl-habilidades" placeholder="Figma, UX Research, Prototipado">
+            <div class="error-msg" id="err-fl-habilidades">Campo requerido</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Tarifa por hora (RD$)</label>
+            <input type="number" id="fl-tarifa-hora" placeholder="Ej: 1200">
+          </div>
+          <div class="field">
+            <label>Tarifa por proyecto (RD$)</label>
+            <input type="number" id="fl-tarifa-proyecto" placeholder="Ej: 45000">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="field">
+            <label>Bio <span class="req">*</span></label>
+            <textarea id="fl-bio" placeholder="Cuéntanos sobre tu experiencia, especialidad y qué te hace diferente..."></textarea>
+            <div class="error-msg" id="err-fl-bio">Campo requerido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Foto de perfil</h3>
+        <div class="upload-box" id="flFotoBox" onclick="triggerFlFotoUpload()">
+          <input type="file" id="flFotoInput" accept="image/*" style="display:none" onchange="handleFlFotoUpload(this)">
+          <div class="upload-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <strong id="flFotoLabel">Haz clic para subir tu foto</strong>
+          <p>JPG o PNG · Máx. 5MB</p>
+          <div class="upload-progress" id="flFotoProgress">
+            <div class="upload-progress-bar" id="flFotoProgressBar"></div>
+          </div>
+        </div>
+        <div class="cv-link-display" id="flFotoLinkDisplay">
+          ✅ Foto subida: <a id="flFotoLinkAnchor" href="#" target="_blank" style="color:var(--success)">Ver archivo →</a>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Portafolio</h3>
+        <div class="upload-box" id="flPortafolioBox" onclick="triggerFlPortafolioUpload()">
+          <input type="file" id="flPortafolioInput" multiple style="display:none" onchange="handleFlPortafolioUpload(this)">
+          <div class="upload-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <strong id="flPortafolioLabel">Haz clic para subir archivos de portafolio</strong>
+          <p>Puedes seleccionar varios archivos · Máx. 5MB c/u</p>
+          <div class="upload-progress" id="flPortafolioProgress">
+            <div class="upload-progress-bar" id="flPortafolioProgressBar"></div>
+          </div>
+        </div>
+        <div class="cv-link-display" id="flPortafolioLinkDisplay"></div>
+      </div>
+
+      <button class="submit-btn" id="flSubmitBtn" onclick="submitFreelancerRegistration()">
+        Enviar perfil
+        <div class="spinner" id="flSpinner"></div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ CV BUILDER PAGE ═══════════════════════ -->
+<div id="page-cv-builder" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Herramienta gratuita</span></div>
+      <h1>CV <em>Builder</em></h1>
+      <p>Llena el formulario paso a paso y genera un CV limpio y profesional listo para descargar.</p>
+    </div>
+  </div>
+
+  <div class="cvb-main">
+
+    <!-- FORM WIZARD -->
+    <div id="cvbForm">
+      <div class="cvb-steps" id="cvbSteps"></div>
+      <div class="cvb-step-label" id="cvbStepLabel">Paso 1 de 5 — Datos personales</div>
+
+      <!-- STEP 1: DATOS PERSONALES -->
+      <div class="cvb-step active" data-step="1">
+        <div class="form-section">
+          <h3>Datos personales</h3>
+          <div class="form-row">
+            <div class="field">
+              <label>Nombre completo <span class="req">*</span></label>
+              <input type="text" id="cv-nombre" placeholder="Juan Pérez">
+              <div class="error-msg" id="err-cv-nombre">Campo requerido</div>
+            </div>
+            <div class="field">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" id="cv-email" placeholder="juan@email.com">
+              <div class="error-msg" id="err-cv-email">Email válido requerido</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>Teléfono <span class="req">*</span></label>
+              <input type="tel" id="cv-telefono" placeholder="+1 (809) 000-0000">
+              <div class="error-msg" id="err-cv-telefono">Campo requerido</div>
+            </div>
+            <div class="field">
+              <label>Ciudad</label>
+              <input type="text" id="cv-ciudad" placeholder="Santo Domingo">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label>LinkedIn</label>
+              <input type="url" id="cv-linkedin" placeholder="linkedin.com/in/...">
+            </div>
+            <div class="field"></div>
+          </div>
+        </div>
+        <div class="form-section">
+          <h3>Foto (opcional)</h3>
+          <div class="upload-box" id="cvFotoBox" onclick="triggerCvFotoUpload()">
+            <input type="file" id="cvFotoInput" accept="image/*" style="display:none" onchange="handleCvFotoUpload(this)">
+            <div class="upload-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2.5">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <strong id="cvFotoLabel">Haz clic para subir tu foto</strong>
+            <p>JPG o PNG · Máx. 5MB</p>
+            <div class="upload-progress" id="cvFotoProgress">
+              <div class="upload-progress-bar" id="cvFotoProgressBar"></div>
+            </div>
+          </div>
+          <div class="cv-link-display" id="cvFotoLinkDisplay">
+            ✅ Foto subida: <a id="cvFotoLinkAnchor" href="#" target="_blank" style="color:var(--success)">Ver archivo →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: PERFIL PROFESIONAL -->
+      <div class="cvb-step" data-step="2">
+        <div class="form-section">
+          <h3>Perfil profesional</h3>
+          <div class="form-row full">
+            <div class="field">
+              <label>Título profesional <span class="req">*</span></label>
+              <input type="text" id="cv-titulo" placeholder="Ej: Ingeniero de Software Senior">
+              <div class="error-msg" id="err-cv-titulo">Campo requerido</div>
+            </div>
+          </div>
+          <div class="form-row full">
+            <div class="field">
+              <label>Resumen profesional <span class="req">*</span></label>
+              <textarea id="cv-resumen" placeholder="Describe en 3-4 oraciones tu perfil, experiencia clave y lo que aportas..."></textarea>
+              <div class="error-msg" id="err-cv-resumen">Campo requerido</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: EXPERIENCIA LABORAL -->
+      <div class="cvb-step" data-step="3">
+        <div class="form-section">
+          <h3>Experiencia laboral</h3>
+          <div id="cvExperienceList"></div>
+          <button type="button" class="cvb-add-btn" onclick="addExperience()">+ Agregar experiencia</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: EDUCACIÓN -->
+      <div class="cvb-step" data-step="4">
+        <div class="form-section">
+          <h3>Educación</h3>
+          <div id="cvEducationList"></div>
+          <button type="button" class="cvb-add-btn" onclick="addEducation()">+ Agregar educación</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: HABILIDADES E IDIOMAS -->
+      <div class="cvb-step" data-step="5">
+        <div class="form-section">
+          <h3>Habilidades</h3>
+          <div class="cvb-skill-input-row">
+            <input type="text" id="cv-skill-input" placeholder="Ej: Excel, Negociación, Python" onkeydown="if(event.key==='Enter'){event.preventDefault();addSkill();}">
+            <button type="button" onclick="addSkill()">Agregar</button>
+          </div>
+          <div class="cvb-tags" id="cvSkillTags"></div>
+        </div>
+        <div class="form-section">
+          <h3>Idiomas</h3>
+          <div id="cvLanguageList"></div>
+          <button type="button" class="cvb-add-btn" onclick="addLanguage()">+ Agregar idioma</button>
+        </div>
+      </div>
+
+      <div class="cvb-nav">
+        <button type="button" class="cvb-btn-prev" id="cvbPrevBtn" onclick="cvbPrevStep()">Anterior</button>
+        <button type="button" class="cvb-btn-next" id="cvbNextBtn" onclick="cvbNextStep()">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div id="cvbPreview" style="display:none">
+      <div id="cv-print-area">
+        <div class="cv-doc" id="cvDoc"></div>
+      </div>
+      <button class="cvb-download-btn" onclick="downloadCV()">Descargar PDF</button>
+      <button class="cvb-restart-btn" onclick="cvbRestart()">← Editar información</button>
+    </div>
+
+  </div>
+
+  <footer><p>© 2025 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
 </div>
 
 <script>
@@ -850,11 +1519,740 @@ function showToast(msg, type) {
   setTimeout(() => t.classList.remove('show'), 3500);
 }
 
+// ═══════════════════════════════════════════════════════
+//  🧑‍💻  FREELANCERS
+// ═══════════════════════════════════════════════════════
+
+let freelancers = [];
+let activeFreelancerFilter = 'todos';
+let flFotoUrl = null;
+let flPortafolioUrls = [];
+let isFlUploading = false;
+
+async function loadFreelancers() {
+  const el = document.getElementById('freelancersList');
+  el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray);grid-column:1/-1"><div style="font-size:2rem;margin-bottom:1rem">⏳</div><p>Cargando freelancers...</p></div>';
+  try {
+    const { data, error } = await sb
+      .from('freelancers')
+      .select('*')
+      .eq('aprobado', true)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    freelancers = (data || []).map(f => ({
+      id: f.id,
+      nombre: f.nombre || 'Freelancer',
+      email: f.email || '',
+      titulo: f.titulo_profesional || '',
+      sector: f.sector || '',
+      habilidades: f.habilidades ? f.habilidades.split(',').map(t => t.trim()).filter(Boolean) : [],
+      tarifaHora: f.tarifa_hora,
+      disponibilidad: f.disponibilidad || 'disponible',
+      foto: f.foto_url || null,
+      initials: (f.nombre || 'WR').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase(),
+    }));
+
+    if (!freelancers.length) {
+      el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray);grid-column:1/-1"><div style="font-size:2rem;margin-bottom:1rem">🧑‍💻</div><p>Aún no hay freelancers publicados.</p></div>';
+      document.getElementById('freelancerCount').textContent = '(0 resultados)';
+      return;
+    }
+    renderFreelancerList();
+  } catch (err) {
+    console.error(err);
+    el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray);grid-column:1/-1"><p>Error al cargar freelancers. Por favor recarga la página.</p></div>';
+  }
+}
+
+function renderFreelancerList() {
+  const filtered = activeFreelancerFilter === 'todos'
+    ? freelancers
+    : freelancers.filter(f => f.sector === activeFreelancerFilter);
+  renderFreelancers(filtered);
+}
+
+function renderFreelancers(list) {
+  const el = document.getElementById('freelancersList');
+  document.getElementById('freelancerCount').textContent = `(${list.length} resultados)`;
+  if (!list.length) {
+    el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray);grid-column:1/-1">No se encontraron freelancers con esos filtros.</div>';
+    return;
+  }
+  const availLabel = { disponible: 'Disponible', parcial: 'Parcial', ocupado: 'Ocupado' };
+  el.innerHTML = list.map(f => `
+    <div class="freelancer-card">
+      <div class="freelancer-top">
+        ${f.foto ? `<img class="freelancer-photo" src="${f.foto}" alt="${f.nombre}">` : `<div class="freelancer-initials">${f.initials}</div>`}
+        <div>
+          <div class="freelancer-name">${f.nombre}</div>
+          <div class="freelancer-titulo">${f.titulo}</div>
+        </div>
+      </div>
+      <div class="freelancer-skills">${f.habilidades.map(h => `<span class="freelancer-skill-tag">${h}</span>`).join('')}</div>
+      <div class="freelancer-footer">
+        <div>
+          <div class="freelancer-rate">${f.tarifaHora ? 'RD$ ' + Number(f.tarifaHora).toLocaleString() + '/h' : 'Tarifa a convenir'}</div>
+          <span class="avail-badge avail-${f.disponibilidad}">${availLabel[f.disponibilidad] || f.disponibilidad}</span>
+        </div>
+        <a class="contact-btn" href="mailto:${f.email}?subject=${encodeURIComponent('Contacto vía We Recruit DR')}">Contactar</a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterFreelancers(el, sector) {
+  document.querySelectorAll('#page-freelancers .filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  activeFreelancerFilter = sector;
+  renderFreelancerList();
+}
+
+// ─── FOTO UPLOAD ───
+function triggerFlFotoUpload() {
+  if (isFlUploading) return;
+  document.getElementById('flFotoInput').click();
+}
+
+async function handleFlFotoUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('La foto debe ser menor a 5MB', 'error');
+    input.value = '';
+    return;
+  }
+  if (!file.type.startsWith('image/')) {
+    showToast('Solo se permiten imágenes', 'error');
+    input.value = '';
+    return;
+  }
+
+  isFlUploading = true;
+  const box = document.getElementById('flFotoBox');
+  const label = document.getElementById('flFotoLabel');
+  const progress = document.getElementById('flFotoProgress');
+  const bar = document.getElementById('flFotoProgressBar');
+  const linkDisplay = document.getElementById('flFotoLinkDisplay');
+  const linkAnchor = document.getElementById('flFotoLinkAnchor');
+
+  box.classList.add('uploading');
+  box.classList.remove('uploaded');
+  label.textContent = '⏳ Subiendo foto...';
+  progress.style.display = 'block';
+  bar.style.width = '30%';
+  linkDisplay.style.display = 'none';
+  flFotoUrl = null;
+
+  try {
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `freelancers/fotos/${Date.now()}_${safeName}`;
+
+    const { error: uploadError } = await sb.storage
+      .from('archivos')
+      .upload(path, file, { contentType: file.type, upsert: false });
+
+    if (uploadError) throw uploadError;
+
+    bar.style.width = '80%';
+    const { data: urlData } = sb.storage.from('archivos').getPublicUrl(path);
+    flFotoUrl = urlData.publicUrl;
+
+    bar.style.width = '100%';
+    box.classList.remove('uploading');
+    box.classList.add('uploaded');
+    label.textContent = '✅ ' + file.name;
+    linkAnchor.href = flFotoUrl;
+    linkDisplay.style.display = 'block';
+    showToast('Foto subida correctamente ✅', 'success');
+  } catch (err) {
+    console.error('Supabase storage error:', err);
+    box.classList.remove('uploading');
+    label.textContent = 'Haz clic para subir tu foto';
+    bar.style.width = '0%';
+    showToast('Error al subir foto: ' + (err.message || 'intenta de nuevo'), 'error');
+    input.value = '';
+  } finally {
+    isFlUploading = false;
+    setTimeout(() => { progress.style.display = 'none'; }, 1000);
+  }
+}
+
+// ─── PORTAFOLIO UPLOAD (multiple) ───
+function triggerFlPortafolioUpload() {
+  if (isFlUploading) return;
+  document.getElementById('flPortafolioInput').click();
+}
+
+async function handleFlPortafolioUpload(input) {
+  const files = Array.from(input.files || []);
+  if (!files.length) return;
+
+  const oversized = files.find(f => f.size > 5 * 1024 * 1024);
+  if (oversized) {
+    showToast('Cada archivo debe ser menor a 5MB', 'error');
+    input.value = '';
+    return;
+  }
+
+  isFlUploading = true;
+  const box = document.getElementById('flPortafolioBox');
+  const label = document.getElementById('flPortafolioLabel');
+  const progress = document.getElementById('flPortafolioProgress');
+  const bar = document.getElementById('flPortafolioProgressBar');
+  const linkDisplay = document.getElementById('flPortafolioLinkDisplay');
+
+  box.classList.add('uploading');
+  box.classList.remove('uploaded');
+  label.textContent = `⏳ Subiendo ${files.length} archivo(s)...`;
+  progress.style.display = 'block';
+  bar.style.width = '20%';
+  linkDisplay.style.display = 'none';
+  linkDisplay.innerHTML = '';
+  flPortafolioUrls = [];
+
+  try {
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = `portafolios/${Date.now()}_${safeName}`;
+
+      const { error: uploadError } = await sb.storage
+        .from('archivos')
+        .upload(path, file, { contentType: file.type, upsert: false });
+
+      if (uploadError) throw uploadError;
+
+      const { data: urlData } = sb.storage.from('archivos').getPublicUrl(path);
+      flPortafolioUrls.push({ name: file.name, url: urlData.publicUrl });
+      bar.style.width = `${20 + Math.round(((i + 1) / files.length) * 80)}%`;
+    }
+
+    box.classList.remove('uploading');
+    box.classList.add('uploaded');
+    label.textContent = `✅ ${files.length} archivo(s) subido(s)`;
+    linkDisplay.innerHTML = flPortafolioUrls.map(f => `✅ ${f.name}: <a href="${f.url}" target="_blank" style="color:var(--success)">Ver archivo →</a>`).join('<br>');
+    linkDisplay.style.display = 'block';
+    showToast('Portafolio subido correctamente ✅', 'success');
+  } catch (err) {
+    console.error('Supabase storage error:', err);
+    box.classList.remove('uploading');
+    label.textContent = 'Haz clic para subir archivos de portafolio';
+    bar.style.width = '0%';
+    showToast('Error al subir portafolio: ' + (err.message || 'intenta de nuevo'), 'error');
+    input.value = '';
+  } finally {
+    isFlUploading = false;
+    setTimeout(() => { progress.style.display = 'none'; }, 1000);
+  }
+}
+
+// ─── VALIDACIÓN Y ENVÍO ───
+function validateFreelancerForm() {
+  const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  const notEmpty = v => v.trim().length > 0;
+  const v1 = validateField('fl-nombre', 'err-fl-nombre', notEmpty);
+  const v2 = validateField('fl-email', 'err-fl-email', isEmail);
+  const v3 = validateField('fl-titulo', 'err-fl-titulo', notEmpty);
+  const v4 = validateField('fl-experiencia', 'err-fl-experiencia', notEmpty);
+  const v5 = validateField('fl-habilidades', 'err-fl-habilidades', notEmpty);
+  const v6 = validateField('fl-bio', 'err-fl-bio', notEmpty);
+  return v1 && v2 && v3 && v4 && v5 && v6;
+}
+
+function resetFreelancerForm() {
+  ['fl-nombre','fl-email','fl-telefono','fl-linkedin','fl-titulo','fl-habilidades','fl-tarifa-hora','fl-tarifa-proyecto','fl-bio'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.value = ''; el.classList.remove('error'); }
+  });
+  document.getElementById('fl-sector').value = '';
+  document.getElementById('fl-experiencia').value = '';
+
+  document.getElementById('flFotoLabel').textContent = 'Haz clic para subir tu foto';
+  document.getElementById('flFotoBox').classList.remove('uploaded', 'uploading');
+  document.getElementById('flFotoProgress').style.display = 'none';
+  document.getElementById('flFotoProgressBar').style.width = '0%';
+  document.getElementById('flFotoLinkDisplay').style.display = 'none';
+  document.getElementById('flFotoInput').value = '';
+  flFotoUrl = null;
+
+  document.getElementById('flPortafolioLabel').textContent = 'Haz clic para subir archivos de portafolio';
+  document.getElementById('flPortafolioBox').classList.remove('uploaded', 'uploading');
+  document.getElementById('flPortafolioProgress').style.display = 'none';
+  document.getElementById('flPortafolioProgressBar').style.width = '0%';
+  document.getElementById('flPortafolioLinkDisplay').style.display = 'none';
+  document.getElementById('flPortafolioLinkDisplay').innerHTML = '';
+  document.getElementById('flPortafolioInput').value = '';
+  flPortafolioUrls = [];
+
+  document.getElementById('freelancerSuccessScreen').style.display = 'none';
+  document.getElementById('freelancerForm').style.display = 'block';
+}
+
+async function submitFreelancerRegistration() {
+  if (isFlUploading) {
+    showToast('Espera a que termine de subir los archivos', 'error');
+    return;
+  }
+  if (!validateFreelancerForm()) {
+    showToast('Por favor completa los campos requeridos', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('flSubmitBtn');
+  const spinner = document.getElementById('flSpinner');
+  btn.disabled = true;
+  spinner.style.display = 'block';
+  btn.childNodes[0].textContent = 'Enviando...';
+
+  const record = {
+    nombre: document.getElementById('fl-nombre').value.trim(),
+    email: document.getElementById('fl-email').value.trim(),
+    telefono: document.getElementById('fl-telefono').value.trim() || null,
+    titulo_profesional: document.getElementById('fl-titulo').value.trim(),
+    sector: document.getElementById('fl-sector').value || null,
+    habilidades: document.getElementById('fl-habilidades').value.trim(),
+    anos_experiencia: document.getElementById('fl-experiencia').value,
+    tarifa_hora: document.getElementById('fl-tarifa-hora').value || null,
+    tarifa_proyecto: document.getElementById('fl-tarifa-proyecto').value || null,
+    linkedin: document.getElementById('fl-linkedin').value.trim() || null,
+    bio: document.getElementById('fl-bio').value.trim(),
+    foto_url: flFotoUrl || null,
+    portafolio_urls: flPortafolioUrls.length ? flPortafolioUrls.map(f => f.url) : null,
+    aprobado: false,
+  };
+
+  try {
+    const { error } = await sb.from('freelancers').insert([record]);
+    if (error) throw error;
+
+    document.getElementById('freelancerForm').style.display = 'none';
+    document.getElementById('freelancerSuccessScreen').style.display = 'block';
+    showToast('¡Perfil enviado exitosamente! ✅', 'success');
+  } catch (err) {
+    console.error('Supabase insert error:', err);
+    showToast('Error: ' + (err.message || 'intenta de nuevo'), 'error');
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+    btn.childNodes[0].textContent = 'Enviar perfil';
+  }
+}
+
 // ─── INIT ───
 loadVacantes();
+loadFreelancers();
 document.getElementById('searchInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') filterJobs();
 });
+
+// ═══════════════════════════════════════════════════════
+//  📄  CV BUILDER
+// ═══════════════════════════════════════════════════════
+
+const CVB_TOTAL_STEPS = 5;
+const CVB_STEP_LABELS = [
+  'Datos personales',
+  'Perfil profesional',
+  'Experiencia laboral',
+  'Educación',
+  'Habilidades e idiomas',
+];
+let cvbCurrentStep = 1;
+let cvFotoUrl = null;
+let isCvFotoUploading = false;
+
+let cvExperience = [];
+let cvEducation = [];
+let cvSkills = [];
+let cvLanguages = [];
+let cvExpCounter = 0;
+let cvEduCounter = 0;
+let cvLangCounter = 0;
+
+function cvbRenderSteps() {
+  const el = document.getElementById('cvbSteps');
+  let html = '';
+  for (let i = 1; i <= CVB_TOTAL_STEPS; i++) {
+    const cls = i < cvbCurrentStep ? 'done' : (i === cvbCurrentStep ? 'active' : '');
+    html += `<div class="cvb-step-dot ${cls}">${i}</div>`;
+    if (i < CVB_TOTAL_STEPS) html += `<div class="cvb-step-line ${i < cvbCurrentStep ? 'done' : ''}"></div>`;
+  }
+  el.innerHTML = html;
+  document.getElementById('cvbStepLabel').textContent = `Paso ${cvbCurrentStep} de ${CVB_TOTAL_STEPS} — ${CVB_STEP_LABELS[cvbCurrentStep - 1]}`;
+}
+
+function showStep(n) {
+  cvbCurrentStep = n;
+  document.querySelectorAll('.cvb-step').forEach(s => s.classList.remove('active'));
+  document.querySelector(`.cvb-step[data-step="${n}"]`).classList.add('active');
+  cvbRenderSteps();
+  document.getElementById('cvbPrevBtn').style.visibility = n === 1 ? 'hidden' : 'visible';
+  document.getElementById('cvbNextBtn').textContent = n === CVB_TOTAL_STEPS ? 'Generar CV' : 'Siguiente';
+  window.scrollTo(0, 0);
+}
+
+function cvbValidateStep(n) {
+  const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  const notEmpty = v => v.trim().length > 0;
+  if (n === 1) {
+    const v1 = validateField('cv-nombre', 'err-cv-nombre', notEmpty);
+    const v2 = validateField('cv-email', 'err-cv-email', isEmail);
+    const v3 = validateField('cv-telefono', 'err-cv-telefono', notEmpty);
+    return v1 && v2 && v3;
+  }
+  if (n === 2) {
+    const v1 = validateField('cv-titulo', 'err-cv-titulo', notEmpty);
+    const v2 = validateField('cv-resumen', 'err-cv-resumen', notEmpty);
+    return v1 && v2;
+  }
+  return true;
+}
+
+function cvbNextStep() {
+  if (!cvbValidateStep(cvbCurrentStep)) {
+    showToast('Por favor completa los campos requeridos', 'error');
+    return;
+  }
+  if (cvbCurrentStep < CVB_TOTAL_STEPS) {
+    showStep(cvbCurrentStep + 1);
+  } else {
+    generateCV();
+  }
+}
+
+function cvbPrevStep() {
+  if (cvbCurrentStep > 1) showStep(cvbCurrentStep - 1);
+}
+
+function cvbRestart() {
+  document.getElementById('cvbPreview').style.display = 'none';
+  document.getElementById('cvbForm').style.display = 'block';
+  showStep(cvbCurrentStep);
+}
+
+// ─── FOTO UPLOAD ───
+function triggerCvFotoUpload() {
+  if (isCvFotoUploading) return;
+  document.getElementById('cvFotoInput').click();
+}
+
+async function handleCvFotoUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  if (file.size > 5 * 1024 * 1024) {
+    showToast('La foto debe ser menor a 5MB', 'error');
+    input.value = '';
+    return;
+  }
+  if (!file.type.startsWith('image/')) {
+    showToast('Solo se permiten imágenes', 'error');
+    input.value = '';
+    return;
+  }
+
+  isCvFotoUploading = true;
+  const box = document.getElementById('cvFotoBox');
+  const label = document.getElementById('cvFotoLabel');
+  const progress = document.getElementById('cvFotoProgress');
+  const bar = document.getElementById('cvFotoProgressBar');
+  const linkDisplay = document.getElementById('cvFotoLinkDisplay');
+  const linkAnchor = document.getElementById('cvFotoLinkAnchor');
+
+  box.classList.add('uploading');
+  box.classList.remove('uploaded');
+  label.textContent = '⏳ Subiendo foto...';
+  progress.style.display = 'block';
+  bar.style.width = '30%';
+  linkDisplay.style.display = 'none';
+  cvFotoUrl = null;
+
+  try {
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `cv-fotos/${Date.now()}_${safeName}`;
+
+    const { error: uploadError } = await sb.storage
+      .from('archivos')
+      .upload(path, file, { contentType: file.type, upsert: false });
+
+    if (uploadError) throw uploadError;
+
+    bar.style.width = '80%';
+    const { data: urlData } = sb.storage.from('archivos').getPublicUrl(path);
+    cvFotoUrl = urlData.publicUrl;
+
+    bar.style.width = '100%';
+    box.classList.remove('uploading');
+    box.classList.add('uploaded');
+    label.textContent = '✅ ' + file.name;
+    linkAnchor.href = cvFotoUrl;
+    linkDisplay.style.display = 'block';
+    showToast('Foto subida correctamente ✅', 'success');
+  } catch (err) {
+    console.error('Supabase storage error:', err);
+    box.classList.remove('uploading');
+    label.textContent = 'Haz clic para subir tu foto';
+    bar.style.width = '0%';
+    showToast('Error al subir foto: ' + (err.message || 'intenta de nuevo'), 'error');
+    input.value = '';
+  } finally {
+    isCvFotoUploading = false;
+    setTimeout(() => { progress.style.display = 'none'; }, 1000);
+  }
+}
+
+// ─── EXPERIENCIA (repeater) ───
+function addExperience() {
+  cvExpCounter++;
+  cvExperience.push({ uid: cvExpCounter, empresa: '', cargo: '', inicio: '', fin: '', actual: false, descripcion: '' });
+  renderExperienceList();
+}
+
+function removeExperience(uid) {
+  cvExperience = cvExperience.filter(e => e.uid !== uid);
+  renderExperienceList();
+}
+
+function renderExperienceList() {
+  const el = document.getElementById('cvExperienceList');
+  if (!cvExperience.length) {
+    el.innerHTML = '<p style="font-size:12.5px;color:var(--gray);margin-bottom:1rem">Aún no has agregado experiencia laboral.</p>';
+    return;
+  }
+  el.innerHTML = cvExperience.map((e, i) => `
+    <div class="cvb-repeater-item">
+      <button type="button" class="cvb-remove-btn" onclick="removeExperience(${e.uid})">✕ Eliminar</button>
+      <div class="form-row">
+        <div class="field">
+          <label>Empresa <span class="req">*</span></label>
+          <input type="text" placeholder="Nombre de la empresa" value="${e.empresa}" oninput="cvExperience[${i}].empresa=this.value">
+        </div>
+        <div class="field">
+          <label>Cargo <span class="req">*</span></label>
+          <input type="text" placeholder="Ej: Analista de Marketing" value="${e.cargo}" oninput="cvExperience[${i}].cargo=this.value">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Fecha inicio <span class="req">*</span></label>
+          <input type="month" value="${e.inicio}" oninput="cvExperience[${i}].inicio=this.value">
+        </div>
+        <div class="field">
+          <label>Fecha fin</label>
+          <input type="month" value="${e.fin}" ${e.actual ? 'disabled' : ''} oninput="cvExperience[${i}].fin=this.value">
+        </div>
+      </div>
+      <div class="cvb-checkbox-row">
+        <input type="checkbox" id="cv-actual-${e.uid}" ${e.actual ? 'checked' : ''} onchange="cvExperience[${i}].actual=this.checked; renderExperienceList();">
+        <label for="cv-actual-${e.uid}">Actualmente trabajo aquí</label>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Descripción de responsabilidades <span class="req">*</span></label>
+          <textarea placeholder="Describe tus responsabilidades y logros principales..." oninput="cvExperience[${i}].descripcion=this.value">${e.descripcion}</textarea>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── EDUCACIÓN (repeater) ───
+function addEducation() {
+  cvEduCounter++;
+  cvEducation.push({ uid: cvEduCounter, institucion: '', titulo: '', inicio: '', fin: '' });
+  renderEducationList();
+}
+
+function removeEducation(uid) {
+  cvEducation = cvEducation.filter(e => e.uid !== uid);
+  renderEducationList();
+}
+
+function renderEducationList() {
+  const el = document.getElementById('cvEducationList');
+  if (!cvEducation.length) {
+    el.innerHTML = '<p style="font-size:12.5px;color:var(--gray);margin-bottom:1rem">Aún no has agregado educación.</p>';
+    return;
+  }
+  el.innerHTML = cvEducation.map((e, i) => `
+    <div class="cvb-repeater-item">
+      <button type="button" class="cvb-remove-btn" onclick="removeEducation(${e.uid})">✕ Eliminar</button>
+      <div class="form-row">
+        <div class="field">
+          <label>Institución <span class="req">*</span></label>
+          <input type="text" placeholder="Nombre de la institución" value="${e.institucion}" oninput="cvEducation[${i}].institucion=this.value">
+        </div>
+        <div class="field">
+          <label>Título obtenido <span class="req">*</span></label>
+          <input type="text" placeholder="Ej: Licenciatura en Administración" value="${e.titulo}" oninput="cvEducation[${i}].titulo=this.value">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Fecha inicio</label>
+          <input type="month" value="${e.inicio}" oninput="cvEducation[${i}].inicio=this.value">
+        </div>
+        <div class="field">
+          <label>Fecha fin</label>
+          <input type="month" value="${e.fin}" oninput="cvEducation[${i}].fin=this.value">
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── HABILIDADES (tags) ───
+function addSkill() {
+  const input = document.getElementById('cv-skill-input');
+  const val = input.value.trim();
+  if (!val) return;
+  if (!cvSkills.includes(val)) cvSkills.push(val);
+  input.value = '';
+  renderSkillTags();
+}
+
+function removeSkill(idx) {
+  cvSkills.splice(idx, 1);
+  renderSkillTags();
+}
+
+function renderSkillTags() {
+  const el = document.getElementById('cvSkillTags');
+  el.innerHTML = cvSkills.map((s, i) => `<span class="cvb-tag">${s}<button type="button" onclick="removeSkill(${i})">✕</button></span>`).join('');
+}
+
+// ─── IDIOMAS (repeater) ───
+function addLanguage() {
+  cvLangCounter++;
+  cvLanguages.push({ uid: cvLangCounter, idioma: '', nivel: 'Intermedio' });
+  renderLanguageList();
+}
+
+function removeLanguage(uid) {
+  cvLanguages = cvLanguages.filter(l => l.uid !== uid);
+  renderLanguageList();
+}
+
+function renderLanguageList() {
+  const el = document.getElementById('cvLanguageList');
+  if (!cvLanguages.length) {
+    el.innerHTML = '<p style="font-size:12.5px;color:var(--gray);margin-bottom:1rem">Aún no has agregado idiomas.</p>';
+    return;
+  }
+  el.innerHTML = cvLanguages.map((l, i) => `
+    <div class="cvb-repeater-item">
+      <button type="button" class="cvb-remove-btn" onclick="removeLanguage(${l.uid})">✕ Eliminar</button>
+      <div class="form-row">
+        <div class="field">
+          <label>Idioma</label>
+          <input type="text" placeholder="Ej: Inglés" value="${l.idioma}" oninput="cvLanguages[${i}].idioma=this.value">
+        </div>
+        <div class="field">
+          <label>Nivel</label>
+          <select onchange="cvLanguages[${i}].nivel=this.value">
+            <option value="Básico" ${l.nivel === 'Básico' ? 'selected' : ''}>Básico</option>
+            <option value="Intermedio" ${l.nivel === 'Intermedio' ? 'selected' : ''}>Intermedio</option>
+            <option value="Avanzado" ${l.nivel === 'Avanzado' ? 'selected' : ''}>Avanzado</option>
+            <option value="Nativo" ${l.nivel === 'Nativo' ? 'selected' : ''}>Nativo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── GENERAR / PREVIEW ───
+function cvbFormatMonth(v) {
+  if (!v) return '';
+  const [y, m] = v.split('-');
+  const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const idx = parseInt(m, 10) - 1;
+  return `${meses[idx] || ''} ${y}`;
+}
+
+function generateCV() {
+  const nombre = document.getElementById('cv-nombre').value.trim();
+  const email = document.getElementById('cv-email').value.trim();
+  const telefono = document.getElementById('cv-telefono').value.trim();
+  const ciudad = document.getElementById('cv-ciudad').value.trim();
+  const linkedin = document.getElementById('cv-linkedin').value.trim();
+  const titulo = document.getElementById('cv-titulo').value.trim();
+  const resumen = document.getElementById('cv-resumen').value.trim();
+
+  const initials = nombre.split(' ').filter(Boolean).map(w => w[0]).join('').substring(0, 2).toUpperCase();
+
+  const contactParts = [
+    email ? `✉ ${email}` : '',
+    telefono ? `📞 ${telefono}` : '',
+    ciudad ? `📍 ${ciudad}` : '',
+    linkedin ? `🔗 ${linkedin}` : '',
+  ].filter(Boolean);
+
+  const expHtml = cvExperience.length ? cvExperience.map(e => `
+    <div class="cv-doc-entry">
+      <div class="cv-doc-entry-top">
+        <div>
+          <span class="cv-doc-entry-title">${e.cargo || ''}</span>${e.empresa ? ` — <span class="cv-doc-entry-sub">${e.empresa}</span>` : ''}
+        </div>
+        <div class="cv-doc-entry-dates">${cvbFormatMonth(e.inicio)} – ${e.actual ? 'Presente' : cvbFormatMonth(e.fin)}</div>
+      </div>
+      ${e.descripcion ? `<div class="cv-doc-entry-desc">${e.descripcion.replace(/\n/g, '<br>')}</div>` : ''}
+    </div>
+  `).join('') : '';
+
+  const eduHtml = cvEducation.length ? cvEducation.map(e => `
+    <div class="cv-doc-entry">
+      <div class="cv-doc-entry-top">
+        <div>
+          <span class="cv-doc-entry-title">${e.titulo || ''}</span>${e.institucion ? ` — <span class="cv-doc-entry-sub">${e.institucion}</span>` : ''}
+        </div>
+        <div class="cv-doc-entry-dates">${cvbFormatMonth(e.inicio)} – ${cvbFormatMonth(e.fin)}</div>
+      </div>
+    </div>
+  `).join('') : '';
+
+  const skillsHtml = cvSkills.length ? `<div class="cv-doc-skills">${cvSkills.map(s => `<span class="cv-doc-skill">${s}</span>`).join('')}</div>` : '';
+
+  const langsHtml = cvLanguages.filter(l => l.idioma).length ? `<div class="cv-doc-langs">${cvLanguages.filter(l => l.idioma).map(l => `<span class="cv-doc-lang">${l.idioma} — <b>${l.nivel}</b></span>`).join('')}</div>` : '';
+
+  const html = `
+    <div class="cv-doc-header">
+      ${cvFotoUrl ? `<img class="cv-doc-photo" src="${cvFotoUrl}" alt="${nombre}">` : `<div class="cv-doc-photo-placeholder">${initials}</div>`}
+      <div>
+        <div class="cv-doc-name">${nombre}</div>
+        ${titulo ? `<div class="cv-doc-title">${titulo}</div>` : ''}
+        <div class="cv-doc-contact">${contactParts.map(c => `<span>${c}</span>`).join('')}</div>
+      </div>
+    </div>
+    <div class="cv-doc-body">
+      ${resumen ? `<div class="cv-doc-section"><h4>Perfil</h4><p>${resumen}</p></div>` : ''}
+      ${expHtml ? `<div class="cv-doc-section"><h4>Experiencia</h4>${expHtml}</div>` : ''}
+      ${eduHtml ? `<div class="cv-doc-section"><h4>Educación</h4>${eduHtml}</div>` : ''}
+      ${skillsHtml ? `<div class="cv-doc-section"><h4>Habilidades</h4>${skillsHtml}</div>` : ''}
+      ${langsHtml ? `<div class="cv-doc-section"><h4>Idiomas</h4>${langsHtml}</div>` : ''}
+    </div>
+    <div class="cv-doc-footer">Creado con We Recruit DR</div>
+  `;
+
+  document.getElementById('cvDoc').innerHTML = html;
+  document.getElementById('cvbForm').style.display = 'none';
+  document.getElementById('cvbPreview').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function downloadCV() {
+  window.print();
+}
+
+// ─── INIT CV BUILDER ───
+renderExperienceList();
+renderEducationList();
+renderSkillTags();
+renderLanguageList();
+cvbRenderSteps();
 </script>
 </body>
 </html>
