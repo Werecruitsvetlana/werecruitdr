@@ -547,6 +547,95 @@ footer span { color: var(--green); }
 .ep-app-cv:hover { background: var(--mid); }
 .ep-empty { text-align: center; padding: 3rem; color: var(--gray); }
 
+/* CANDIDATO PROFILE */
+.cp-profile { max-width: 800px; margin: 2rem auto; }
+.cp-header { display: flex; gap: 2rem; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; }
+.cp-avatar { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--green); flex-shrink: 0; }
+.cp-avatar-placeholder { width: 120px; height: 120px; border-radius: 50%; background: var(--dark); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; font-family: 'Poppins',sans-serif; flex-shrink: 0; }
+.cp-info h2 { font-family: 'Poppins',sans-serif; font-size: 1.6rem; color: var(--dark); margin: 0 0 .3rem; }
+.cp-info .cp-titulo { color: var(--mid); font-weight: 600; font-size: 1rem; }
+.cp-info .cp-meta { color: var(--gray); font-size: .85rem; margin-top: .5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+.cp-badge { display: inline-block; padding: .2rem .6rem; border-radius: 12px; font-size: .7rem; font-weight: 700; }
+.cp-badge.disponible { background: #D1FAE5; color: #065F46; }
+.cp-badge.no-disponible { background: #FEE2E2; color: #991B1B; }
+.cp-section { margin-bottom: 2rem; }
+.cp-section h3 { font-family: 'Poppins',sans-serif; font-size: 1rem; color: var(--dark); margin-bottom: .8rem; padding-bottom: .4rem; border-bottom: 2px solid var(--green); }
+.cp-skills { display: flex; flex-wrap: wrap; gap: .5rem; }
+.cp-skill { background: var(--cream); color: var(--dark); padding: .3rem .8rem; border-radius: 20px; font-size: .8rem; font-weight: 500; }
+.cp-exp-item { padding: 1rem 0; border-bottom: 1px solid #eee; }
+.cp-exp-item:last-child { border-bottom: none; }
+.cp-exp-title { font-weight: 600; color: var(--dark); }
+.cp-exp-company { color: var(--mid); font-size: .9rem; }
+.cp-exp-dates { color: var(--gray); font-size: .8rem; margin-top: .2rem; }
+.cp-exp-desc { color: var(--gray); font-size: .85rem; margin-top: .4rem; line-height: 1.5; }
+.cp-test-result { display: flex; align-items: center; gap: 1rem; padding: .8rem; background: var(--cream); border-radius: 8px; margin-bottom: .5rem; }
+.cp-test-score { font-size: 1.5rem; font-weight: 700; color: var(--mid); min-width: 60px; text-align: center; }
+.cp-contact-btn { background: var(--mid); color: #fff; border: none; padding: .6rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; font-family: 'Poppins',sans-serif; }
+.cp-contact-btn:hover { background: #0d5a87; }
+
+/* COMPANY PAGE */
+.company-page { max-width: 900px; margin: 2rem auto; }
+.company-hero { display: flex; gap: 2rem; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; }
+.company-logo-big { width: 80px; height: 80px; border-radius: 12px; background: var(--dark); color: var(--green); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; font-family: 'Poppins',sans-serif; flex-shrink: 0; }
+.company-logo-big img { width: 80px; height: 80px; border-radius: 12px; object-fit: cover; }
+.company-benefits { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+.company-benefit { background: #D1FAE5; color: #065F46; padding: .3rem .8rem; border-radius: 20px; font-size: .8rem; font-weight: 500; }
+.company-vacantes-list { margin-top: 1.5rem; }
+
+/* BLOG */
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+.blog-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; overflow: hidden; cursor: pointer; transition: transform .2s; }
+.blog-card:hover { transform: translateY(-3px); }
+.blog-card-img { height: 160px; background: var(--dark); display: flex; align-items: center; justify-content: center; color: var(--green); font-size: 2.5rem; }
+.blog-card-body { padding: 1.2rem; }
+.blog-card-cat { display: inline-block; background: var(--green); color: var(--dark); font-size: .7rem; font-weight: 700; padding: .2rem .6rem; border-radius: 12px; text-transform: uppercase; margin-bottom: .5rem; }
+.blog-card-title { font-family: 'Poppins',sans-serif; font-weight: 700; font-size: 1rem; color: var(--dark); margin-bottom: .4rem; line-height: 1.3; }
+.blog-card-excerpt { color: var(--gray); font-size: .85rem; line-height: 1.5; }
+.blog-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: .8rem; font-size: .75rem; color: var(--gray); }
+.blog-detail { max-width: 700px; margin: 0 auto; padding: 2rem; }
+.blog-detail h1 { font-family: 'Poppins',sans-serif; font-size: 1.8rem; color: var(--dark); margin-bottom: .5rem; }
+.blog-detail .blog-detail-meta { color: var(--gray); font-size: .85rem; margin-bottom: 2rem; }
+.blog-detail .blog-content { color: #333; line-height: 1.8; font-size: 1rem; }
+.blog-detail .blog-content p { margin-bottom: 1.2rem; }
+.blog-detail .blog-content h2 { font-family: 'Poppins',sans-serif; font-size: 1.3rem; color: var(--dark); margin: 2rem 0 .8rem; }
+.blog-detail .blog-content ul { margin: 1rem 0; padding-left: 1.5rem; }
+.blog-detail .blog-content li { margin-bottom: .5rem; }
+
+/* SKILL TEST */
+.test-container { max-width: 650px; margin: 2rem auto; padding: 0 2rem; }
+.test-progress { display: flex; gap: .3rem; margin-bottom: 2rem; }
+.test-progress-bar { flex: 1; height: 4px; border-radius: 2px; background: #e0e0e0; }
+.test-progress-bar.done { background: var(--mid); }
+.test-progress-bar.current { background: var(--green); }
+.test-question-num { font-size: .85rem; color: var(--gray); margin-bottom: .5rem; }
+.test-question { font-family: 'Poppins',sans-serif; font-size: 1.2rem; color: var(--dark); font-weight: 600; margin-bottom: 1.5rem; line-height: 1.4; }
+.test-options { display: flex; flex-direction: column; gap: .8rem; }
+.test-option { padding: 1rem 1.2rem; border: 2px solid #e0e0e0; border-radius: 10px; cursor: pointer; font-size: .95rem; color: var(--dark); transition: all .2s; }
+.test-option:hover { border-color: var(--mid); background: rgba(15,107,159,.05); }
+.test-option.selected { border-color: var(--mid); background: rgba(15,107,159,.08); font-weight: 600; }
+.test-option.correct { border-color: #10B981; background: #D1FAE5; }
+.test-option.incorrect { border-color: #EF4444; background: #FEE2E2; }
+.test-result { text-align: center; padding: 3rem 1rem; }
+.test-result-score { font-size: 4rem; font-weight: 800; color: var(--mid); font-family: 'Poppins',sans-serif; }
+.test-result-label { color: var(--gray); font-size: 1rem; margin-top: .5rem; }
+.test-result-msg { font-family: 'Poppins',sans-serif; font-size: 1.2rem; color: var(--dark); margin-top: 1rem; font-weight: 600; }
+
+/* CANDIDATE AUTH */
+.cand-auth-toggle { display: flex; gap: 0; margin-bottom: 1.5rem; }
+.cand-auth-tab { flex: 1; padding: .7rem; text-align: center; border: 1px solid #e0e0e0; cursor: pointer; font-weight: 600; font-size: .9rem; color: var(--gray); background: #fafafa; }
+.cand-auth-tab:first-child { border-radius: 8px 0 0 8px; }
+.cand-auth-tab:last-child { border-radius: 0 8px 8px 0; }
+.cand-auth-tab.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+/* TALENT DIRECTORY */
+.talent-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.2rem; max-width: 1000px; margin: 1.5rem auto; padding: 0 2rem; }
+.talent-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 1.2rem; cursor: pointer; transition: transform .2s; }
+.talent-card:hover { transform: translateY(-2px); }
+.talent-card-top { display: flex; gap: .8rem; align-items: center; margin-bottom: .8rem; }
+.talent-card-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--dark); color: var(--green); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .9rem; flex-shrink: 0; }
+.talent-card-name { font-weight: 600; color: var(--dark); font-size: .95rem; }
+.talent-card-titulo { color: var(--mid); font-size: .8rem; }
+
 .about-section { background: var(--cream); padding: 5rem 2rem; }
 .about-inner { max-width: 900px; margin: 0 auto; display: flex; gap: 3rem; align-items: center; }
 .about-photo { flex-shrink: 0; }
@@ -587,11 +676,11 @@ footer span { color: var(--green); }
   </div>
   <div class="nav-links">
     <a onclick="showPage('home')">Vacantes</a>
-    <a onclick="showPage('freelancers')">Freelancers</a>
-    <a onclick="showPage('cv-builder')">CV Builder</a>
+    <a onclick="showPage('talento')">Talento</a>
+    <a onclick="showPage('blog')">Blog</a>
+    <a onclick="showPage('evaluaciones')">Evaluaciones</a>
     <a onclick="showPage('para-empresas')">Para empresas</a>
-    <a onclick="document.getElementById('about-section').scrollIntoView({behavior:'smooth'});showPage('home')">Sobre nosotros</a>
-    <a onclick="showPage('empresa-panel')" style="cursor:pointer">Mi panel</a>
+    <a onclick="showPage('mi-perfil')" style="cursor:pointer">Mi perfil</a>
     <button class="nav-cta" onclick="showPage('publicar-vacante')">Publicar vacante</button>
   </div>
 </nav>
@@ -1365,6 +1454,247 @@ footer span { color: var(--green); }
   </div>
 </div>
 
+<!-- ═══════════════ CANDIDATE PROFILE PAGE ═══════════════ -->
+<div id="page-mi-perfil" class="page">
+  <div class="form-page" style="max-width:800px">
+    <div id="cpAuthSection">
+      <div class="form-header">
+        <div class="fh-icon">👤</div>
+        <div>
+          <div class="fh-title">Mi perfil profesional</div>
+          <div class="fh-sub">Crea tu perfil para aplicar en un clic y ser visible para empresas</div>
+        </div>
+      </div>
+      <div class="form-section">
+        <div class="cand-auth-toggle">
+          <div class="cand-auth-tab active" onclick="cpToggleAuth('login')">Iniciar sesión</div>
+          <div class="cand-auth-tab" onclick="cpToggleAuth('register')">Crear cuenta</div>
+        </div>
+        <div id="cpLoginFields">
+          <div class="form-row">
+            <div class="field"><label>Email</label><input type="email" id="cp-login-email"></div>
+            <div class="field"><label>Contraseña</label><input type="password" id="cp-login-pass"></div>
+          </div>
+          <button class="submit-btn" onclick="cpLogin()" style="margin-top:1rem">Entrar</button>
+        </div>
+        <div id="cpRegisterFields" style="display:none">
+          <div class="form-row">
+            <div class="field"><label>Nombre *</label><input type="text" id="cp-reg-nombre"></div>
+            <div class="field"><label>Apellido</label><input type="text" id="cp-reg-apellido"></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Email *</label><input type="email" id="cp-reg-email"></div>
+            <div class="field"><label>Contraseña *</label><input type="password" id="cp-reg-pass" placeholder="Mínimo 6 caracteres"></div>
+          </div>
+          <button class="submit-btn" onclick="cpRegister()" style="margin-top:1rem">Crear cuenta</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="cpEditSection" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
+        <h2 style="font-family:'Poppins',sans-serif;color:var(--dark);margin:0">Mi perfil</h2>
+        <div style="display:flex;gap:.6rem">
+          <button class="submit-btn" onclick="cpSave()" style="padding:.5rem 1.2rem;font-size:.85rem">Guardar cambios</button>
+          <button style="padding:.5rem 1rem;font-size:.85rem;border:1px solid #ddd;background:#fff;border-radius:8px;cursor:pointer" onclick="cpLogout()">Salir</button>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Datos personales</h3>
+        <div class="form-row">
+          <div class="field"><label>Nombre *</label><input type="text" id="cp-nombre"></div>
+          <div class="field"><label>Apellido</label><input type="text" id="cp-apellido"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Email</label><input type="email" id="cp-email" disabled></div>
+          <div class="field"><label>Teléfono</label><input type="tel" id="cp-telefono"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Ciudad</label><input type="text" id="cp-ciudad"></div>
+          <div class="field"><label>LinkedIn</label><input type="url" id="cp-linkedin" placeholder="https://linkedin.com/in/..."></div>
+        </div>
+        <div class="field"><label>URL de foto</label><input type="url" id="cp-foto" placeholder="https://..."></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Perfil profesional</h3>
+        <div class="form-row">
+          <div class="field"><label>Título profesional *</label><input type="text" id="cp-titulo" placeholder="Ej: Gerente de Marketing Digital"></div>
+          <div class="field"><label>Sector</label>
+            <select id="cp-sector">
+              <option value="">Seleccionar</option>
+              <option>Tecnología</option><option>Finanzas</option><option>Marketing</option>
+              <option>Operaciones</option><option>Salud</option><option>Legal</option>
+              <option>Educación</option><option>Construcción</option><option>Comercio</option>
+              <option>RRHH</option><option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Resumen profesional</label><textarea id="cp-resumen" rows="3" placeholder="Describe tu experiencia y lo que te hace un gran candidato..."></textarea></div>
+        <div class="form-row">
+          <div class="field"><label>Años de experiencia</label><input type="number" id="cp-experiencia" min="0" max="50"></div>
+          <div class="field"><label>Nivel</label>
+            <select id="cp-nivel">
+              <option value="junior">Junior (0-2 años)</option>
+              <option value="mid" selected>Mid (2-5 años)</option>
+              <option value="senior">Senior (5-10 años)</option>
+              <option value="ejecutivo">Ejecutivo (10+ años)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Salario esperado (RD$)</label><input type="number" id="cp-salario"></div>
+          <div class="field"><label>Modalidad preferida</label>
+            <select id="cp-modalidad">
+              <option value="">Sin preferencia</option>
+              <option>Presencial</option><option>Remoto</option><option>Híbrido</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Habilidades (separadas por coma)</label><input type="text" id="cp-habilidades" placeholder="Ej: Excel, Negociación, Python, Inglés"></div>
+        <div class="field"><label>URL de portafolio</label><input type="url" id="cp-portafolio" placeholder="https://..."></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Visibilidad</h3>
+        <div class="form-row">
+          <div class="field"><label><input type="checkbox" id="cp-disponible" checked> Estoy disponible para ofertas</label></div>
+          <div class="field"><label><input type="checkbox" id="cp-publico" checked> Perfil visible para empresas</label></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Evaluaciones completadas</h3>
+        <div id="cpTestResults"><p style="color:var(--gray);font-size:.9rem">No has completado ninguna evaluación aún.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PUBLIC CANDIDATE PROFILE ═══════════════ -->
+<div id="page-perfil-publico" class="page">
+  <div class="form-page" style="max-width:800px">
+    <button class="back-btn" style="margin-bottom:1rem" onclick="showPage('talento')">← Volver al directorio</button>
+    <div id="publicProfileContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ TALENT DIRECTORY ═══════════════ -->
+<div id="page-talento" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Directorio de talento</span></div>
+      <h1>Encuentra <em>talento verificado</em></h1>
+      <p>Perfiles de profesionales disponibles con habilidades evaluadas y verificadas.</p>
+    </div>
+  </div>
+  <div style="max-width:1000px;margin:1.5rem auto;padding:0 2rem;display:flex;gap:1rem;flex-wrap:wrap">
+    <input type="text" id="talentSearch" placeholder="Buscar por nombre, habilidad o sector..." style="flex:1;min-width:200px" oninput="filterTalent()">
+    <select id="talentSector" style="min-width:150px" onchange="filterTalent()">
+      <option value="">Todos los sectores</option>
+      <option>Tecnología</option><option>Finanzas</option><option>Marketing</option>
+      <option>Operaciones</option><option>Salud</option><option>Legal</option>
+      <option>RRHH</option><option>Otro</option>
+    </select>
+  </div>
+  <div id="talentGrid" class="talent-grid"></div>
+  <footer><p>© 2025 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+</div>
+
+<!-- ═══════════════ COMPANY PUBLIC PAGE ═══════════════ -->
+<div id="page-empresa-publica" class="page">
+  <div class="form-page" style="max-width:900px">
+    <button class="back-btn" style="margin-bottom:1rem" onclick="showPage('home')">← Volver a vacantes</button>
+    <div id="companyPageContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ BLOG PAGE ═══════════════ -->
+<div id="page-blog" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Recursos de carrera</span></div>
+      <h1>Blog <em>We Recruit</em></h1>
+      <p>Consejos, tendencias y guías para impulsar tu carrera profesional en República Dominicana.</p>
+    </div>
+  </div>
+  <div style="max-width:1000px;margin:1.5rem auto;padding:0 2rem;display:flex;gap:1rem;flex-wrap:wrap">
+    <select id="blogCatFilter" style="min-width:150px" onchange="filterBlog()">
+      <option value="">Todas las categorías</option>
+      <option value="consejos">Consejos</option>
+      <option value="mercado">Mercado laboral</option>
+      <option value="tendencias">Tendencias</option>
+      <option value="entrevistas">Entrevistas</option>
+      <option value="salarios">Salarios</option>
+    </select>
+  </div>
+  <div id="blogGrid" class="blog-grid"></div>
+  <footer><p>© 2025 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+</div>
+
+<!-- ═══════════════ BLOG DETAIL PAGE ═══════════════ -->
+<div id="page-blog-detail" class="page">
+  <div class="blog-detail">
+    <button class="back-btn" style="margin-bottom:1.5rem" onclick="showPage('blog')">← Volver al blog</button>
+    <div id="blogDetailContent"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ SKILL TEST PAGE ═══════════════ -->
+<div id="page-skill-test" class="page">
+  <div class="form-page" style="max-width:700px">
+    <div id="testIntro">
+      <div class="form-header">
+        <div class="fh-icon">🧠</div>
+        <div>
+          <div class="fh-title" id="testTitle">Evaluación</div>
+          <div class="fh-sub" id="testDesc">Completa esta evaluación rápida</div>
+        </div>
+      </div>
+      <div class="form-section" style="text-align:center">
+        <p style="color:var(--gray);margin-bottom:1.5rem" id="testInfo"></p>
+        <button class="submit-btn" onclick="startTest()" style="max-width:300px;margin:0 auto">Comenzar evaluación</button>
+      </div>
+    </div>
+    <div id="testQuestions" style="display:none">
+      <div class="test-container">
+        <div class="test-progress" id="testProgressBars"></div>
+        <div class="test-question-num" id="testQNum"></div>
+        <div class="test-question" id="testQText"></div>
+        <div class="test-options" id="testOptions"></div>
+        <div style="display:flex;justify-content:flex-end;margin-top:1.5rem">
+          <button class="submit-btn" id="testNextBtn" onclick="nextTestQuestion()" style="max-width:200px;display:none">Siguiente</button>
+        </div>
+      </div>
+    </div>
+    <div id="testResult" style="display:none">
+      <div class="test-result">
+        <div class="test-result-score" id="testScoreDisplay"></div>
+        <div class="test-result-label">puntos de <span id="testTotalDisplay"></span></div>
+        <div class="test-result-msg" id="testResultMsg"></div>
+        <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+          <button class="submit-btn" onclick="showPage('home')" style="max-width:200px">Ver vacantes</button>
+          <button style="padding:.6rem 1.5rem;border:1px solid #ddd;background:#fff;border-radius:8px;cursor:pointer;font-weight:600" onclick="showPage('mi-perfil')">Mi perfil</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SKILL TESTS LIST PAGE ═══════════════ -->
+<div id="page-evaluaciones" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Evalúa tu nivel</span></div>
+      <h1>Evaluaciones <em>rápidas</em></h1>
+      <p>Demuestra tus habilidades con evaluaciones cortas y mejora tu perfil profesional.</p>
+    </div>
+  </div>
+  <div class="blog-grid" id="testsGrid" style="margin-top:2rem"></div>
+  <footer><p>© 2025 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+</div>
+
 <script>
 // ═══════════════════════════════════════════════════════
 //  CONFIGURACIÓN
@@ -1461,7 +1791,10 @@ function renderJobs(list) {
       <div class="job-footer">
         <span class="job-location">📍 ${j.location}</span>
         <span class="job-time">${j.time}</span>
-        <button class="apply-btn" onclick="event.stopPropagation(); openApply('${j.id}')">Aplicar ahora</button>
+        <div style="display:flex;gap:.5rem">
+          <button class="apply-btn" onclick="event.stopPropagation(); quickApply('${j.id}')" style="background:var(--green);color:var(--dark);font-size:.75rem;padding:.4rem .8rem" title="Aplica con tu perfil guardado">⚡ Quick</button>
+          <button class="apply-btn" onclick="event.stopPropagation(); openApply('${j.id}')">Aplicar</button>
+        </div>
       </div>
     </div>
   `).join('');
@@ -2712,6 +3045,517 @@ async function loadVacantesPortal() {
     console.error('Error cargando vacantes portal:', err);
   }
 }
+
+// ═══════════════════════════════════════════════════════
+//  CANDIDATE PROFILE — AUTH + CRUD
+// ═══════════════════════════════════════════════════════
+
+let cpPerfil = null;
+
+function cpToggleAuth(mode) {
+  document.querySelectorAll('.cand-auth-tab').forEach(t => t.classList.remove('active'));
+  if (mode === 'login') {
+    document.getElementById('cpLoginFields').style.display = 'block';
+    document.getElementById('cpRegisterFields').style.display = 'none';
+    document.querySelectorAll('.cand-auth-tab')[0].classList.add('active');
+  } else {
+    document.getElementById('cpLoginFields').style.display = 'none';
+    document.getElementById('cpRegisterFields').style.display = 'block';
+    document.querySelectorAll('.cand-auth-tab')[1].classList.add('active');
+  }
+}
+
+async function cpRegister() {
+  const nombre = document.getElementById('cp-reg-nombre').value.trim();
+  const apellido = document.getElementById('cp-reg-apellido').value.trim();
+  const email = document.getElementById('cp-reg-email').value.trim();
+  const pass = document.getElementById('cp-reg-pass').value;
+  if (!nombre || !email || pass.length < 6) { showToast('Completa nombre, email y contraseña (mín 6 caracteres)', 'error'); return; }
+  try {
+    const { data, error } = await sb.from('perfiles_candidato').insert([{ nombre, apellido, email, password: pass }]).select().single();
+    if (error) {
+      if (error.message.includes('duplicate') || error.message.includes('unique')) { showToast('Ya existe una cuenta con ese email', 'error'); return; }
+      throw error;
+    }
+    cpPerfil = data;
+    cpShowEdit();
+    showToast('Cuenta creada. Completa tu perfil.', 'success');
+  } catch(e) { console.error(e); showToast('Error al crear cuenta', 'error'); }
+}
+
+async function cpLogin() {
+  const email = document.getElementById('cp-login-email').value.trim();
+  const pass = document.getElementById('cp-login-pass').value;
+  if (!email || !pass) { showToast('Ingresa email y contraseña', 'error'); return; }
+  try {
+    const { data, error } = await sb.from('perfiles_candidato').select('*').eq('email', email).eq('password', pass).single();
+    if (error || !data) { showToast('Email o contraseña incorrectos', 'error'); return; }
+    cpPerfil = data;
+    cpShowEdit();
+    showToast('Bienvenido, ' + data.nombre, 'success');
+  } catch(e) { console.error(e); showToast('Error al iniciar sesión', 'error'); }
+}
+
+function cpShowEdit() {
+  document.getElementById('cpAuthSection').style.display = 'none';
+  document.getElementById('cpEditSection').style.display = 'block';
+  const p = cpPerfil;
+  document.getElementById('cp-nombre').value = p.nombre || '';
+  document.getElementById('cp-apellido').value = p.apellido || '';
+  document.getElementById('cp-email').value = p.email || '';
+  document.getElementById('cp-telefono').value = p.telefono || '';
+  document.getElementById('cp-ciudad').value = p.ciudad || '';
+  document.getElementById('cp-linkedin').value = p.linkedin || '';
+  document.getElementById('cp-foto').value = p.foto_url || '';
+  document.getElementById('cp-titulo').value = p.titulo_profesional || '';
+  document.getElementById('cp-sector').value = p.sector || '';
+  document.getElementById('cp-resumen').value = p.resumen || '';
+  document.getElementById('cp-experiencia').value = p.anos_experiencia || '';
+  document.getElementById('cp-nivel').value = p.nivel || 'mid';
+  document.getElementById('cp-salario').value = p.salario_esperado || '';
+  document.getElementById('cp-modalidad').value = p.modalidad_preferida || '';
+  document.getElementById('cp-habilidades').value = (p.habilidades || []).join(', ');
+  document.getElementById('cp-portafolio').value = p.portafolio_url || '';
+  document.getElementById('cp-disponible').checked = p.disponible !== false;
+  document.getElementById('cp-publico').checked = p.perfil_publico !== false;
+  cpLoadTestResults();
+}
+
+async function cpSave() {
+  const habs = document.getElementById('cp-habilidades').value.split(',').map(h => h.trim()).filter(Boolean);
+  const update = {
+    nombre: document.getElementById('cp-nombre').value.trim(),
+    apellido: document.getElementById('cp-apellido').value.trim(),
+    telefono: document.getElementById('cp-telefono').value.trim(),
+    ciudad: document.getElementById('cp-ciudad').value.trim(),
+    linkedin: document.getElementById('cp-linkedin').value.trim() || null,
+    foto_url: document.getElementById('cp-foto').value.trim() || null,
+    titulo_profesional: document.getElementById('cp-titulo').value.trim(),
+    sector: document.getElementById('cp-sector').value || null,
+    resumen: document.getElementById('cp-resumen').value.trim(),
+    anos_experiencia: parseInt(document.getElementById('cp-experiencia').value) || null,
+    nivel: document.getElementById('cp-nivel').value,
+    salario_esperado: parseFloat(document.getElementById('cp-salario').value) || null,
+    modalidad_preferida: document.getElementById('cp-modalidad').value || null,
+    habilidades: habs.length ? habs : null,
+    portafolio_url: document.getElementById('cp-portafolio').value.trim() || null,
+    disponible: document.getElementById('cp-disponible').checked,
+    perfil_publico: document.getElementById('cp-publico').checked,
+  };
+  try {
+    const { error } = await sb.from('perfiles_candidato').update(update).eq('id', cpPerfil.id);
+    if (error) throw error;
+    Object.assign(cpPerfil, update);
+    showToast('Perfil actualizado', 'success');
+  } catch(e) { console.error(e); showToast('Error al guardar', 'error'); }
+}
+
+function cpLogout() {
+  cpPerfil = null;
+  document.getElementById('cpEditSection').style.display = 'none';
+  document.getElementById('cpAuthSection').style.display = 'block';
+}
+
+async function cpLoadTestResults() {
+  const el = document.getElementById('cpTestResults');
+  try {
+    const { data } = await sb.from('skill_resultados').select('*, skill_tests(nombre)').eq('perfil_id', cpPerfil.id).order('created_at', { ascending: false });
+    if (!data || !data.length) { el.innerHTML = '<p style="color:var(--gray);font-size:.9rem">No has completado ninguna evaluación aún. <a href="#" onclick="showPage(\'evaluaciones\');return false" style="color:var(--mid)">Ver evaluaciones disponibles</a></p>'; return; }
+    el.innerHTML = data.map(r => `
+      <div class="cp-test-result">
+        <div class="cp-test-score">${r.porcentaje}%</div>
+        <div><strong>${r.skill_tests?.nombre || 'Evaluación'}</strong><br><span style="color:var(--gray);font-size:.8rem">${r.puntaje}/${r.total_preguntas} correctas · ${new Date(r.created_at).toLocaleDateString('es-DO')}</span></div>
+      </div>`).join('');
+  } catch(e) { console.error(e); }
+}
+
+// ─── QUICK APPLY ───
+async function quickApply(jobId) {
+  if (!cpPerfil) {
+    showToast('Crea tu perfil primero para aplicar en un clic', 'error');
+    showPage('mi-perfil');
+    return;
+  }
+  const job = jobs.find(j => j.id === jobId);
+  if (!job) return;
+
+  const record = job.isPortalVacante ? {
+    vacante_id: job.vpId,
+    nombre: cpPerfil.nombre,
+    apellido: cpPerfil.apellido,
+    email: cpPerfil.email,
+    telefono: cpPerfil.telefono,
+    linkedin: cpPerfil.linkedin,
+    experiencia: cpPerfil.anos_experiencia,
+    salario_esperado: cpPerfil.salario_esperado,
+    motivacion: cpPerfil.resumen,
+    cv_url: null,
+  } : {
+    nombre: cpPerfil.nombre,
+    apellido: cpPerfil.apellido,
+    email: cpPerfil.email,
+    telefono: cpPerfil.telefono,
+    linkedin: cpPerfil.linkedin,
+    ciudad: cpPerfil.ciudad,
+    anos_experiencia: cpPerfil.anos_experiencia,
+    salario_esperado_dop: cpPerfil.salario_esperado,
+    notas: cpPerfil.resumen,
+    fuente: 'Quick Apply',
+    vacante_aplicada: [job.title, job.company].filter(Boolean).join(' · '),
+    posicion_id: job.id,
+  };
+
+  try {
+    const table = job.isPortalVacante ? 'aplicaciones_vacante' : 'candidatos';
+    const { error } = await sb.from(table).insert([record]);
+    if (error) throw error;
+    showToast('¡Aplicación enviada! ' + job.company + ' recibirá tu perfil.', 'success');
+  } catch(e) {
+    console.error(e);
+    showToast('Error al aplicar. Intenta de nuevo.', 'error');
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+//  TALENT DIRECTORY
+// ═══════════════════════════════════════════════════════
+
+let allTalent = [];
+
+async function loadTalent() {
+  try {
+    const { data } = await sb.from('perfiles_candidato').select('*').eq('perfil_publico', true).eq('disponible', true).order('created_at', { ascending: false });
+    allTalent = data || [];
+    renderTalent(allTalent);
+  } catch(e) { console.error(e); }
+}
+
+function renderTalent(list) {
+  const el = document.getElementById('talentGrid');
+  if (!list.length) { el.innerHTML = '<div class="ep-empty" style="grid-column:1/-1"><p>No hay perfiles disponibles aún.</p></div>'; return; }
+  el.innerHTML = list.map(t => {
+    const initials = (t.nombre || 'U').charAt(0) + (t.apellido || '').charAt(0);
+    const skills = (t.habilidades || []).slice(0, 3).map(s => `<span class="cp-skill">${s}</span>`).join('');
+    return `
+      <div class="talent-card" onclick="viewPublicProfile('${t.id}')">
+        <div class="talent-card-top">
+          ${t.foto_url ? `<img src="${t.foto_url}" style="width:50px;height:50px;border-radius:50%;object-fit:cover">` : `<div class="talent-card-avatar">${initials}</div>`}
+          <div>
+            <div class="talent-card-name">${t.nombre} ${t.apellido || ''}</div>
+            <div class="talent-card-titulo">${t.titulo_profesional || 'Profesional'}</div>
+          </div>
+        </div>
+        ${t.habilidades ? `<div style="display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.5rem">${skills}</div>` : ''}
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:var(--gray)">
+          <span>${t.anos_experiencia ? t.anos_experiencia + ' años exp.' : ''} ${t.sector || ''}</span>
+          <span class="cp-badge ${t.disponible ? 'disponible' : 'no-disponible'}">${t.disponible ? 'Disponible' : 'No disponible'}</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function filterTalent() {
+  const q = document.getElementById('talentSearch').value.toLowerCase();
+  const sector = document.getElementById('talentSector').value;
+  let filtered = allTalent;
+  if (q) filtered = filtered.filter(t => [t.nombre, t.apellido, t.titulo_profesional, ...(t.habilidades || [])].join(' ').toLowerCase().includes(q));
+  if (sector) filtered = filtered.filter(t => t.sector === sector);
+  renderTalent(filtered);
+}
+
+async function viewPublicProfile(id) {
+  const el = document.getElementById('publicProfileContent');
+  el.innerHTML = '<div class="ep-empty">⏳ Cargando perfil...</div>';
+  showPage('perfil-publico');
+  try {
+    const { data: p } = await sb.from('perfiles_candidato').select('*').eq('id', id).single();
+    if (!p) { el.innerHTML = '<div class="ep-empty">Perfil no encontrado.</div>'; return; }
+
+    const { data: tests } = await sb.from('skill_resultados').select('*, skill_tests(nombre)').eq('perfil_id', id).order('created_at', { ascending: false });
+
+    const initials = (p.nombre || 'U').charAt(0) + (p.apellido || '').charAt(0);
+    const skills = (p.habilidades || []).map(s => `<span class="cp-skill">${s}</span>`).join('');
+    const testHtml = (tests && tests.length) ? tests.map(r => `
+      <div class="cp-test-result">
+        <div class="cp-test-score">${r.porcentaje}%</div>
+        <div><strong>${r.skill_tests?.nombre || 'Evaluación'}</strong><br><span style="color:var(--gray);font-size:.8rem">${r.puntaje}/${r.total_preguntas} correctas</span></div>
+      </div>`).join('') : '<p style="color:var(--gray);font-size:.9rem">Sin evaluaciones completadas.</p>';
+
+    el.innerHTML = `
+      <div class="cp-header">
+        ${p.foto_url ? `<img src="${p.foto_url}" class="cp-avatar">` : `<div class="cp-avatar-placeholder">${initials}</div>`}
+        <div class="cp-info">
+          <h2>${p.nombre} ${p.apellido || ''}</h2>
+          <div class="cp-titulo">${p.titulo_profesional || 'Profesional'}</div>
+          <div class="cp-meta">
+            ${p.ciudad ? `<span>📍 ${p.ciudad}</span>` : ''}
+            ${p.anos_experiencia ? `<span>${p.anos_experiencia} años de experiencia</span>` : ''}
+            ${p.sector ? `<span>${p.sector}</span>` : ''}
+          </div>
+          <div style="margin-top:.5rem">
+            <span class="cp-badge ${p.disponible ? 'disponible' : 'no-disponible'}">${p.disponible ? 'Disponible para ofertas' : 'No disponible'}</span>
+          </div>
+        </div>
+      </div>
+      ${p.resumen ? `<div class="cp-section"><h3>Resumen profesional</h3><p style="color:var(--gray);line-height:1.7">${p.resumen}</p></div>` : ''}
+      ${skills ? `<div class="cp-section"><h3>Habilidades</h3><div class="cp-skills">${skills}</div></div>` : ''}
+      <div class="cp-section"><h3>Evaluaciones</h3>${testHtml}</div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem">
+        ${p.email ? `<a href="mailto:${p.email}" class="cp-contact-btn" style="text-decoration:none">✉ Contactar</a>` : ''}
+        ${p.linkedin ? `<a href="${p.linkedin}" target="_blank" class="cp-contact-btn" style="text-decoration:none;background:var(--dark)">LinkedIn</a>` : ''}
+        ${p.portafolio_url ? `<a href="${p.portafolio_url}" target="_blank" class="cp-contact-btn" style="text-decoration:none;background:var(--green);color:var(--dark)">Portafolio</a>` : ''}
+      </div>`;
+  } catch(e) { console.error(e); el.innerHTML = '<div class="ep-empty">Error al cargar perfil.</div>'; }
+}
+
+// ═══════════════════════════════════════════════════════
+//  BLOG
+// ═══════════════════════════════════════════════════════
+
+let allBlogPosts = [];
+const BLOG_ICONS = { consejos: '💡', mercado: '📊', tendencias: '🚀', entrevistas: '🎤', salarios: '💰' };
+const BLOG_LABELS = { consejos: 'Consejos', mercado: 'Mercado laboral', tendencias: 'Tendencias', entrevistas: 'Entrevistas', salarios: 'Salarios' };
+
+async function loadBlog() {
+  try {
+    const { data } = await sb.from('blog_posts').select('*').eq('publicado', true).order('fecha_publicacion', { ascending: false });
+    allBlogPosts = data || [];
+    renderBlog(allBlogPosts);
+  } catch(e) { console.error(e); }
+}
+
+function renderBlog(list) {
+  const el = document.getElementById('blogGrid');
+  if (!list.length) {
+    el.innerHTML = '<div class="ep-empty" style="grid-column:1/-1"><div style="font-size:2rem;margin-bottom:1rem">📝</div><p>Próximamente publicaremos artículos sobre el mercado laboral dominicano.</p></div>';
+    return;
+  }
+  el.innerHTML = list.map(p => {
+    const icon = BLOG_ICONS[p.categoria] || '📝';
+    const cat = BLOG_LABELS[p.categoria] || p.categoria;
+    const fecha = new Date(p.fecha_publicacion).toLocaleDateString('es-DO', { day: 'numeric', month: 'short', year: 'numeric' });
+    return `
+      <div class="blog-card" onclick="viewBlogPost('${p.id}')">
+        <div class="blog-card-img">${icon}</div>
+        <div class="blog-card-body">
+          <span class="blog-card-cat">${cat}</span>
+          <div class="blog-card-title">${p.titulo}</div>
+          <div class="blog-card-excerpt">${p.extracto || p.contenido.substring(0, 120) + '...'}</div>
+          <div class="blog-card-footer">
+            <span>${p.autor}</span>
+            <span>${fecha}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function filterBlog() {
+  const cat = document.getElementById('blogCatFilter').value;
+  renderBlog(cat ? allBlogPosts.filter(p => p.categoria === cat) : allBlogPosts);
+}
+
+async function viewBlogPost(id) {
+  const el = document.getElementById('blogDetailContent');
+  el.innerHTML = '<div class="ep-empty">⏳ Cargando...</div>';
+  showPage('blog-detail');
+  try {
+    const { data: p } = await sb.from('blog_posts').select('*').eq('id', id).single();
+    if (!p) { el.innerHTML = '<div class="ep-empty">Artículo no encontrado.</div>'; return; }
+    const fecha = new Date(p.fecha_publicacion).toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' });
+    const cat = BLOG_LABELS[p.categoria] || p.categoria;
+    const content = p.contenido.split('\n').map(line => {
+      if (line.startsWith('## ')) return `<h2>${line.substring(3)}</h2>`;
+      if (line.startsWith('- ')) return `<li>${line.substring(2)}</li>`;
+      if (line.trim()) return `<p>${line}</p>`;
+      return '';
+    }).join('');
+    el.innerHTML = `
+      <span class="blog-card-cat">${cat}</span>
+      <h1>${p.titulo}</h1>
+      <div class="blog-detail-meta">${p.autor} · ${fecha}</div>
+      <div class="blog-content">${content}</div>`;
+  } catch(e) { console.error(e); el.innerHTML = '<div class="ep-empty">Error al cargar artículo.</div>'; }
+}
+
+// ═══════════════════════════════════════════════════════
+//  COMPANY PUBLIC PAGE
+// ═══════════════════════════════════════════════════════
+
+async function viewCompanyPage(empresaId) {
+  const el = document.getElementById('companyPageContent');
+  el.innerHTML = '<div class="ep-empty">⏳ Cargando...</div>';
+  showPage('empresa-publica');
+  try {
+    const { data: c } = await sb.from('empresas_portal').select('*').eq('id', empresaId).single();
+    if (!c) { el.innerHTML = '<div class="ep-empty">Empresa no encontrada.</div>'; return; }
+
+    const { data: vacantes } = await sb.from('vacantes_portal').select('*').eq('empresa_id', empresaId).eq('estado', 'aprobada').order('created_at', { ascending: false });
+
+    const initials = (c.nombre_empresa || 'EM').substring(0, 2).toUpperCase();
+    const benefits = (c.beneficios || []).map(b => `<span class="company-benefit">${b}</span>`).join('');
+    const vacantesHtml = (vacantes && vacantes.length) ? vacantes.map(v => {
+      const sal = v.salario_min && v.salario_max ? `RD$ ${Number(v.salario_min).toLocaleString()} – ${Number(v.salario_max).toLocaleString()}` : 'A convenir';
+      return `
+        <div style="padding:1rem;border:1px solid #e8e8e8;border-radius:10px;margin-bottom:.8rem;cursor:pointer" onclick="openApply('vp_${v.id}')">
+          <div style="font-weight:600;color:var(--dark)">${v.titulo}</div>
+          <div style="color:var(--gray);font-size:.85rem;margin-top:.3rem">${v.modalidad || ''} · ${v.ubicacion || ''} · ${sal}</div>
+        </div>`;
+    }).join('') : '<p style="color:var(--gray)">No hay vacantes activas en este momento.</p>';
+
+    el.innerHTML = `
+      <div class="company-hero">
+        ${c.logo_url ? `<div class="company-logo-big"><img src="${c.logo_url}" style="width:80px;height:80px;border-radius:12px;object-fit:cover"></div>` : `<div class="company-logo-big">${initials}</div>`}
+        <div>
+          <h2 style="font-family:'Poppins',sans-serif;color:var(--dark);margin:0">${c.nombre_empresa}</h2>
+          <div style="color:var(--gray);font-size:.9rem;margin-top:.3rem">
+            ${c.sector ? c.sector + ' · ' : ''}${c.ubicacion || ''}${c.tamano ? ' · ' + c.tamano : ''}
+          </div>
+          ${c.sitio_web ? `<a href="${c.sitio_web}" target="_blank" style="color:var(--mid);font-size:.85rem">${c.sitio_web}</a>` : ''}
+        </div>
+      </div>
+      ${c.descripcion ? `<div class="cp-section"><h3>Sobre la empresa</h3><p style="color:var(--gray);line-height:1.7">${c.descripcion}</p></div>` : ''}
+      ${c.cultura ? `<div class="cp-section"><h3>Cultura organizacional</h3><p style="color:var(--gray);line-height:1.7">${c.cultura}</p></div>` : ''}
+      ${benefits ? `<div class="cp-section"><h3>Beneficios</h3><div class="company-benefits">${benefits}</div></div>` : ''}
+      <div class="cp-section"><h3>Vacantes activas (${(vacantes || []).length})</h3>${vacantesHtml}</div>
+      <div style="margin-top:1rem">
+        <a href="mailto:${c.email}" class="cp-contact-btn" style="text-decoration:none">✉ Contactar empresa</a>
+      </div>`;
+  } catch(e) { console.error(e); el.innerHTML = '<div class="ep-empty">Error al cargar la empresa.</div>'; }
+}
+
+// ═══════════════════════════════════════════════════════
+//  SKILL TESTS
+// ═══════════════════════════════════════════════════════
+
+let currentTest = null;
+let testQuestions = [];
+let testCurrentQ = 0;
+let testAnswers = [];
+let testScore = 0;
+
+async function loadTests() {
+  try {
+    const { data } = await sb.from('skill_tests').select('*').eq('activo', true).order('created_at', { ascending: false });
+    const el = document.getElementById('testsGrid');
+    if (!data || !data.length) {
+      el.innerHTML = '<div class="ep-empty" style="grid-column:1/-1"><div style="font-size:2rem;margin-bottom:1rem">🧠</div><p>Próximamente agregaremos evaluaciones de habilidades.</p></div>';
+      return;
+    }
+    el.innerHTML = data.map(t => `
+      <div class="blog-card" onclick="openTest('${t.id}')">
+        <div class="blog-card-img">🧠</div>
+        <div class="blog-card-body">
+          <span class="blog-card-cat">${t.categoria || 'General'}</span>
+          <div class="blog-card-title">${t.nombre}</div>
+          <div class="blog-card-excerpt">${t.descripcion || ''}</div>
+          <div class="blog-card-footer">
+            <span>${t.duracion_minutos || 10} minutos</span>
+            <span>Evaluación rápida</span>
+          </div>
+        </div>
+      </div>`).join('');
+  } catch(e) { console.error(e); }
+}
+
+async function openTest(testId) {
+  showPage('skill-test');
+  document.getElementById('testIntro').style.display = 'block';
+  document.getElementById('testQuestions').style.display = 'none';
+  document.getElementById('testResult').style.display = 'none';
+  try {
+    const { data: test } = await sb.from('skill_tests').select('*').eq('id', testId).single();
+    const { data: questions } = await sb.from('skill_preguntas').select('*').eq('test_id', testId).order('orden');
+    if (!test || !questions || !questions.length) { showToast('Evaluación no disponible', 'error'); return; }
+    currentTest = test;
+    testQuestions = questions;
+    testCurrentQ = 0;
+    testAnswers = [];
+    testScore = 0;
+    document.getElementById('testTitle').textContent = test.nombre;
+    document.getElementById('testDesc').textContent = test.descripcion || 'Evaluación rápida de habilidades';
+    document.getElementById('testInfo').textContent = `${questions.length} preguntas · Aproximadamente ${test.duracion_minutos || 10} minutos`;
+  } catch(e) { console.error(e); showToast('Error al cargar evaluación', 'error'); }
+}
+
+function startTest() {
+  document.getElementById('testIntro').style.display = 'none';
+  document.getElementById('testQuestions').style.display = 'block';
+  renderTestQuestion();
+}
+
+function renderTestQuestion() {
+  const q = testQuestions[testCurrentQ];
+  const bars = testQuestions.map((_, i) => {
+    const cls = i < testCurrentQ ? 'done' : i === testCurrentQ ? 'current' : '';
+    return `<div class="test-progress-bar ${cls}"></div>`;
+  }).join('');
+  document.getElementById('testProgressBars').innerHTML = bars;
+  document.getElementById('testQNum').textContent = `Pregunta ${testCurrentQ + 1} de ${testQuestions.length}`;
+  document.getElementById('testQText').textContent = q.pregunta;
+  document.getElementById('testOptions').innerHTML = q.opciones.map((opt, i) => `
+    <div class="test-option" onclick="selectTestOption(${i})" id="topt-${i}">${opt}</div>
+  `).join('');
+  document.getElementById('testNextBtn').style.display = 'none';
+}
+
+function selectTestOption(idx) {
+  document.querySelectorAll('.test-option').forEach(o => o.classList.remove('selected'));
+  document.getElementById('topt-' + idx).classList.add('selected');
+  testAnswers[testCurrentQ] = idx;
+
+  const q = testQuestions[testCurrentQ];
+  const correct = q.respuesta_correcta;
+  document.querySelectorAll('.test-option').forEach((o, i) => {
+    o.style.pointerEvents = 'none';
+    if (i === correct) o.classList.add('correct');
+    if (i === idx && idx !== correct) o.classList.add('incorrect');
+  });
+  if (idx === correct) testScore++;
+
+  document.getElementById('testNextBtn').style.display = 'block';
+  document.getElementById('testNextBtn').textContent = testCurrentQ < testQuestions.length - 1 ? 'Siguiente' : 'Ver resultado';
+}
+
+async function nextTestQuestion() {
+  testCurrentQ++;
+  if (testCurrentQ >= testQuestions.length) {
+    const porcentaje = Math.round((testScore / testQuestions.length) * 100);
+    document.getElementById('testQuestions').style.display = 'none';
+    document.getElementById('testResult').style.display = 'block';
+    document.getElementById('testScoreDisplay').textContent = porcentaje + '%';
+    document.getElementById('testTotalDisplay').textContent = testQuestions.length;
+
+    let msg = 'Sigue practicando';
+    if (porcentaje >= 90) msg = '¡Excelente! Dominas esta área';
+    else if (porcentaje >= 70) msg = '¡Muy bien! Buen nivel';
+    else if (porcentaje >= 50) msg = 'Buen intento, puedes mejorar';
+    document.getElementById('testResultMsg').textContent = msg;
+
+    if (cpPerfil) {
+      try {
+        await sb.from('skill_resultados').insert([{
+          test_id: currentTest.id,
+          perfil_id: cpPerfil.id,
+          puntaje: testScore,
+          total_preguntas: testQuestions.length,
+          porcentaje,
+          respuestas: testAnswers
+        }]);
+      } catch(e) { console.error(e); }
+    }
+    return;
+  }
+  renderTestQuestion();
+}
+
+// ═══════════════════════════════════════════════════════
+//  INIT — Load new features
+// ═══════════════════════════════════════════════════════
+
+loadTalent();
+loadBlog();
+loadTests();
 </script>
 </body>
 </html>
