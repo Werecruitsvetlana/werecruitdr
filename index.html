@@ -769,6 +769,93 @@ footer span { color: var(--green); }
   .about-links { justify-content: center; }
 }
 
+/* ══════════════════════════════════════════
+   MOBILE RESPONSIVE — max 768px
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* NAV — hamburguesa */
+  nav { height: auto; padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; position: relative; }
+  .nav-links { display: none; flex-direction: column; gap: 0; width: 100%; background: var(--dark); padding: 0.5rem 0; }
+  .nav-links.open { display: flex; }
+  .nav-links a { padding: 11px 1rem; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .nav-links .nav-cta { margin: 0.75rem 1rem; width: calc(100% - 2rem); text-align: center; }
+  .nav-hamburger {
+    display: flex; flex-direction: column; gap: 5px; cursor: pointer;
+    background: none; border: none; padding: 6px;
+  }
+  .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+
+  /* SEARCH BAR */
+  .search-bar { flex-direction: column; gap: 8px; }
+  .search-bar input, .search-bar select { width: 100%; min-width: 0; }
+
+  /* MAIN LAYOUT — sidebar colapsa */
+  .main { grid-template-columns: 1fr; gap: 0; padding: 1rem; }
+  .sidebar { display: none; }
+  .sidebar.mobile-open { display: block; margin-bottom: 1rem; }
+  .mobile-filter-toggle {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--white); border: 1.5px solid var(--light); border-radius: 8px;
+    padding: 10px 14px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13px;
+    color: var(--dark); cursor: pointer; margin-bottom: 1rem; width: 100%;
+  }
+
+  /* HERO */
+  .hero { padding: 3rem 1.2rem 2.5rem; }
+  .hero h1 { font-size: 2rem; }
+  .hero p { font-size: 14px; }
+  .hero-tag { margin-bottom: 0.8rem; }
+
+  /* STATS */
+  .stats { gap: 1.5rem; }
+  .stat-num { font-size: 1.5rem; }
+
+  /* FILTERS ROW */
+  .filters-row { padding: 0.75rem 1rem; gap: 8px; overflow-x: auto; }
+  .filter-chip { white-space: nowrap; flex-shrink: 0; }
+
+  /* FORMS */
+  .form-row { grid-template-columns: 1fr; }
+  .form-page { padding: 1.5rem 1rem; }
+
+  /* HERO SMALL */
+  .hero-sm { padding: 2.5rem 1.2rem 2rem; }
+  .hero-sm h1 { font-size: 1.6rem; }
+
+  /* CALC */
+  .calc-page { padding: 1.5rem 1rem; }
+  .calc-range-row { gap: 0.75rem; }
+  .calc-range-box { padding: 0.75rem 0.5rem; }
+  .crb-val { font-size: 1rem !important; }
+
+  /* BLOG */
+  .blog-grid { grid-template-columns: 1fr; padding: 0 1rem; }
+
+  /* TALENT */
+  .talent-grid { grid-template-columns: 1fr 1fr; padding: 0 1rem; }
+
+  /* LANDING SPLIT */
+  .landing-split { flex-direction: column; }
+  .landing-half { min-height: 40vh; }
+
+  /* DEMO BANNER */
+  .demo-banner { flex-direction: column; padding: 1.5rem; }
+  .demo-card-wrap { align-self: center; }
+  .freelancer-card[style*="width:230px"] { width: 100% !important; }
+
+  /* EMPRESAS */
+  .empresas-contact-links { flex-direction: column; align-items: center; }
+}
+
+/* nav hamburguesa solo visible en mobile */
+.nav-hamburger { display: none; }
+@media (max-width: 768px) { .nav-hamburger { display: flex; } }
+
+/* botón filtros solo visible en mobile */
+.mobile-filter-toggle { display: none; }
+@media (max-width: 768px) { .mobile-filter-toggle { display: flex; } }
+
 @media print {
   body * { visibility: hidden; }
   #cv-print-area, #cv-print-area * { visibility: visible; }
@@ -789,16 +876,19 @@ footer span { color: var(--green); }
     <div class="logo-circle">WR</div>
     <div class="logo-text">We Recruit <span>REPÚBLICA DOMINICANA</span></div>
   </div>
-  <div class="nav-links">
-    <a onclick="showPage('home')">Vacantes</a>
-    <a onclick="showPage('talento')">Talento</a>
-    <a onclick="showPage('freelancers')">Freelancers</a>
-    <a onclick="showPage('blog')">Blog</a>
-    <a onclick="showPage('salarios')">Salarios</a>
-    <a onclick="showPage('evaluaciones')">Evaluaciones</a>
-    <a onclick="showPage('para-empresas')">Empresas</a>
-    <a onclick="showPage('mi-perfil')" style="cursor:pointer">Mi perfil</a>
-    <button class="nav-cta" onclick="showPage('publicar-vacante')">Publicar vacante</button>
+  <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a onclick="showPage('home');closeMobileNav()">Vacantes</a>
+    <a onclick="showPage('talento');closeMobileNav()">Talento</a>
+    <a onclick="showPage('freelancers');closeMobileNav()">Freelancers</a>
+    <a onclick="showPage('blog');closeMobileNav()">Blog</a>
+    <a onclick="showPage('salarios');closeMobileNav()">Salarios</a>
+    <a onclick="showPage('evaluaciones');closeMobileNav()">Evaluaciones</a>
+    <a onclick="showPage('para-empresas');closeMobileNav()">Empresas</a>
+    <a onclick="showPage('mi-perfil');closeMobileNav()">Mi perfil</a>
+    <button class="nav-cta" onclick="showPage('publicar-vacante');closeMobileNav()">Publicar vacante</button>
   </div>
 </nav>
 
@@ -887,7 +977,11 @@ footer span { color: var(--green); }
   </div>
 
   <div class="main">
-    <div class="sidebar">
+    <button class="mobile-filter-toggle" onclick="toggleMobileFilters()">
+      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Filtrar resultados
+    </button>
+    <div class="sidebar" id="mobileSidebar">
       <div class="sidebar-section">
         <h3>Sector</h3>
         <div class="filter-group">
@@ -3816,6 +3910,22 @@ async function nextTestQuestion() {
 loadTalent();
 loadBlog();
 loadTests();
+
+// ── MOBILE NAV ──
+function toggleMobileNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+function closeMobileNav() {
+  document.getElementById('navLinks').classList.remove('open');
+}
+
+// ── MOBILE FILTERS ──
+function toggleMobileFilters() {
+  const s = document.getElementById('mobileSidebar');
+  s.classList.toggle('mobile-open');
+  const btn = document.querySelector('.mobile-filter-toggle');
+  btn.textContent = s.classList.contains('mobile-open') ? '✕ Cerrar filtros' : '⊞ Filtrar resultados';
+}
 
 // ═══════════════════════════════════════════════════════
 //  CALCULADORA DE SALARIOS
