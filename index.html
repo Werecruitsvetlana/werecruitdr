@@ -677,6 +677,45 @@ footer span { color: var(--green); }
 .blog-detail .blog-content ul { margin: 1rem 0; padding-left: 1.5rem; }
 .blog-detail .blog-content li { margin-bottom: .5rem; }
 
+/* ── CALCULADORA DE SALARIOS ── */
+.calc-page { max-width: 780px; margin: 0 auto; padding: 2.5rem 2rem; }
+.calc-card { background: var(--white); border: 1.5px solid var(--light); border-radius: 14px; padding: 2rem; margin-bottom: 1.5rem; }
+.calc-card h3 { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1rem; color: var(--dark); margin-bottom: 1.2rem; }
+.calc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.calc-field label { display: block; font-size: 12px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.calc-select {
+  width: 100%; padding: 11px 14px; border: 1.5px solid var(--light); border-radius: 8px;
+  font-size: 14px; background: var(--white); color: var(--dark); outline: none; cursor: pointer;
+  font-family: 'Open Sans', sans-serif; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+.calc-select:focus { border-color: var(--mid); }
+.calc-btn {
+  width: 100%; padding: 13px; background: var(--dark); color: var(--white); border: none;
+  border-radius: 8px; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 15px;
+  cursor: pointer; margin-top: 0.5rem; transition: background 0.2s;
+}
+.calc-btn:hover { background: var(--mid); }
+.calc-result { display: none; background: var(--cream); border: 1.5px solid var(--light); border-radius: 14px; padding: 2rem; margin-bottom: 1.5rem; }
+.calc-result.visible { display: block; }
+.calc-result-role { font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 1.2rem; color: var(--dark); margin-bottom: 4px; }
+.calc-result-level { font-size: 13px; color: var(--gray); margin-bottom: 1.5rem; }
+.calc-range-row { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.calc-range-box { flex: 1; min-width: 140px; background: var(--white); border-radius: 10px; padding: 1rem 1.2rem; text-align: center; border: 1.5px solid var(--light); }
+.calc-range-box .crb-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--gray); font-weight: 700; margin-bottom: 6px; }
+.calc-range-box .crb-val { font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 1.3rem; color: var(--dark); }
+.calc-range-box.mid { border-color: var(--mid); background: #EBF4FA; }
+.calc-range-box.mid .crb-val { color: var(--mid); }
+.calc-bar-wrap { margin-bottom: 1rem; }
+.calc-bar-track { height: 8px; background: var(--light); border-radius: 4px; overflow: hidden; position: relative; }
+.calc-bar-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--mid)); border-radius: 4px; width: 0; transition: width 0.6s ease; }
+.calc-bar-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--gray); margin-top: 4px; }
+.calc-disclaimer { font-size: 11.5px; color: var(--gray); line-height: 1.6; border-top: 1px solid var(--light); padding-top: 1rem; margin-top: 0.5rem; }
+.calc-sector-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.calc-sector-tag { font-size: 11px; background: var(--white); border: 1px solid var(--light); border-radius: 20px; padding: 4px 12px; color: var(--gray); }
+@media (max-width: 600px) { .calc-row { grid-template-columns: 1fr; } }
+
 /* SKILL TEST */
 .test-container { max-width: 650px; margin: 2rem auto; padding: 0 2rem; }
 .test-progress { display: flex; gap: .3rem; margin-bottom: 2rem; }
@@ -755,6 +794,7 @@ footer span { color: var(--green); }
     <a onclick="showPage('talento')">Talento</a>
     <a onclick="showPage('freelancers')">Freelancers</a>
     <a onclick="showPage('blog')">Blog</a>
+    <a onclick="showPage('salarios')">Salarios</a>
     <a onclick="showPage('evaluaciones')">Evaluaciones</a>
     <a onclick="showPage('para-empresas')">Empresas</a>
     <a onclick="showPage('mi-perfil')" style="cursor:pointer">Mi perfil</a>
@@ -1802,6 +1842,89 @@ footer span { color: var(--green); }
 </div>
 
 <!-- ═══════════════ SKILL TESTS LIST PAGE ═══════════════ -->
+<!-- ═══════════════════════ CALCULADORA DE SALARIOS ═══════════════════════ -->
+<div id="page-salarios" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Referencia salarial RD 2025</span></div>
+      <h1>Calculadora de <em>Salarios</em></h1>
+      <p>¿Cuánto debería ganar un profesional en República Dominicana? Consulta rangos reales por puesto, sector y nivel de experiencia.</p>
+    </div>
+  </div>
+
+  <div class="calc-page">
+
+    <div id="calcResult" class="calc-result">
+      <div id="calcResultRole" class="calc-result-role"></div>
+      <div id="calcResultLevel" class="calc-result-level"></div>
+      <div class="calc-range-row">
+        <div class="calc-range-box"><div class="crb-label">Mínimo</div><div class="crb-val" id="calcMin"></div></div>
+        <div class="calc-range-box mid"><div class="crb-label">Promedio</div><div class="crb-val" id="calcMid"></div></div>
+        <div class="calc-range-box"><div class="crb-label">Máximo</div><div class="crb-val" id="calcMax"></div></div>
+      </div>
+      <div class="calc-bar-wrap">
+        <div class="calc-bar-track"><div class="calc-bar-fill" id="calcBar"></div></div>
+        <div class="calc-bar-labels"><span id="calcBarMin"></span><span id="calcBarMax"></span></div>
+      </div>
+      <div id="calcSectorTags" class="calc-sector-tags"></div>
+      <div class="calc-disclaimer">💡 Rangos mensuales en pesos dominicanos (RD$) basados en referencias del mercado laboral dominicano 2025. Pueden variar según empresa, beneficios, modalidad y negociación individual. Fuente: We Recruit DR.</div>
+    </div>
+
+    <div class="calc-card">
+      <h3>Consulta el rango salarial</h3>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Sector</label>
+          <select class="calc-select" id="calcSector" onchange="updateCalcPuestos()">
+            <option value="">— Selecciona sector —</option>
+            <option value="tecnologia">Tecnología</option>
+            <option value="marketing">Marketing & Creativos</option>
+            <option value="finanzas">Finanzas & Contabilidad</option>
+            <option value="rrhh">Recursos Humanos</option>
+            <option value="ventas">Ventas & Comercial</option>
+            <option value="operaciones">Operaciones & Logística</option>
+            <option value="legal">Legal</option>
+            <option value="salud">Salud</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Puesto</label>
+          <select class="calc-select" id="calcPuesto">
+            <option value="">— Selecciona primero el sector —</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Nivel de experiencia</label>
+          <select class="calc-select" id="calcNivel">
+            <option value="junior">Junior (0–2 años)</option>
+            <option value="mid" selected>Mid (3–5 años)</option>
+            <option value="senior">Senior (6+ años)</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>Modalidad</label>
+          <select class="calc-select" id="calcModalidad">
+            <option value="presencial">Presencial</option>
+            <option value="hibrido">Híbrido</option>
+            <option value="remoto">Remoto</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcularSalario()">Calcular rango →</button>
+    </div>
+
+    <div class="calc-card" style="background:var(--dark);border-color:var(--dark);">
+      <h3 style="color:var(--green);">¿Buscas talento para tu empresa?</h3>
+      <p style="color:rgba(255,255,255,0.7);font-size:13px;margin-bottom:1rem;">We Recruit DR te conecta con los profesionales correctos al salario correcto. Sin sobrecostos, sin pérdida de tiempo.</p>
+      <button onclick="showPage('para-empresas')" style="background:var(--green);color:var(--dark);border:none;padding:10px 22px;border-radius:8px;font-family:'Poppins',sans-serif;font-weight:800;font-size:13px;cursor:pointer;">Solicitar servicio →</button>
+    </div>
+
+  </div>
+  <footer><p>© 2025 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+</div>
+
 <div id="page-evaluaciones" class="page">
   <div class="hero hero-sm">
     <div class="hero-inner">
@@ -3693,6 +3816,155 @@ async function nextTestQuestion() {
 loadTalent();
 loadBlog();
 loadTests();
+
+// ═══════════════════════════════════════════════════════
+//  CALCULADORA DE SALARIOS
+// ═══════════════════════════════════════════════════════
+
+const SALARY_DATA = {
+  tecnologia: {
+    label: 'Tecnología',
+    puestos: {
+      'Desarrollador Web': { junior: [35000,48000], mid: [55000,85000], senior: [90000,150000] },
+      'Desarrollador Mobile': { junior: [40000,58000], mid: [60000,100000], senior: [100000,170000] },
+      'Data Analyst': { junior: [35000,52000], mid: [55000,88000], senior: [88000,140000] },
+      'UX/UI Designer': { junior: [30000,48000], mid: [50000,82000], senior: [82000,135000] },
+      'DevOps / Cloud Engineer': { junior: [45000,65000], mid: [68000,110000], senior: [110000,180000] },
+      'Product Manager': { junior: [40000,60000], mid: [65000,105000], senior: [105000,170000] },
+      'QA / Tester': { junior: [28000,42000], mid: [45000,72000], senior: [72000,110000] },
+      'Soporte Técnico / Help Desk': { junior: [22000,32000], mid: [33000,50000], senior: [50000,75000] },
+    }
+  },
+  marketing: {
+    label: 'Marketing & Creativos',
+    puestos: {
+      'Diseñador Gráfico': { junior: [25000,38000], mid: [40000,65000], senior: [65000,105000] },
+      'Director Creativo': { junior: [50000,70000], mid: [75000,120000], senior: [120000,200000] },
+      'Community Manager': { junior: [22000,34000], mid: [35000,55000], senior: [55000,90000] },
+      'Content Creator / Copywriter': { junior: [22000,35000], mid: [36000,58000], senior: [58000,90000] },
+      'Fotógrafo / Videógrafo': { junior: [25000,40000], mid: [40000,70000], senior: [70000,120000] },
+      'Social Media Manager': { junior: [25000,38000], mid: [38000,62000], senior: [62000,100000] },
+      'Marketing Digital Manager': { junior: [35000,52000], mid: [55000,90000], senior: [90000,145000] },
+      'SEO / SEM Specialist': { junior: [28000,44000], mid: [45000,72000], senior: [72000,115000] },
+    }
+  },
+  finanzas: {
+    label: 'Finanzas & Contabilidad',
+    puestos: {
+      'Contador': { junior: [28000,42000], mid: [45000,72000], senior: [72000,115000] },
+      'Analista Financiero': { junior: [35000,52000], mid: [55000,88000], senior: [88000,140000] },
+      'Auditor': { junior: [32000,48000], mid: [50000,82000], senior: [82000,130000] },
+      'Tesorero': { junior: [38000,55000], mid: [58000,95000], senior: [95000,155000] },
+      'CFO / Director Financiero': { junior: [80000,110000], mid: [115000,180000], senior: [180000,300000] },
+      'Analista de Crédito': { junior: [28000,42000], mid: [43000,68000], senior: [68000,105000] },
+    }
+  },
+  rrhh: {
+    label: 'Recursos Humanos',
+    puestos: {
+      'Asistente de RRHH': { junior: [20000,30000], mid: [31000,48000], senior: [48000,70000] },
+      'Generalista de RRHH': { junior: [30000,45000], mid: [46000,72000], senior: [72000,110000] },
+      'Reclutador / Talent Acquisition': { junior: [28000,42000], mid: [43000,70000], senior: [70000,115000] },
+      'Gerente de RRHH': { junior: [55000,75000], mid: [78000,120000], senior: [120000,185000] },
+      'Especialista en Nómina': { junior: [25000,38000], mid: [39000,62000], senior: [62000,95000] },
+      'Capacitador / L&D': { junior: [28000,42000], mid: [43000,68000], senior: [68000,110000] },
+    }
+  },
+  ventas: {
+    label: 'Ventas & Comercial',
+    puestos: {
+      'Ejecutivo de Ventas': { junior: [25000,40000], mid: [42000,68000], senior: [68000,110000] },
+      'Gerente de Ventas': { junior: [55000,75000], mid: [78000,125000], senior: [125000,200000] },
+      'Director Comercial': { junior: [80000,110000], mid: [115000,180000], senior: [180000,300000] },
+      'Key Account Manager': { junior: [40000,58000], mid: [60000,95000], senior: [95000,155000] },
+      'Representante de Ventas': { junior: [22000,35000], mid: [36000,55000], senior: [55000,85000] },
+    }
+  },
+  operaciones: {
+    label: 'Operaciones & Logística',
+    puestos: {
+      'Asistente Administrativo': { junior: [18000,28000], mid: [29000,45000], senior: [45000,68000] },
+      'Coordinador de Operaciones': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
+      'Gerente de Operaciones': { junior: [55000,75000], mid: [78000,125000], senior: [125000,195000] },
+      'Analista de Logística': { junior: [28000,42000], mid: [43000,68000], senior: [68000,105000] },
+      'Gerente de Proyectos': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
+      'Asistente de Compras': { junior: [22000,34000], mid: [35000,55000], senior: [55000,85000] },
+    }
+  },
+  legal: {
+    label: 'Legal',
+    puestos: {
+      'Abogado Corporativo': { junior: [35000,52000], mid: [55000,90000], senior: [90000,155000] },
+      'Abogado Laboral': { junior: [32000,48000], mid: [50000,82000], senior: [82000,140000] },
+      'Paralegal': { junior: [22000,35000], mid: [36000,55000], senior: [55000,85000] },
+      'Compliance Officer': { junior: [38000,56000], mid: [58000,95000], senior: [95000,160000] },
+      'Director Legal / General Counsel': { junior: [80000,110000], mid: [115000,185000], senior: [185000,320000] },
+    }
+  },
+  salud: {
+    label: 'Salud',
+    puestos: {
+      'Médico General': { junior: [45000,65000], mid: [68000,105000], senior: [105000,170000] },
+      'Enfermero/a': { junior: [28000,42000], mid: [43000,68000], senior: [68000,105000] },
+      'Administrador Hospitalario': { junior: [40000,58000], mid: [60000,95000], senior: [95000,155000] },
+      'Fisioterapeuta': { junior: [28000,42000], mid: [43000,68000], senior: [68000,108000] },
+      'Nutricionista': { junior: [25000,38000], mid: [39000,62000], senior: [62000,98000] },
+    }
+  },
+};
+
+const REMOTE_BONUS = { presencial: 0, hibrido: 0.05, remoto: 0.12 };
+
+function updateCalcPuestos() {
+  const sector = document.getElementById('calcSector').value;
+  const sel = document.getElementById('calcPuesto');
+  if (!sector || !SALARY_DATA[sector]) {
+    sel.innerHTML = '<option value="">— Selecciona primero el sector —</option>';
+    return;
+  }
+  const puestos = Object.keys(SALARY_DATA[sector].puestos);
+  sel.innerHTML = '<option value="">— Selecciona puesto —</option>' +
+    puestos.map(p => `<option value="${p}">${p}</option>`).join('');
+  document.getElementById('calcResult').classList.remove('visible');
+}
+
+function calcularSalario() {
+  const sector = document.getElementById('calcSector').value;
+  const puesto = document.getElementById('calcPuesto').value;
+  const nivel = document.getElementById('calcNivel').value;
+  const modalidad = document.getElementById('calcModalidad').value;
+
+  if (!sector || !puesto) {
+    alert('Por favor selecciona sector y puesto.');
+    return;
+  }
+
+  const bonus = REMOTE_BONUS[modalidad] || 0;
+  const [rawMin, rawMax] = SALARY_DATA[sector].puestos[puesto][nivel];
+  const min = Math.round(rawMin * (1 + bonus) / 1000) * 1000;
+  const max = Math.round(rawMax * (1 + bonus) / 1000) * 1000;
+  const mid = Math.round((min + max) / 2 / 1000) * 1000;
+
+  const fmt = n => 'RD$ ' + n.toLocaleString('es-DO');
+  const nivelLabel = { junior: 'Junior (0–2 años)', mid: 'Mid (3–5 años)', senior: 'Senior (6+ años)' };
+  const modalLabel = { presencial: 'Presencial', hibrido: 'Híbrido (+5%)', remoto: 'Remoto (+12%)' };
+
+  document.getElementById('calcResultRole').textContent = puesto + ' · ' + SALARY_DATA[sector].label;
+  document.getElementById('calcResultLevel').textContent = nivelLabel[nivel] + ' · ' + modalLabel[modalidad] + ' · Mensual bruto';
+  document.getElementById('calcMin').textContent = fmt(min);
+  document.getElementById('calcMid').textContent = fmt(mid);
+  document.getElementById('calcMax').textContent = fmt(max);
+  document.getElementById('calcBar').style.width = '100%';
+  document.getElementById('calcBarMin').textContent = fmt(min);
+  document.getElementById('calcBarMax').textContent = fmt(max);
+
+  const tags = ['Santo Domingo', 'Santiago', bonus > 0 ? 'Aplica ajuste ' + modalLabel[modalidad] : 'Sin ajuste remoto'];
+  document.getElementById('calcSectorTags').innerHTML = tags.map(t => `<span class="calc-sector-tag">${t}</span>`).join('');
+
+  const result = document.getElementById('calcResult');
+  result.classList.add('visible');
+  result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 </script>
 </body>
 </html>
