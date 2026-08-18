@@ -70,24 +70,50 @@ nav {
 .hero h1 em { font-style: normal; color: var(--green); }
 .hero p { color: rgba(255,255,255,0.55); font-size: 15px; max-width: 480px; line-height: 1.7; margin-bottom: 2.5rem; font-weight: 300; }
 .search-bar {
-  background: var(--white); border-radius: 8px; display: flex; align-items: center;
-  overflow: hidden; max-width: 660px; box-shadow: 0 4px 20px rgba(6,57,88,0.2);
+  background: var(--white); border-radius: 10px; display: flex; align-items: center;
+  overflow: hidden; max-width: 760px; box-shadow: 0 4px 20px rgba(6,57,88,0.2);
 }
 .search-bar input {
   flex: 1; border: none; outline: none; padding: 15px 18px;
-  font-family: 'Poppins', sans-serif; font-size: 14px; color: var(--dark);
+  font-family: 'Poppins', sans-serif; font-size: 14px; color: var(--dark); min-width: 0;
 }
 .search-bar input::placeholder { color: #9CA3AF; }
-.search-divider { width: 1px; height: 26px; background: var(--light); }
+.search-divider { width: 1px; height: 26px; background: var(--light); flex-shrink: 0; }
 .search-bar select {
   border: none; outline: none; padding: 15px 14px;
-  font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--dark); background: transparent; cursor: pointer;
+  font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--dark); background: transparent; cursor: pointer; flex-shrink: 0;
 }
 .search-btn {
   background: var(--mid); color: var(--white); border: none; padding: 15px 24px;
-  font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer; transition: background 0.2s;
+  font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 13px; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
 }
 .search-btn:hover { background: #0d5a87; }
+.filter-chips-row {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1rem; max-width: 760px;
+}
+.filter-chip-dropdown {
+  position: relative; display: inline-block;
+}
+.filter-chip-dropdown .fcd-btn {
+  background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25);
+  color: var(--white); padding: 6px 14px; border-radius: 20px;
+  font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12px;
+  cursor: pointer; display: flex; align-items: center; gap: 5px; transition: all 0.2s;
+}
+.filter-chip-dropdown .fcd-btn:hover, .filter-chip-dropdown .fcd-btn.active { background: var(--white); color: var(--dark); border-color: var(--white); }
+.filter-chip-dropdown .fcd-btn svg { width: 10px; height: 10px; }
+.fcd-menu {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  background: var(--white); border: 1.5px solid var(--light); border-radius: 10px;
+  padding: 6px; min-width: 180px; z-index: 200; box-shadow: 0 8px 24px rgba(6,57,88,0.15);
+}
+.fcd-menu.open { display: block; }
+.fcd-option {
+  padding: 8px 12px; border-radius: 6px; font-size: 13px; color: var(--dark);
+  cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 500;
+}
+.fcd-option:hover { background: var(--cream); }
+.fcd-option.selected { background: var(--dark); color: var(--white); font-weight: 700; }
 .hero-stats { display: flex; gap: 3rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(206,228,204,0.15); }
 .stat-num { font-family: 'Poppins', sans-serif; font-weight: 900; color: var(--green); font-size: 1.9rem; }
 .stat-label { color: rgba(255,255,255,0.4); font-size: 11px; letter-spacing: 0.5px; margin-top: 2px; }
@@ -787,8 +813,10 @@ footer span { color: var(--green); }
   .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
 
   /* SEARCH BAR */
-  .search-bar { flex-direction: column; gap: 8px; }
-  .search-bar input, .search-bar select { width: 100%; min-width: 0; }
+  .search-bar { flex-wrap: wrap; }
+  .search-bar input { min-width: 100%; }
+  .search-bar select { flex: 1; }
+  .filter-chips-row { gap: 6px; }
 
   /* MAIN LAYOUT — sidebar colapsa */
   .main { grid-template-columns: 1fr; gap: 0; padding: 1rem; }
@@ -952,12 +980,54 @@ footer span { color: var(--green); }
       <div class="search-bar">
         <input type="text" placeholder="Cargo, habilidad o empresa..." id="searchInput">
         <div class="search-divider"></div>
+        <select id="locationSelect" onchange="filterJobs()" style="max-width:160px;">
+          <option value="">📍 Toda la RD</option>
+          <option value="Santo Domingo">Santo Domingo</option>
+          <option value="Santiago">Santiago</option>
+          <option value="La Romana">La Romana</option>
+          <option value="San Pedro de Macorís">San Pedro de Macorís</option>
+          <option value="Punta Cana">Punta Cana</option>
+          <option value="Puerto Plata">Puerto Plata</option>
+          <option value="Remoto">Remoto</option>
+        </select>
+        <div class="search-divider"></div>
         <select id="sectorSelect">
           <option value="">Todos los sectores</option>
           <option>Tecnología</option><option>Finanzas</option><option>Marketing</option>
           <option>Operaciones</option><option>Salud</option><option>Legal</option>
         </select>
         <button class="search-btn" onclick="filterJobs()">Buscar</button>
+      </div>
+      <div class="filter-chips-row">
+        <div class="filter-chip-dropdown" id="fcd-sueldo">
+          <button class="fcd-btn" onclick="toggleFcd('fcd-sueldo')">Sueldo <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
+          <div class="fcd-menu" id="fcd-sueldo-menu">
+            <div class="fcd-option" onclick="selectFcd('sueldo','','Sueldo')">Cualquier sueldo</div>
+            <div class="fcd-option" onclick="selectFcd('sueldo','0-40000','Hasta RD$ 40K')">Hasta RD$ 40,000</div>
+            <div class="fcd-option" onclick="selectFcd('sueldo','40000-80000','RD$ 40K–80K')">RD$ 40,000–80,000</div>
+            <div class="fcd-option" onclick="selectFcd('sueldo','80000-130000','RD$ 80K–130K')">RD$ 80,000–130,000</div>
+            <div class="fcd-option" onclick="selectFcd('sueldo','130000-','RD$ 130K+')">RD$ 130,000+</div>
+          </div>
+        </div>
+        <div class="filter-chip-dropdown" id="fcd-tipo">
+          <button class="fcd-btn" onclick="toggleFcd('fcd-tipo')">Tipo de empleo <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
+          <div class="fcd-menu" id="fcd-tipo-menu">
+            <div class="fcd-option" onclick="selectFcd('tipo','','Tipo de empleo')">Todos</div>
+            <div class="fcd-option" onclick="selectFcd('tipo','Presencial','Presencial')">Presencial</div>
+            <div class="fcd-option" onclick="selectFcd('tipo','Remoto','Remoto')">Remoto</div>
+            <div class="fcd-option" onclick="selectFcd('tipo','Híbrido','Híbrido')">Híbrido</div>
+            <div class="fcd-option" onclick="selectFcd('tipo','Freelance','Freelance')">Freelance / Proyecto</div>
+          </div>
+        </div>
+        <div class="filter-chip-dropdown" id="fcd-fecha">
+          <button class="fcd-btn" onclick="toggleFcd('fcd-fecha')">Fecha <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
+          <div class="fcd-menu" id="fcd-fecha-menu">
+            <div class="fcd-option" onclick="selectFcd('fecha','','Fecha')">Cualquier fecha</div>
+            <div class="fcd-option" onclick="selectFcd('fecha','1','Últimas 24 horas')">Últimas 24 horas</div>
+            <div class="fcd-option" onclick="selectFcd('fecha','7','Última semana')">Última semana</div>
+            <div class="fcd-option" onclick="selectFcd('fecha','30','Último mes')">Último mes</div>
+          </div>
+        </div>
       </div>
       <div class="hero-stats">
         <div><div class="stat-num">340+</div><div class="stat-label">Vacantes activas</div></div>
@@ -2063,8 +2133,10 @@ async function loadVacantes() {
         tipo: p.tipo || 'Presencial',
         sector: p.sector || '',
         salary,
+        salarioNum: p.salario_ofrecido ? Number(p.salario_ofrecido) : 0,
         tags: p.requisitos ? p.requisitos.split(',').slice(0, 4).map(t => t.trim()).filter(Boolean) : [],
         time: timeAgo,
+        created_at: p.created_at,
       };
     });
 
@@ -2123,14 +2195,63 @@ function setFilter(el, val) {
   filterJobs();
 }
 
+// ─── FILTER CHIP DROPDOWNS ───
+const fcdState = { sueldo: '', tipo: '', fecha: '' };
+
+function toggleFcd(id) {
+  const menu = document.getElementById(id + '-menu');
+  const isOpen = menu.classList.contains('open');
+  document.querySelectorAll('.fcd-menu').forEach(m => m.classList.remove('open'));
+  document.querySelectorAll('.fcd-btn').forEach(b => b.classList.remove('active'));
+  if (!isOpen) {
+    menu.classList.add('open');
+    document.querySelector('#' + id + ' .fcd-btn').classList.add('active');
+  }
+}
+
+function selectFcd(type, value, label) {
+  fcdState[type] = value;
+  const id = 'fcd-' + type;
+  const btn = document.querySelector('#' + id + ' .fcd-btn');
+  btn.childNodes[0].textContent = label + ' ';
+  btn.classList.toggle('active', !!value);
+  document.getElementById(id + '-menu').classList.remove('open');
+  document.querySelectorAll('#' + id + '-menu .fcd-option').forEach(o => o.classList.remove('selected'));
+  if (value) event.target.classList.add('selected');
+  filterJobs();
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.filter-chip-dropdown')) {
+    document.querySelectorAll('.fcd-menu').forEach(m => m.classList.remove('open'));
+    document.querySelectorAll('.fcd-btn').forEach(b => b.classList.remove('active'));
+  }
+});
+
 function filterJobs() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const sector = document.getElementById('sectorSelect').value;
+  const location = document.getElementById('locationSelect')?.value || '';
+  const now = new Date();
+
   let filtered = jobs.filter(j => {
     const matchQ = !q || j.title.toLowerCase().includes(q) || j.company.toLowerCase().includes(q) || j.tags.some(t => t.toLowerCase().includes(q));
     const matchSector = !sector || j.sector === sector;
     const matchTipo = activeFilter === 'todos' || j.tipo === activeFilter;
-    return matchQ && matchSector && matchTipo;
+    const matchLocation = !location || (j.location || '').toLowerCase().includes(location.toLowerCase()) || (location === 'Remoto' && j.tipo === 'Remoto');
+    const matchFcdTipo = !fcdState.tipo || j.tipo === fcdState.tipo;
+    const matchFcdFecha = !fcdState.fecha || (() => {
+      const days = parseInt(fcdState.fecha);
+      const diffDays = Math.floor((now - new Date(j.created_at || now)) / 86400000);
+      return diffDays <= days;
+    })();
+    const matchFcdSueldo = !fcdState.sueldo || (() => {
+      const [min, max] = fcdState.sueldo.split('-').map(Number);
+      const sal = j.salarioNum || 0;
+      if (!sal) return true;
+      return sal >= (min || 0) && (isNaN(max) || sal <= max);
+    })();
+    return matchQ && matchSector && matchTipo && matchLocation && matchFcdTipo && matchFcdFecha && matchFcdSueldo;
   });
   renderJobs(filtered);
 }
