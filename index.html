@@ -2575,7 +2575,7 @@ function renderFreelancers(list) {
         <div class="fc-skills">${f.habilidades.slice(0,4).map(h => `<span class="fc-skill">${h}</span>`).join('')}</div>
         ${portfolioHtml}
         <div class="fc-footer">
-          <a class="contact-btn" href="mailto:${f.email}?subject=${encodeURIComponent('Contacto vía We Recruit DR')}">Contactar</a>
+          <button class="contact-btn" onclick="toggleEmail(this, '${f.email}')">Contactar</button>
         </div>
       </div>
     </div>`;
@@ -4011,6 +4011,18 @@ async function nextTestQuestion() {
 loadTalent();
 loadBlog();
 loadTests();
+
+// ── CONTACTAR FREELANCER ──
+function toggleEmail(btn, email) {
+  const existing = btn.parentElement.querySelector('.fl-email-reveal');
+  if (existing) { existing.remove(); btn.textContent = 'Contactar'; return; }
+  const div = document.createElement('div');
+  div.className = 'fl-email-reveal';
+  div.style.cssText = 'margin-top:8px;background:#EBF4FA;border-radius:6px;padding:8px 10px;font-size:12px;color:#063958;font-weight:600;text-align:center;word-break:break-all;';
+  div.innerHTML = `✉ <a href="mailto:${email}?subject=${encodeURIComponent('Contacto vía We Recruit DR')}" style="color:#0F6B9F;">${email}</a>`;
+  btn.parentElement.appendChild(div);
+  btn.textContent = '✕ Cerrar';
+}
 
 // ── MOBILE NAV ──
 function toggleMobileNav() {
