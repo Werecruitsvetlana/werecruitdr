@@ -2170,9 +2170,9 @@ async function loadVacantes() {
     };
 
     const mapVp = (p, i) => {
-      const salary = p.salario_minimo
-        ? `RD$ ${Number(p.salario_minimo).toLocaleString()}${p.salario_maximo ? ' – ' + Number(p.salario_maximo).toLocaleString() : ''}`
-        : 'A convenir';
+      const salMin = p.salario_min ? Number(p.salario_min).toLocaleString() : '';
+      const salMax = p.salario_max ? Number(p.salario_max).toLocaleString() : '';
+      const salary = salMin && salMax ? `RD$ ${salMin} – ${salMax}` : salMin ? `RD$ ${salMin}+` : salMax ? `Hasta RD$ ${salMax}` : 'A convenir';
       const fecha = new Date(p.created_at);
       const diffDays = Math.floor((new Date() - fecha) / 86400000);
       const timeAgo = diffDays === 0 ? 'Hoy' : diffDays === 1 ? 'Ayer' : `Hace ${diffDays} días`;
@@ -2189,7 +2189,7 @@ async function loadVacantes() {
         tipo: p.tipo_empleo || 'Presencial',
         sector: p.sector || '',
         salary,
-        salarioNum: p.salario_minimo ? Number(p.salario_minimo) : 0,
+        salarioNum: p.salario_min ? Number(p.salario_min) : 0,
         tags: p.requisitos ? p.requisitos.split(',').slice(0, 4).map(t => t.trim()).filter(Boolean) : [],
         time: timeAgo,
         created_at: p.created_at,
