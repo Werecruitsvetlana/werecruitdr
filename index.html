@@ -2134,15 +2134,15 @@ async function loadVacantes() {
   const el = document.getElementById('jobsList');
   el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray)"><div style="font-size:2rem;margin-bottom:1rem">⏳</div><p>Cargando vacantes...</p></div>';
   try {
-    const { data, error } = await sb
-      .from('posiciones')
-      .select('*, empresas(nombre)')
-      .eq('estado', 'abierta')
-      .order('created_at', { ascending: false });
+    const [{ data: posData, error: posError }, { data: vpData, error: vpError }] = await Promise.all([
+      sb.from('posiciones').select('*, empresas(nombre)').eq('estado', 'abierta').order('created_at', { ascending: false }),
+      sb.from('vacantes_portal').select('*, empresas_portal(nombre_empresa)').eq('estado', 'aprobada').order('created_at', { ascending: false })
+    ]);
 
-    if (error) throw error;
+    if (posError) throw posError;
+    if (vpError) throw vpError;
 
-    jobs = (data || []).map((p, i) => {
+    const mapPos = (p, i) => {
       const salary = p.salario_ofrecido
         ? `RD$ ${Number(p.salario_ofrecido).toLocaleString()}`
         : 'A convenir';
@@ -2152,7 +2152,7 @@ async function loadVacantes() {
       const empresa = p.empresas?.nombre || '';
       return {
         id: p.id,
-        featured: i === 0,
+        featured: false,
         logo: LOGO_COLORS[i % LOGO_COLORS.length],
         initials: (empresa || 'WR').substring(0, 2).toUpperCase(),
         title: p.titulo || 'Vacante',
@@ -2165,8 +2165,46 @@ async function loadVacantes() {
         tags: p.requisitos ? p.requisitos.split(',').slice(0, 4).map(t => t.trim()).filter(Boolean) : [],
         time: timeAgo,
         created_at: p.created_at,
+        isPortalVacante: false,
       };
-    });
+    };
+
+    const mapVp = (p, i) => {
+      const salary = p.salario_minimo
+        ? `RD$ ${Number(p.salario_minimo).toLocaleString()}${p.salario_maximo ? ' – ' + Number(p.salario_maximo).toLocaleString() : ''}`
+        : 'A convenir';
+      const fecha = new Date(p.created_at);
+      const diffDays = Math.floor((new Date() - fecha) / 86400000);
+      const timeAgo = diffDays === 0 ? 'Hoy' : diffDays === 1 ? 'Ayer' : `Hace ${diffDays} días`;
+      const empresa = p.empresas_portal?.nombre_empresa || '';
+      return {
+        id: p.id,
+        vpId: p.id,
+        featured: false,
+        logo: LOGO_COLORS[(i + (posData || []).length) % LOGO_COLORS.length],
+        initials: (empresa || 'EP').substring(0, 2).toUpperCase(),
+        title: p.titulo || 'Vacante',
+        company: empresa,
+        location: p.ubicacion || 'Santo Domingo',
+        tipo: p.tipo_empleo || 'Presencial',
+        sector: p.sector || '',
+        salary,
+        salarioNum: p.salario_minimo ? Number(p.salario_minimo) : 0,
+        tags: p.requisitos ? p.requisitos.split(',').slice(0, 4).map(t => t.trim()).filter(Boolean) : [],
+        time: timeAgo,
+        created_at: p.created_at,
+        isPortalVacante: true,
+      };
+    };
+
+    const allJobs = [
+      ...(posData || []).map(mapPos),
+      ...(vpData || []).map(mapVp),
+    ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+    if (allJobs.length) allJobs[0].featured = true;
+
+    jobs = allJobs;
 
     if (!jobs.length) {
       el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray)"><div style="font-size:2rem;margin-bottom:1rem">💼</div><p>No hay vacantes activas en este momento.</p></div>';
