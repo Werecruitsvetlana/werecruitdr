@@ -2566,10 +2566,11 @@ function renderFreelancers(list) {
       : `<div class="fc-photo">${f.initials}</div>`;
     const tarifaVal = f.tarifaHora ? 'RD$ ' + Number(f.tarifaHora).toLocaleString() : 'A convenir';
     const anosVal = f.anos ? f.anos + ' años' : '—';
-    const portfolioHtml = f.portfolio
+    const allPortfolios = [...(f.portafolioUrls || []), ...(f.portfolio && !f.portafolioUrls?.includes(f.portfolio) ? [f.portfolio] : [])];
+    const portfolioHtml = allPortfolios.length
       ? `<div class="fc-portfolio">
            <div class="fc-portfolio-label">Portafolio</div>
-           <a class="fc-portfolio-link" href="${f.portfolio}" target="_blank" rel="noopener">${f.portfolio.replace(/^https?:\/\//, '')}</a>
+           ${allPortfolios.map(u => `<a class="fc-portfolio-link" href="${u}" target="_blank" rel="noopener" style="display:block;margin-bottom:2px;">📎 ${u.replace(/^https?:\/\//, '').substring(0, 40)}</a>`).join('')}
          </div>`
       : '';
     return `
