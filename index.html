@@ -4155,13 +4155,12 @@ async function verEmpresa(id) {
         const val = avgCat(key);
         return val ? `<div style="display:flex;align-items:center;gap:10px;margin-bottom:.5rem;"><span style="font-size:13px;color:#555;width:200px;">${label}</span><div style="flex:1;background:#e8edf2;border-radius:10px;height:8px;"><div style="background:#0F6B9F;height:8px;border-radius:10px;width:${(val/5*100)}%;"></div></div><span style="font-size:13px;font-weight:700;color:#063958;width:30px;text-align:right;">${val}</span></div>` : '';
       }).join('')}
-    </div>` : ''}
+    </div>
 
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;">
       <h3 style="font-size:15px;font-weight:700;color:#063958;">Opiniones de empleados</h3>
       <button onclick="mostrarFormEval('${empresa.id}')" style="padding:8px 16px;background:#063958;color:#CEE4CC;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">+ Dejar opinión</button>
     </div>
-
     <div id="formEval" style="display:none;background:#f5faf5;border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;">
       <h4 style="margin-bottom:1rem;color:#063958;">Tu evaluación (anónima)</h4>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
@@ -4183,8 +4182,7 @@ async function verEmpresa(id) {
       <textarea id="eval-comentario" placeholder="Cuéntanos tu experiencia (opcional)..." rows="3" style="width:100%;padding:8px;border:1.5px solid #dde5ed;border-radius:6px;font-size:13px;resize:vertical;"></textarea>
       <button onclick="enviarEval('${empresa.id}')" style="margin-top:10px;padding:9px 20px;background:#063958;color:#CEE4CC;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">Enviar evaluación</button>
     </div>
-
-    ${reviews.length ? reviews.map(r => `
+    ${reviews.map(r => `
     <div style="background:#fff;border:1.5px solid #e8edf2;border-radius:10px;padding:1rem;margin-bottom:.8rem;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;">
         <div style="color:#f59e0b;font-size:.9rem;">${starsHtml(r.rating_general)} <span style="color:#063958;font-weight:700;">${r.rating_general}/5</span></div>
@@ -4192,7 +4190,35 @@ async function verEmpresa(id) {
       </div>
       ${r.comentario ? `<p style="font-size:13px;color:#333;line-height:1.5;margin:0;">${r.comentario}</p>` : ''}
       ${r.recomienda !== null ? `<div style="margin-top:.5rem;font-size:12px;color:${r.recomienda?'#15803d':'#dc2626'};">${r.recomienda ? '✓ Recomienda esta empresa' : '✗ No recomienda esta empresa'}</div>` : ''}
-    </div>`).join('') : '<div style="text-align:center;padding:2rem;color:#999;font-size:14px;">Aún no hay opiniones. ¡Sé el primero en evaluar esta empresa!</div>'}
+    </div>`).join('')}` : `
+    <div style="border-top:1.5px solid #e8edf2;margin-top:2rem;padding-top:1.5rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;">
+        <h3 style="font-size:15px;font-weight:700;color:#063958;">Opiniones de empleados</h3>
+        <button onclick="mostrarFormEval('${empresa.id}')" style="padding:8px 16px;background:#063958;color:#CEE4CC;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">+ Dejar opinión</button>
+      </div>
+      <div id="formEval" style="display:none;background:#f5faf5;border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;">
+        <h4 style="margin-bottom:1rem;color:#063958;">Tu evaluación (anónima)</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+          ${[['eval-general','General'],['eval-cultura','Cultura'],['eval-salario','Salarios'],['eval-crecimiento','Crecimiento'],['eval-balance','Balance vida-trabajo']].map(([id,label]) => `
+          <div><label style="font-size:12px;color:#555;">${label}</label>
+          <select id="${id}" style="width:100%;padding:6px;border:1.5px solid #dde5ed;border-radius:6px;font-size:13px;margin-top:2px;">
+            <option value="">—</option><option value="5">★★★★★ Excelente</option><option value="4">★★★★ Muy bueno</option><option value="3">★★★ Regular</option><option value="2">★★ Malo</option><option value="1">★ Muy malo</option>
+          </select></div>`).join('')}
+        </div>
+        <select id="eval-tipo" style="width:100%;padding:8px;border:1.5px solid #dde5ed;border-radius:6px;font-size:13px;margin-bottom:8px;">
+          <option value="actual">Empleado actual</option>
+          <option value="ex">Ex empleado</option>
+        </select>
+        <div style="margin-bottom:8px;">
+          <label style="font-size:12px;color:#555;">¿Recomendarías esta empresa?</label><br>
+          <label style="font-size:13px;margin-right:12px;"><input type="radio" name="eval-rec" value="true"> Sí</label>
+          <label style="font-size:13px;"><input type="radio" name="eval-rec" value="false"> No</label>
+        </div>
+        <textarea id="eval-comentario" placeholder="Cuéntanos tu experiencia (opcional)..." rows="3" style="width:100%;padding:8px;border:1.5px solid #dde5ed;border-radius:6px;font-size:13px;resize:vertical;"></textarea>
+        <button onclick="enviarEval('${empresa.id}')" style="margin-top:10px;padding:9px 20px;background:#063958;color:#CEE4CC;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">Enviar evaluación</button>
+      </div>
+      <div style="text-align:center;padding:1.5rem;color:#999;font-size:14px;">Aún no hay opiniones. ¡Sé el primero en evaluar esta empresa.</div>
+    </div>`}
   `;
 }
 
