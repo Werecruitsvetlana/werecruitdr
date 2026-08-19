@@ -1878,9 +1878,9 @@ footer span { color: var(--green); }
         </div>
       </div>
 
-      <div class="form-section">
+      <div class="form-section" style="display:none">
         <h3>Evaluaciones completadas</h3>
-        <div id="cpTestResults"><p style="color:var(--gray);font-size:.9rem">No has completado ninguna evaluación aún.</p></div>
+        <div id="cpTestResults"></div>
       </div>
     </div>
   </div>
@@ -3584,7 +3584,7 @@ function cpShowEdit() {
   document.getElementById('cp-portafolio').value = p.portafolio_url || '';
   document.getElementById('cp-disponible').checked = p.disponible !== false;
   document.getElementById('cp-publico').checked = p.perfil_publico !== false;
-  cpLoadTestResults();
+  // cpLoadTestResults(); // evaluaciones no activas aún
 }
 
 async function cpSave() {
