@@ -924,6 +924,7 @@ footer span { color: var(--green); }
     <a onclick="showPage('blog');closeMobileNav()">Blog</a>
     <a onclick="showPage('salarios');closeMobileNav()">Salarios</a>
     <a onclick="showPage('evaluaciones');closeMobileNav()">Evaluaciones</a>
+    <a onclick="showPage('directorio');closeMobileNav()">Directorio</a>
     <a onclick="showPage('para-empresas');closeMobileNav()">Empresas</a>
     <a onclick="showPage('mi-perfil');closeMobileNav()">Mi perfil</a>
     <button class="nav-cta" onclick="showPage('publicar-vacante');closeMobileNav()">Publicar vacante</button>
@@ -1588,6 +1589,53 @@ footer span { color: var(--green); }
   <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
 </div>
 
+<!-- ═══════════════ DIRECTORIO DE EMPRESAS ═══════════════ -->
+<div id="page-directorio" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Directorio</span></div>
+      <h1>Empresas <em>de República Dominicana</em></h1>
+      <p>Investiga empresas dominicanas antes de aplicar. Cultura, salarios, crecimiento y opiniones de empleados.</p>
+    </div>
+  </div>
+
+  <div style="max-width:1000px;margin:0 auto;padding:2rem;">
+    <div style="display:flex;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap;">
+      <input id="dirSearch" type="text" placeholder="Buscar empresa..." oninput="renderDirectorio()"
+        style="flex:1;min-width:200px;padding:10px 14px;border:1.5px solid #dde5ed;border-radius:8px;font-size:14px;outline:none;">
+      <select id="dirSector" onchange="renderDirectorio()"
+        style="padding:10px 14px;border:1.5px solid #dde5ed;border-radius:8px;font-size:14px;background:#fff;outline:none;">
+        <option value="">Todos los sectores</option>
+        <option>Tecnología</option>
+        <option>Finanzas</option>
+        <option>Marketing</option>
+        <option>Manufactura</option>
+        <option>Retail</option>
+        <option>Salud</option>
+        <option>Turismo</option>
+        <option>Educación</option>
+        <option>Construcción</option>
+        <option>Legal</option>
+        <option>Logística</option>
+        <option>Telecomunicaciones</option>
+      </select>
+    </div>
+
+    <div id="dirGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;"></div>
+  </div>
+
+  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+</div>
+
+<!-- PERFIL DE EMPRESA -->
+<div id="page-empresa-perfil" class="page">
+  <div style="max-width:800px;margin:0 auto;padding:2rem;">
+    <button class="back-btn" onclick="showPage('directorio')" style="margin-bottom:1.5rem;">← Volver al directorio</button>
+    <div id="empresaPerfilContent"></div>
+  </div>
+  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+</div>
+
 <!-- ═══════════════ PUBLICAR VACANTE PAGE ═══════════════ -->
 <div id="page-publicar-vacante" class="page">
   <div class="form-page">
@@ -2240,6 +2288,9 @@ function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   window.scrollTo(0, 0);
+  if (name === 'directorio' && !dirEmpresas.length) loadDirectorio();
+  if (name === 'freelancers' && !freelancers.length) loadFreelancers();
+  if (name === 'blog') loadBlogPosts();
 }
 
 function openApply(jobId) {
@@ -4010,6 +4061,166 @@ function toggleEmail(btn, email, telefono) {
     + (telefono ? `<br>📞 <a href="tel:${telefono}" style="color:#0F6B9F;">${telefono}</a>` : '');
   btn.parentElement.appendChild(div);
   btn.textContent = '✕ Cerrar';
+}
+
+// ═══════════════════════════════════════════════════════
+//  DIRECTORIO DE EMPRESAS
+// ═══════════════════════════════════════════════════════
+
+let dirEmpresas = [];
+
+async function loadDirectorio() {
+  const grid = document.getElementById('dirGrid');
+  grid.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray);grid-column:1/-1">⏳ Cargando empresas...</div>';
+  try {
+    const { data, error } = await sb.from('empresas_directorio').select('*').eq('aprobada', true).order('nombre');
+    if (error) throw error;
+    dirEmpresas = data || [];
+    renderDirectorio();
+  } catch(e) {
+    console.error(e);
+    grid.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray);grid-column:1/-1">Error al cargar el directorio.</div>';
+  }
+}
+
+function renderDirectorio() {
+  const q = document.getElementById('dirSearch').value.toLowerCase();
+  const sector = document.getElementById('dirSector').value;
+  const list = dirEmpresas.filter(e =>
+    (!q || e.nombre.toLowerCase().includes(q) || (e.descripcion||'').toLowerCase().includes(q)) &&
+    (!sector || e.sector === sector)
+  );
+  const grid = document.getElementById('dirGrid');
+  if (!list.length) {
+    grid.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray);grid-column:1/-1">No se encontraron empresas con esos filtros.</div>';
+    return;
+  }
+  grid.innerHTML = list.map(e => {
+    const inicial = e.nombre[0].toUpperCase();
+    const fotoHtml = e.logo_url
+      ? `<img src="${e.logo_url}" alt="${e.nombre}" style="width:56px;height:56px;border-radius:10px;object-fit:contain;border:1px solid #e8edf2;">`
+      : `<div style="width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#063958,#0F6B9F);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:900;font-size:22px;color:#CEE4CC;">${inicial}</div>`;
+    return `
+    <div onclick="verEmpresa('${e.id}')" style="background:#fff;border:1.5px solid #e8edf2;border-radius:12px;padding:1.2rem;cursor:pointer;transition:all .2s;" onmouseover="this.style.borderColor='#0F6B9F';this.style.boxShadow='0 4px 18px rgba(15,107,159,0.1)'" onmouseout="this.style.borderColor='#e8edf2';this.style.boxShadow='none'">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:.8rem;">
+        ${fotoHtml}
+        <div>
+          <div style="font-weight:700;font-size:15px;color:#063958;">${e.nombre}</div>
+          <div style="font-size:12px;color:#666;margin-top:2px;">${e.sector || '—'} · ${e.ciudad || 'RD'}</div>
+        </div>
+      </div>
+      ${e.tamano ? `<div style="font-size:11px;background:#EBF4FA;color:#0F6B9F;border-radius:20px;padding:2px 10px;display:inline-block;font-weight:600;margin-bottom:.6rem;">${e.tamano} empleados</div>` : ''}
+      ${e.descripcion ? `<div style="font-size:12.5px;color:#555;line-height:1.5;">${e.descripcion.substring(0,100)}${e.descripcion.length>100?'…':''}</div>` : ''}
+      <div style="margin-top:.8rem;font-size:12px;color:#0F6B9F;font-weight:600;">Ver perfil →</div>
+    </div>`;
+  }).join('');
+}
+
+async function verEmpresa(id) {
+  const empresa = dirEmpresas.find(e => e.id === id);
+  if (!empresa) return;
+  const el = document.getElementById('empresaPerfilContent');
+  el.innerHTML = '<div style="text-align:center;padding:2rem;">⏳ Cargando...</div>';
+  showPage('empresa-perfil');
+
+  const { data: evals } = await sb.from('evaluaciones_empresa').select('*').eq('empresa_id', id).eq('aprobada', true);
+  const reviews = evals || [];
+
+  const avgRating = reviews.length ? (reviews.reduce((s, r) => s + r.rating_general, 0) / reviews.length).toFixed(1) : null;
+  const starsHtml = (n) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
+  const avgCat = (key) => reviews.length ? (reviews.reduce((s,r) => s + (r[key]||0), 0) / reviews.length).toFixed(1) : null;
+
+  const inicial = empresa.nombre[0].toUpperCase();
+  const logoHtml = empresa.logo_url
+    ? `<img src="${empresa.logo_url}" style="width:80px;height:80px;border-radius:14px;object-fit:contain;border:1px solid #e8edf2;">`
+    : `<div style="width:80px;height:80px;border-radius:14px;background:linear-gradient(135deg,#063958,#0F6B9F);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-weight:900;font-size:32px;color:#CEE4CC;">${inicial}</div>`;
+
+  el.innerHTML = `
+    <div style="display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+      ${logoHtml}
+      <div style="flex:1;">
+        <h1 style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1.6rem;color:#063958;margin-bottom:.2rem;">${empresa.nombre}</h1>
+        <div style="color:#666;font-size:14px;">${empresa.sector||''} ${empresa.sector&&empresa.ciudad?'·':''} ${empresa.ciudad||''} ${empresa.tamano?'· '+empresa.tamano+' empleados':''}</div>
+        ${empresa.web ? `<a href="${empresa.web}" target="_blank" style="font-size:13px;color:#0F6B9F;text-decoration:none;">🌐 ${empresa.web.replace(/^https?:\/\//,'')}</a>` : ''}
+      </div>
+      ${avgRating ? `<div style="text-align:center;background:#f5faf5;border-radius:12px;padding:.8rem 1.2rem;"><div style="font-size:2rem;font-weight:900;color:#063958;">${avgRating}</div><div style="color:#f59e0b;font-size:1rem;">${starsHtml(avgRating)}</div><div style="font-size:11px;color:#666;">${reviews.length} evaluación${reviews.length>1?'es':''}</div></div>` : ''}
+    </div>
+
+    ${empresa.descripcion ? `<div style="background:#f5faf5;border-radius:10px;padding:1rem;margin-bottom:1.5rem;font-size:14px;color:#333;line-height:1.6;">${empresa.descripcion}</div>` : ''}
+
+    ${reviews.length ? `
+    <div style="background:#fff;border:1.5px solid #e8edf2;border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;">
+      <h3 style="font-size:14px;font-weight:700;color:#063958;margin-bottom:1rem;text-transform:uppercase;letter-spacing:.5px;">Puntuación por categoría</h3>
+      ${[['rating_cultura','Cultura y ambiente'],['rating_salario','Salarios y beneficios'],['rating_crecimiento','Oportunidad de crecimiento'],['rating_balance','Balance vida-trabajo']].map(([key,label]) => {
+        const val = avgCat(key);
+        return val ? `<div style="display:flex;align-items:center;gap:10px;margin-bottom:.5rem;"><span style="font-size:13px;color:#555;width:200px;">${label}</span><div style="flex:1;background:#e8edf2;border-radius:10px;height:8px;"><div style="background:#0F6B9F;height:8px;border-radius:10px;width:${(val/5*100)}%;"></div></div><span style="font-size:13px;font-weight:700;color:#063958;width:30px;text-align:right;">${val}</span></div>` : '';
+      }).join('')}
+    </div>` : ''}
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;">
+      <h3 style="font-size:15px;font-weight:700;color:#063958;">Opiniones de empleados</h3>
+      <button onclick="mostrarFormEval('${empresa.id}')" style="padding:8px 16px;background:#063958;color:#CEE4CC;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">+ Dejar opinión</button>
+    </div>
+
+    <div id="formEval" style="display:none;background:#f5faf5;border-radius:12px;padding:1.2rem;margin-bottom:1.5rem;">
+      <h4 style="margin-bottom:1rem;color:#063958;">Tu evaluación (anónima)</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+        ${[['eval-general','General'],['eval-cultura','Cultura'],['eval-salario','Salarios'],['eval-crecimiento','Crecimiento'],['eval-balance','Balance vida-trabajo']].map(([id,label]) => `
+        <div><label style="font-size:12px;color:#555;">${label}</label>
+        <select id="${id}" style="width:100%;padding:6px;border:1.5px solid #dde5ed;border-radius:6px;font-size:13px;margin-top:2px;">
+          <option value="">—</option><option value="5">★★★★★ Excelente</option><option value="4">★★★★ Muy bueno</option><option value="3">★★★ Regular</option><option value="2">★★ Malo</option><option value="1">★ Muy malo</option>
+        </select></div>`).join('')}
+      </div>
+      <select id="eval-tipo" style="width:100%;padding:8px;border:1.5px solid #dde5ed;border-radius:6px;font-size:13px;margin-bottom:8px;">
+        <option value="actual">Empleado actual</option>
+        <option value="ex">Ex empleado</option>
+      </select>
+      <div style="margin-bottom:8px;">
+        <label style="font-size:12px;color:#555;">¿Recomendarías esta empresa?</label><br>
+        <label style="font-size:13px;margin-right:12px;"><input type="radio" name="eval-rec" value="true"> Sí</label>
+        <label style="font-size:13px;"><input type="radio" name="eval-rec" value="false"> No</label>
+      </div>
+      <textarea id="eval-comentario" placeholder="Cuéntanos tu experiencia (opcional)..." rows="3" style="width:100%;padding:8px;border:1.5px solid #dde5ed;border-radius:6px;font-size:13px;resize:vertical;"></textarea>
+      <button onclick="enviarEval('${empresa.id}')" style="margin-top:10px;padding:9px 20px;background:#063958;color:#CEE4CC;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">Enviar evaluación</button>
+    </div>
+
+    ${reviews.length ? reviews.map(r => `
+    <div style="background:#fff;border:1.5px solid #e8edf2;border-radius:10px;padding:1rem;margin-bottom:.8rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;">
+        <div style="color:#f59e0b;font-size:.9rem;">${starsHtml(r.rating_general)} <span style="color:#063958;font-weight:700;">${r.rating_general}/5</span></div>
+        <span style="font-size:11px;color:#999;">${r.tipo_empleado === 'ex' ? 'Ex empleado' : 'Empleado actual'} · ${new Date(r.created_at).toLocaleDateString('es-DO',{month:'short',year:'numeric'})}</span>
+      </div>
+      ${r.comentario ? `<p style="font-size:13px;color:#333;line-height:1.5;margin:0;">${r.comentario}</p>` : ''}
+      ${r.recomienda !== null ? `<div style="margin-top:.5rem;font-size:12px;color:${r.recomienda?'#15803d':'#dc2626'};">${r.recomienda ? '✓ Recomienda esta empresa' : '✗ No recomienda esta empresa'}</div>` : ''}
+    </div>`).join('') : '<div style="text-align:center;padding:2rem;color:#999;font-size:14px;">Aún no hay opiniones. ¡Sé el primero en evaluar esta empresa!</div>'}
+  `;
+}
+
+function mostrarFormEval(id) {
+  const form = document.getElementById('formEval');
+  form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+async function enviarEval(empresaId) {
+  const general = parseInt(document.getElementById('eval-general').value);
+  if (!general) { showToast('Selecciona al menos la puntuación general', 'error'); return; }
+  const rec = document.querySelector('input[name="eval-rec"]:checked');
+  const payload = {
+    empresa_id: empresaId,
+    rating_general: general,
+    rating_cultura: parseInt(document.getElementById('eval-cultura').value) || null,
+    rating_salario: parseInt(document.getElementById('eval-salario').value) || null,
+    rating_crecimiento: parseInt(document.getElementById('eval-crecimiento').value) || null,
+    rating_balance: parseInt(document.getElementById('eval-balance').value) || null,
+    tipo_empleado: document.getElementById('eval-tipo').value,
+    recomienda: rec ? rec.value === 'true' : null,
+    comentario: document.getElementById('eval-comentario').value.trim() || null,
+    aprobada: false
+  };
+  const { error } = await sb.from('evaluaciones_empresa').insert([payload]);
+  if (error) { showToast('Error al enviar', 'error'); return; }
+  document.getElementById('formEval').style.display = 'none';
+  showToast('¡Gracias! Tu evaluación será revisada antes de publicarse.', 'success');
 }
 
 // ── MOBILE NAV ──
