@@ -1264,51 +1264,20 @@ footer span { color: var(--green); }
 
   <div class="freelancers-main">
 
-    <!-- MUESTRA DE PERFIL -->
-    <div class="demo-banner">
-      <div class="demo-banner-text">
-        <h3>¿Así se verá tu perfil?</h3>
-        <p>¿Diseñador, fotógrafo, content creator, desarrollador? Sube tu portafolio, define tu tarifa y deja que las empresas te encuentren. Sin intermediarios, sin comisiones.</p>
-        <button onclick="resetFreelancerForm(); showPage('freelancer-register')">Crear mi perfil gratis →</button>
-      </div>
-      <div class="demo-card-wrap">
-        <!-- TARJETA MUESTRA — Svetlana Elias -->
-        <div class="freelancer-card" style="width:230px;pointer-events:none;">
-          <div class="fc-header">
-            <span class="fc-logo">WR</span>
-            <span class="fc-sector-tag">Diseño Gráfico</span>
-            <div class="fc-photo" style="background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:900;font-size:26px;color:var(--dark);">MC</div>
-          </div>
-          <div class="fc-body">
-            <div class="fc-name">María Castillo</div>
-            <div class="fc-titulo">Directora Creativa</div>
-            <div class="fc-stats">
-              <div class="fc-stat"><div class="fc-stat-val">5 años</div><div class="fc-stat-lbl">Exp.</div></div>
-              <div class="fc-stat"><div class="fc-stat-val" style="font-size:10px;">Por proyecto</div><div class="fc-stat-lbl">Modalidad</div></div>
-              <div class="fc-stat"><div class="fc-stat-val"><span class="avail-badge avail-disponible">Disponible</span></div><div class="fc-stat-lbl">Estado</div></div>
-            </div>
-            <div class="fc-skills">
-              <span class="fc-skill">Branding</span>
-              <span class="fc-skill">Illustrator</span>
-              <span class="fc-skill">Social Media</span>
-            </div>
-            <div class="fc-portfolio">
-              <div class="fc-portfolio-label">Portafolio</div>
-              <span class="fc-portfolio-link" style="cursor:default;">behance.net/mariacastillo</span>
-            </div>
-            <div class="fc-footer">
-              <span class="contact-btn" style="background:var(--mid);">Contactar</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="freelancers-toolbar">
       <h2>Freelancers disponibles <span id="freelancerCount">(cargando...)</span></h2>
       <button class="register-cta-btn" onclick="resetFreelancerForm(); showPage('freelancer-register')">Registrarse como freelancer</button>
     </div>
     <div id="freelancersList" class="freelancers-grid"></div>
+
+    <!-- MUESTRA DE PERFIL — compacta, al final -->
+    <div class="demo-banner" style="margin-top:2.5rem;padding:1.2rem 1.5rem;align-items:center;gap:1.5rem;">
+      <div class="demo-banner-text" style="flex:1;">
+        <h3 style="font-size:1rem;margin-bottom:.4rem;">¿Eres freelancer creativo?</h3>
+        <p style="font-size:.85rem;margin-bottom:.8rem;">Crea tu perfil gratis y deja que empresas te encuentren. Sin intermediarios, sin comisiones.</p>
+        <button onclick="resetFreelancerForm(); showPage('freelancer-register')" style="padding:.5rem 1.2rem;font-size:.85rem;">Crear mi perfil gratis →</button>
+      </div>
+    </div>
   </div>
 
   <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
