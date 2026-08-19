@@ -2527,6 +2527,10 @@ async function loadFreelancers() {
       portfolio: f.portfolio_url || f.portfolio || null,
       anos: f.anos_experiencia || null,
       initials: (f.nombre || 'WR').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase(),
+      telefono: f.telefono || null,
+      linkedin: f.linkedin || null,
+      bio: f.bio || f.resumen || null,
+      portafolioUrls: Array.isArray(f.portafolio_urls) ? f.portafolio_urls : [],
     }));
 
     if (!freelancers.length) {
@@ -2584,9 +2588,11 @@ function renderFreelancers(list) {
           <div class="fc-stat"><div class="fc-stat-val"><span class="avail-badge avail-${f.disponibilidad}">${availLabel[f.disponibilidad] || f.disponibilidad}</span></div><div class="fc-stat-lbl">Estado</div></div>
         </div>
         <div class="fc-skills">${f.habilidades.slice(0,4).map(h => `<span class="fc-skill">${h}</span>`).join('')}</div>
+        ${f.bio ? `<div style="font-size:12px;color:#555;line-height:1.5;margin:10px 0;font-style:italic;">"${f.bio.substring(0,120)}${f.bio.length > 120 ? '…' : ''}"</div>` : ''}
+        ${f.linkedin ? `<div style="font-size:12px;margin-bottom:4px;">🔗 <a href="https://linkedin.com/in/${f.linkedin.replace(/.*linkedin\.com\/in\//,'')}" target="_blank" style="color:var(--mid);text-decoration:none;">${f.linkedin.replace(/.*linkedin\.com\/in\//,'').replace(/\/$/,'')}</a></div>` : ''}
         ${portfolioHtml}
         <div class="fc-footer">
-          <button class="contact-btn" onclick="toggleEmail(this, '${f.email}')">Contactar</button>
+          <button class="contact-btn" onclick="toggleEmail(this, '${f.email}', '${f.telefono || ''}')">Contactar</button>
         </div>
       </div>
     </div>`;
@@ -4024,13 +4030,14 @@ loadBlog();
 loadTests();
 
 // ── CONTACTAR FREELANCER ──
-function toggleEmail(btn, email) {
+function toggleEmail(btn, email, telefono) {
   const existing = btn.parentElement.querySelector('.fl-email-reveal');
   if (existing) { existing.remove(); btn.textContent = 'Contactar'; return; }
   const div = document.createElement('div');
   div.className = 'fl-email-reveal';
   div.style.cssText = 'margin-top:8px;background:#EBF4FA;border-radius:6px;padding:8px 10px;font-size:12px;color:#063958;font-weight:600;text-align:center;word-break:break-all;';
-  div.innerHTML = `✉ <a href="mailto:${email}?subject=${encodeURIComponent('Contacto vía We Recruit DR')}" style="color:#0F6B9F;">${email}</a>`;
+  div.innerHTML = `✉ <a href="mailto:${email}?subject=${encodeURIComponent('Contacto vía We Recruit DR')}" style="color:#0F6B9F;">${email}</a>`
+    + (telefono ? `<br>📞 <a href="tel:${telefono}" style="color:#0F6B9F;">${telefono}</a>` : '');
   btn.parentElement.appendChild(div);
   btn.textContent = '✕ Cerrar';
 }
