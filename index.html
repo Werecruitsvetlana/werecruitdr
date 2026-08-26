@@ -2524,10 +2524,9 @@ async function submitApplication() {
       };
       const { error } = await sb.from('aplicaciones_vacante').insert([appRecord]);
       if (error) throw error;
-    } else {
-      const { error } = await sb.from('candidatos').insert([record]);
-      if (error) throw error;
     }
+    const { error: candError } = await sb.from('candidatos').insert([record]);
+    if (candError) console.warn('Candidato insert:', candError.message);
 
     document.getElementById('applicationForm').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
@@ -3738,9 +3737,29 @@ async function quickApply(jobId) {
   };
 
   try {
-    const table = job.isPortalVacante ? 'aplicaciones_vacante' : 'candidatos';
-    const { error } = await sb.from(table).insert([record]);
-    if (error) throw error;
+    if (job.isPortalVacante) {
+      const { error } = await sb.from('aplicaciones_vacante').insert([record]);
+      if (error) throw error;
+      const candRecord = {
+        nombre: cpPerfil.nombre,
+        apellido: cpPerfil.apellido,
+        email: cpPerfil.email,
+        telefono: cpPerfil.telefono,
+        linkedin: cpPerfil.linkedin,
+        ciudad: cpPerfil.ciudad,
+        anos_experiencia: cpPerfil.anos_experiencia,
+        salario_esperado_dop: cpPerfil.salario_esperado,
+        notas: cpPerfil.resumen,
+        fuente: 'portal',
+        vacante_aplicada: [job.title, job.company].filter(Boolean).join(' · '),
+        posicion_id: job.id,
+      };
+      const { error: candErr } = await sb.from('candidatos').insert([candRecord]);
+      if (candErr) console.warn('Candidato insert:', candErr.message);
+    } else {
+      const { error } = await sb.from('candidatos').insert([record]);
+      if (error) throw error;
+    }
     showToast('¡Aplicación enviada! ' + job.company + ' recibirá tu perfil.', 'success');
   } catch(e) {
     console.error(e);
