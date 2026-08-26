@@ -2525,8 +2525,16 @@ async function submitApplication() {
       const { error } = await sb.from('aplicaciones_vacante').insert([appRecord]);
       if (error) throw error;
     }
-    const { error: candError } = await sb.from('candidatos').insert([record]);
+    const { data: candData, error: candError } = await sb.from('candidatos').insert([record]).select();
     if (candError) console.warn('Candidato insert:', candError.message);
+
+    if (candData && candData[0] && record.posicion_id) {
+      await sb.from('candidato_posicion').insert([{
+        candidato_id: candData[0].id,
+        posicion_id: record.posicion_id,
+        estado: 'identificado',
+      }]);
+    }
 
     document.getElementById('applicationForm').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
@@ -3754,11 +3762,17 @@ async function quickApply(jobId) {
         vacante_aplicada: [job.title, job.company].filter(Boolean).join(' · '),
         posicion_id: job.id,
       };
-      const { error: candErr } = await sb.from('candidatos').insert([candRecord]);
+      const { data: candData, error: candErr } = await sb.from('candidatos').insert([candRecord]).select();
       if (candErr) console.warn('Candidato insert:', candErr.message);
+      if (candData && candData[0] && job.id) {
+        await sb.from('candidato_posicion').insert([{ candidato_id: candData[0].id, posicion_id: job.id, estado: 'identificado' }]);
+      }
     } else {
-      const { error } = await sb.from('candidatos').insert([record]);
+      const { data: candData, error } = await sb.from('candidatos').insert([record]).select();
       if (error) throw error;
+      if (candData && candData[0] && record.posicion_id) {
+        await sb.from('candidato_posicion').insert([{ candidato_id: candData[0].id, posicion_id: record.posicion_id, estado: 'identificado' }]);
+      }
     }
     showToast('¡Aplicación enviada! ' + job.company + ' recibirá tu perfil.', 'success');
   } catch(e) {
