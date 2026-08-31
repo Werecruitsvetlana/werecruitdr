@@ -1413,6 +1413,11 @@ footer span { color: var(--green); }
 
       <div class="form-section">
         <h3>Portafolio</h3>
+        <div class="field" style="margin-bottom:1rem">
+          <label>Página web o portafolio en línea</label>
+          <input type="url" id="fl-web" placeholder="https://mipagina.com o https://behance.net/...">
+          <p style="font-size:.8rem;color:var(--gray);margin-top:.3rem">Página web, Behance, Instagram, Google Drive o cualquier enlace a tu trabajo</p>
+        </div>
         <div class="upload-box" id="flPortafolioBox" onclick="triggerFlPortafolioUpload()">
           <input type="file" id="flPortafolioInput" multiple style="display:none" onchange="handleFlPortafolioUpload(this)">
           <div class="upload-icon">
@@ -2595,6 +2600,7 @@ async function loadFreelancers() {
       initials: (f.nombre || 'WR').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase(),
       telefono: f.telefono || null,
       linkedin: f.linkedin || null,
+      web: f.web || null,
       bio: f.bio || f.resumen || null,
       portafolioUrls: Array.isArray(f.portafolio_urls) ? f.portafolio_urls : [],
     }));
@@ -2633,10 +2639,11 @@ function renderFreelancers(list) {
     const tarifaVal = f.tarifaHora ? 'RD$ ' + Number(f.tarifaHora).toLocaleString() : 'A convenir';
     const anosVal = f.anos ? f.anos + ' años' : '—';
     const allPortfolios = [...(f.portafolioUrls || []), ...(f.portfolio && !f.portafolioUrls?.includes(f.portfolio) ? [f.portfolio] : [])];
-    const portfolioHtml = allPortfolios.length
+    const firstPortfolio = allPortfolios[0] || null;
+    const portfolioHtml = firstPortfolio
       ? `<div class="fc-portfolio">
            <div class="fc-portfolio-label">Portafolio</div>
-           ${allPortfolios.map(u => `<a class="fc-portfolio-link" href="${u}" target="_blank" rel="noopener" style="display:block;margin-bottom:2px;">📎 ${u.replace(/^https?:\/\//, '').substring(0, 40)}</a>`).join('')}
+           <a class="fc-portfolio-link" href="${firstPortfolio}" target="_blank" rel="noopener" style="display:block;">📎 ${firstPortfolio.replace(/^https?:\/\//, '').substring(0, 40)}</a>
          </div>`
       : '';
     return `
@@ -2657,6 +2664,7 @@ function renderFreelancers(list) {
         <div class="fc-skills">${f.habilidades.slice(0,4).map(h => `<span class="fc-skill">${h}</span>`).join('')}</div>
         ${f.bio ? `<div style="font-size:12px;color:#555;line-height:1.5;margin:10px 0;font-style:italic;">"${f.bio.substring(0,120)}${f.bio.length > 120 ? '…' : ''}"</div>` : ''}
         ${f.linkedin ? `<div style="font-size:12px;margin-bottom:4px;">🔗 <a href="https://linkedin.com/in/${f.linkedin.replace(/.*linkedin\.com\/in\//,'')}" target="_blank" style="color:var(--mid);text-decoration:none;">${f.linkedin.replace(/.*linkedin\.com\/in\//,'').replace(/\/$/,'')}</a></div>` : ''}
+        ${f.web ? `<div style="font-size:12px;margin-bottom:4px;">🌐 <a href="${f.web.startsWith('http') ? f.web : 'https://'+f.web}" target="_blank" style="color:var(--mid);text-decoration:none;">${f.web.replace(/^https?:\/\//,'').replace(/\/$/,'')}</a></div>` : ''}
         ${portfolioHtml}
         <div class="fc-footer">
           <button class="contact-btn" onclick="toggleEmail(this, '${f.email}', '${f.telefono || ''}')">Contactar</button>
@@ -2827,7 +2835,7 @@ function validateFreelancerForm() {
 }
 
 function resetFreelancerForm() {
-  ['fl-nombre','fl-email','fl-telefono','fl-linkedin','fl-titulo','fl-habilidades','fl-tarifa-hora','fl-tarifa-proyecto','fl-bio'].forEach(id => {
+  ['fl-nombre','fl-email','fl-telefono','fl-linkedin','fl-web','fl-titulo','fl-habilidades','fl-tarifa-hora','fl-tarifa-proyecto','fl-bio'].forEach(id => {
     const el = document.getElementById(id);
     if (el) { el.value = ''; el.classList.remove('error'); }
   });
@@ -2882,6 +2890,7 @@ async function submitFreelancerRegistration() {
     tarifa_hora: document.getElementById('fl-tarifa-hora').value || null,
     tarifa_proyecto: document.getElementById('fl-tarifa-proyecto').value || null,
     linkedin: document.getElementById('fl-linkedin').value.trim() || null,
+    web: document.getElementById('fl-web').value.trim() || null,
     bio: document.getElementById('fl-bio').value.trim(),
     foto_url: flFotoUrl || null,
     portafolio_urls: flPortafolioUrls.length ? flPortafolioUrls.map(f => f.url) : null,
