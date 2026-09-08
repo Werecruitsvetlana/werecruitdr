@@ -1268,7 +1268,10 @@ footer span { color: var(--green); }
 
     <div class="freelancers-toolbar">
       <h2>Freelancers disponibles <span id="freelancerCount">(cargando...)</span></h2>
-      <button class="register-cta-btn" onclick="resetFreelancerForm(); showPage('freelancer-register')">Registrarse como freelancer</button>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+        <button class="register-cta-btn" onclick="resetFreelancerForm(); showPage('freelancer-register')">Registrarse como freelancer</button>
+        <button onclick="showPage('freelancer-edit')" style="padding:.55rem 1.1rem;font-size:.85rem;font-weight:700;border:1.5px solid var(--mid);background:#fff;color:var(--mid);border-radius:8px;cursor:pointer">Editar mi perfil</button>
+      </div>
     </div>
     <div id="freelancersList" class="freelancers-grid"></div>
 
@@ -1440,6 +1443,127 @@ footer span { color: var(--green); }
         Enviar perfil
         <div class="spinner" id="flSpinner"></div>
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ FREELANCER EDIT PAGE ═══════════════════════ -->
+<div id="page-freelancer-edit" class="page">
+  <div class="form-page">
+    <button class="back-btn" onclick="showPage('freelancers')">← Volver a freelancers</button>
+    <div class="form-header">
+      <div class="fh-icon">✏️</div>
+      <div>
+        <div class="fh-title">Editar mi perfil freelancer</div>
+        <div class="fh-sub">Ingresa tu email para cargar y editar tu perfil</div>
+      </div>
+    </div>
+
+    <!-- LOGIN BY EMAIL -->
+    <div id="feLoginSection">
+      <div class="form-section">
+        <div class="form-row">
+          <div class="field">
+            <label>Tu email de registro *</label>
+            <input type="email" id="fe-email-lookup" placeholder="correo@ejemplo.com">
+          </div>
+          <div class="field" style="display:flex;align-items:flex-end">
+            <button class="submit-btn" onclick="feLoadProfile()" style="width:100%;margin:0">Cargar mi perfil</button>
+          </div>
+        </div>
+        <div id="feEmailError" style="display:none;color:#ef4444;font-size:.85rem;margin-top:.5rem">No encontramos un perfil con ese email.</div>
+      </div>
+    </div>
+
+    <!-- EDIT FORM -->
+    <div id="feFormSection" style="display:none">
+      <div class="form-section">
+        <h3>Información personal</h3>
+        <div class="form-row">
+          <div class="field"><label>Nombre</label><input type="text" id="fe-nombre"></div>
+          <div class="field"><label>Email</label><input type="email" id="fe-email-display" disabled style="opacity:.6"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Teléfono</label><input type="tel" id="fe-telefono"></div>
+          <div class="field"><label>LinkedIn</label><input type="url" id="fe-linkedin" placeholder="linkedin.com/in/..."></div>
+        </div>
+        <div class="field"><label>Página web o portafolio</label><input type="url" id="fe-web" placeholder="https://mipagina.com"></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Perfil profesional</h3>
+        <div class="form-row">
+          <div class="field"><label>Título profesional</label><input type="text" id="fe-titulo"></div>
+          <div class="field"><label>Sector</label>
+            <select id="fe-sector">
+              <option value="">Seleccionar</option>
+              <option>Tecnología</option><option>Diseño</option><option>Marketing</option>
+              <option>Consultoría</option><option>Finanzas</option><option>Legal</option>
+              <option>Operaciones</option><option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Años de experiencia</label>
+            <select id="fe-experiencia">
+              <option value="">Seleccionar</option>
+              <option value="0-2 años">0–2 años</option>
+              <option value="2-5 años">2–5 años</option>
+              <option value="5-10 años">5–10 años</option>
+              <option value="10+ años">10+ años</option>
+            </select>
+          </div>
+          <div class="field"><label>Habilidades (separadas por coma)</label><input type="text" id="fe-habilidades"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Tarifa por hora (RD$)</label><input type="number" id="fe-tarifa-hora"></div>
+          <div class="field"><label>Tarifa por proyecto (RD$)</label><input type="number" id="fe-tarifa-proyecto"></div>
+        </div>
+        <div class="field"><label>Bio</label><textarea id="fe-bio" rows="4" placeholder="Cuéntanos sobre tu experiencia..."></textarea></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Foto de perfil</h3>
+        <div id="feFotoPreview" style="display:none;margin-bottom:.8rem">
+          <img id="feFotoImg" src="" style="width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid var(--green)">
+          <span style="font-size:.85rem;color:var(--gray);margin-left:.8rem">Foto actual</span>
+        </div>
+        <div class="upload-box" id="feFotoBox" onclick="document.getElementById('feFotoInput').click()">
+          <input type="file" id="feFotoInput" accept="image/*" style="display:none" onchange="handleFeFotoUpload(this)">
+          <div class="upload-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+          <strong id="feFotoLabel">Cambiar foto</strong>
+          <p>JPG o PNG · Máx. 5MB</p>
+          <div class="upload-progress" id="feFotoProgress"><div class="upload-progress-bar" id="feFotoProgressBar"></div></div>
+        </div>
+        <div class="cv-link-display" id="feFotoLinkDisplay">✅ Nueva foto lista</div>
+      </div>
+
+      <div class="form-section">
+        <h3>Portafolio</h3>
+        <div id="fePortafolioPreview" style="display:none;margin-bottom:.8rem;font-size:.85rem;color:var(--gray)">Archivos actuales: <span id="fePortafolioCount"></span></div>
+        <div class="upload-box" id="fePortafolioBox" onclick="document.getElementById('fePortafolioInput').click()">
+          <input type="file" id="fePortafolioInput" multiple style="display:none" onchange="handleFePortafolioUpload(this)">
+          <div class="upload-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+          <strong>Agregar archivos de portafolio</strong>
+          <p>Se agregarán a los existentes · Máx. 5MB c/u</p>
+          <div class="upload-progress" id="fePortafolioProgress"><div class="upload-progress-bar" id="fePortafolioProgressBar"></div></div>
+        </div>
+        <div class="cv-link-display" id="fePortafolioLinkDisplay"></div>
+      </div>
+
+      <div style="display:flex;gap:1rem;margin-top:1rem">
+        <button class="submit-btn" id="feSubmitBtn" onclick="feSubmit()">
+          Guardar cambios
+          <div class="spinner" id="feSpinner"></div>
+        </button>
+        <button onclick="showPage('freelancers')" style="padding:.9rem 1.5rem;border:1.5px solid #ddd;background:#fff;border-radius:8px;font-size:.95rem;cursor:pointer;font-weight:600">Cancelar</button>
+      </div>
+
+      <div id="feSuccessMsg" style="display:none;margin-top:1.5rem;padding:1.2rem;background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;text-align:center">
+        <div style="font-size:1.5rem;margin-bottom:.4rem">✅</div>
+        <strong>¡Perfil actualizado!</strong>
+        <p style="margin:.4rem 0 0;font-size:.9rem;color:var(--gray)">Los cambios están en revisión y se reflejarán pronto en el directorio.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -2335,6 +2459,13 @@ function showPage(name) {
   if (name === 'directorio' && !dirEmpresas.length) loadDirectorio();
   if (name === 'freelancers' && !freelancers.length) loadFreelancers();
   if (name === 'blog') loadBlogPosts();
+  if (name === 'freelancer-edit') {
+    feProfileId = null; feFotoUrl = null; fePortafolioNewUrls = []; fePortafolioExisting = [];
+    document.getElementById('fe-email-lookup').value = '';
+    document.getElementById('feEmailError').style.display = 'none';
+    document.getElementById('feLoginSection').style.display = 'block';
+    document.getElementById('feFormSection').style.display = 'none';
+  }
 }
 
 function openApply(jobId) {
@@ -2912,6 +3043,143 @@ async function submitFreelancerRegistration() {
     spinner.style.display = 'none';
     btn.childNodes[0].textContent = 'Enviar perfil';
   }
+}
+
+// ═══════════════════════════════════════════════════════
+//  ✏️  FREELANCER EDIT
+// ═══════════════════════════════════════════════════════
+
+let feProfileId = null;
+let feFotoUrl = null;
+let fePortafolioNewUrls = [];
+let fePortafolioExisting = [];
+let isFeFotoUploading = false;
+let isFePortafolioUploading = false;
+
+async function feLoadProfile() {
+  const email = document.getElementById('fe-email-lookup').value.trim().toLowerCase();
+  if (!email) return;
+  const errEl = document.getElementById('feEmailError');
+  errEl.style.display = 'none';
+
+  const { data, error } = await sb.from('freelancers').select('*').ilike('email', email).single();
+  if (error || !data) { errEl.style.display = 'block'; return; }
+
+  feProfileId = data.id;
+  feFotoUrl = data.foto_url || null;
+  fePortafolioExisting = Array.isArray(data.portafolio_urls) ? data.portafolio_urls : [];
+  fePortafolioNewUrls = [];
+
+  document.getElementById('fe-nombre').value = data.nombre || '';
+  document.getElementById('fe-email-display').value = data.email || '';
+  document.getElementById('fe-telefono').value = data.telefono || '';
+  document.getElementById('fe-linkedin').value = data.linkedin || '';
+  document.getElementById('fe-web').value = data.web || '';
+  document.getElementById('fe-titulo').value = data.titulo_profesional || '';
+  document.getElementById('fe-sector').value = data.sector || '';
+  document.getElementById('fe-experiencia').value = data.anos_experiencia || '';
+  document.getElementById('fe-habilidades').value = Array.isArray(data.habilidades) ? data.habilidades.join(', ') : (data.habilidades || '');
+  document.getElementById('fe-tarifa-hora').value = data.tarifa_hora || '';
+  document.getElementById('fe-tarifa-proyecto').value = data.tarifa_proyecto || '';
+  document.getElementById('fe-bio').value = data.bio || '';
+
+  if (feFotoUrl) {
+    document.getElementById('feFotoImg').src = feFotoUrl;
+    document.getElementById('feFotoPreview').style.display = 'flex';
+    document.getElementById('feFotoPreview').style.alignItems = 'center';
+  }
+  if (fePortafolioExisting.length) {
+    document.getElementById('fePortafolioPreview').style.display = 'block';
+    document.getElementById('fePortafolioCount').textContent = fePortafolioExisting.length + ' archivo(s)';
+  }
+
+  document.getElementById('feLoginSection').style.display = 'none';
+  document.getElementById('feFormSection').style.display = 'block';
+  document.getElementById('feSuccessMsg').style.display = 'none';
+}
+
+async function handleFeFotoUpload(input) {
+  if (!input.files.length) return;
+  const file = input.files[0];
+  if (file.size > 5 * 1024 * 1024) { showToast('La foto no puede superar 5MB', 'error'); return; }
+  isFeFotoUploading = true;
+  document.getElementById('feFotoProgress').style.display = 'block';
+  document.getElementById('feFotoProgressBar').style.width = '60%';
+  const ext = file.name.split('.').pop();
+  const path = `freelancers/fotos/${Date.now()}.${ext}`;
+  const { data, error } = await sb.storage.from('cvs').upload(path, file, { upsert: true });
+  document.getElementById('feFotoProgressBar').style.width = '100%';
+  isFeFotoUploading = false;
+  if (error) { showToast('Error al subir foto', 'error'); return; }
+  const { data: urlData } = sb.storage.from('cvs').getPublicUrl(path);
+  feFotoUrl = urlData.publicUrl;
+  document.getElementById('feFotoImg').src = feFotoUrl;
+  document.getElementById('feFotoPreview').style.display = 'flex';
+  document.getElementById('feFotoPreview').style.alignItems = 'center';
+  document.getElementById('feFotoLinkDisplay').style.display = 'block';
+  setTimeout(() => document.getElementById('feFotoProgress').style.display = 'none', 600);
+}
+
+async function handleFePortafolioUpload(input) {
+  if (!input.files.length) return;
+  isFePortafolioUploading = true;
+  const progress = document.getElementById('fePortafolioProgress');
+  const bar = document.getElementById('fePortafolioProgressBar');
+  progress.style.display = 'block';
+  const files = Array.from(input.files);
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    bar.style.width = `${Math.round(((i + 0.5) / files.length) * 100)}%`;
+    const ext = file.name.split('.').pop();
+    const path = `freelancers/portafolio/${Date.now()}-${i}.${ext}`;
+    const { data, error } = await sb.storage.from('cvs').upload(path, file, { upsert: true });
+    if (!error) {
+      const { data: urlData } = sb.storage.from('cvs').getPublicUrl(path);
+      fePortafolioNewUrls.push({ name: file.name, url: urlData.publicUrl });
+    }
+  }
+  bar.style.width = '100%';
+  isFePortafolioUploading = false;
+  document.getElementById('fePortafolioLinkDisplay').style.display = 'block';
+  document.getElementById('fePortafolioLinkDisplay').innerHTML = fePortafolioNewUrls.map(f => `✅ ${f.name}`).join('<br>');
+  setTimeout(() => progress.style.display = 'none', 600);
+}
+
+async function feSubmit() {
+  if (isFeFotoUploading || isFePortafolioUploading) { showToast('Espera a que terminen de subir los archivos', 'error'); return; }
+  if (!feProfileId) return;
+
+  const btn = document.getElementById('feSubmitBtn');
+  const spinner = document.getElementById('feSpinner');
+  btn.disabled = true;
+  spinner.style.display = 'block';
+
+  const allPortafolio = [...fePortafolioExisting, ...fePortafolioNewUrls.map(f => f.url)];
+
+  const updates = {
+    nombre: document.getElementById('fe-nombre').value.trim(),
+    telefono: document.getElementById('fe-telefono').value.trim() || null,
+    linkedin: document.getElementById('fe-linkedin').value.trim() || null,
+    web: document.getElementById('fe-web').value.trim() || null,
+    titulo_profesional: document.getElementById('fe-titulo').value.trim(),
+    sector: document.getElementById('fe-sector').value || null,
+    anos_experiencia: document.getElementById('fe-experiencia').value || null,
+    habilidades: document.getElementById('fe-habilidades').value.split(',').map(h => h.trim()).filter(Boolean),
+    tarifa_hora: document.getElementById('fe-tarifa-hora').value || null,
+    tarifa_proyecto: document.getElementById('fe-tarifa-proyecto').value || null,
+    bio: document.getElementById('fe-bio').value.trim(),
+    foto_url: feFotoUrl || null,
+    portafolio_urls: allPortafolio.length ? allPortafolio : null,
+  };
+
+  const { error } = await sb.from('freelancers').update(updates).eq('id', feProfileId);
+  btn.disabled = false;
+  spinner.style.display = 'none';
+
+  if (error) { showToast('Error al guardar: ' + error.message, 'error'); return; }
+  document.getElementById('feSuccessMsg').style.display = 'block';
+  showToast('✅ Perfil actualizado', 'success');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ─── INIT ───
