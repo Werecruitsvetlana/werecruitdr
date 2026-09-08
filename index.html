@@ -161,16 +161,17 @@ nav {
   font-size: 12px; font-family: 'Poppins', sans-serif; color: var(--dark); background: var(--white); cursor: pointer; outline: none;
 }
 .job-card {
-  background: var(--white); border: 1.5px solid var(--light); border-radius: 10px;
-  padding: 1.4rem 1.5rem; margin-bottom: 1rem; transition: all 0.2s; cursor: pointer;
+  background: var(--white); border: 1.5px solid var(--light); border-radius: 12px;
+  padding: 1.4rem 1.5rem; margin-bottom: 1rem; transition: all 0.22s; cursor: pointer;
+  box-shadow: 0 2px 10px rgba(6,57,88,0.05);
 }
-.job-card:hover { border-color: var(--mid); box-shadow: 0 4px 18px rgba(15,107,159,0.1); transform: translateY(-1px); }
+.job-card:hover { border-color: var(--mid); box-shadow: 0 6px 22px rgba(15,107,159,0.13); transform: translateY(-2px); }
 .job-card.featured { border-left: 4px solid var(--mid); }
 .job-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 0.8rem; }
-.company-info { display: flex; align-items: center; gap: 12px; }
+.company-info { display: flex; align-items: center; gap: 13px; }
 .company-logo {
-  width: 46px; height: 46px; border-radius: 8px; display: flex; align-items: center;
-  justify-content: center; font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 14px; flex-shrink: 0;
+  width: 52px; height: 52px; border-radius: 10px; display: flex; align-items: center;
+  justify-content: center; font-family: 'Poppins', sans-serif; font-weight: 900; font-size: 15px; flex-shrink: 0;
 }
 .la { background: #E3EFF6; color: #063958; } .lb { background: #E8F4FC; color: #0F6B9F; }
 .lc { background: var(--green); color: #063958; } .ld { background: #EDF5EC; color: #2E7D32; }
@@ -182,6 +183,7 @@ nav {
 .badge-salary { background: #E8F4FC; color: #063958; border: 1px solid #b8d8ee; }
 .badge-type { background: var(--green); color: #063958; border: 1px solid var(--green-dk); }
 .badge-featured { background: var(--dark); color: var(--green); }
+.badge-nuevo { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
 .job-tags { display: flex; gap: 6px; margin-top: 0.8rem; flex-wrap: wrap; }
 .job-tag { font-size: 11px; color: var(--gray); background: var(--cream); border: 1px solid var(--light); border-radius: 4px; padding: 3px 9px; }
 .job-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--light); }
@@ -841,14 +843,14 @@ footer span { color: var(--green); }
   }
 
   /* HERO */
-  .hero { padding: 3rem 1.2rem 2.5rem; }
-  .hero h1 { font-size: 2rem; }
+  .hero { padding: 2.2rem 1.2rem 1.8rem; }
+  .hero h1 { font-size: 1.85rem; }
   .hero p { font-size: 14px; }
   .hero-tag { margin-bottom: 0.8rem; }
+  .hero-stats { margin-top: 1.5rem; padding-top: 1.2rem; gap: 1.6rem; }
 
   /* STATS */
-  .stats { gap: 1.5rem; }
-  .stat-num { font-size: 1.5rem; }
+  .stat-num { font-size: 1.4rem; }
 
   /* FILTERS ROW */
   .filters-row { padding: 0.75rem 1rem; gap: 8px; overflow-x: auto; }
@@ -985,10 +987,15 @@ footer span { color: var(--green); }
       <div class="hero-tag"><span>Santo Domingo · República Dominicana</span></div>
       <h1>Tu próxima oportunidad<br>profesional <em>te espera</em></h1>
       <p>Conectamos el mejor talento dominicano con las empresas líderes del país y la región.</p>
-      <div class="hero-ctas" style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin:1.8rem 0 .5rem">
+      <div class="hero-ctas" style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin:1.8rem 0 1.4rem">
         <button onclick="showPage('para-empresas')" style="padding:.65rem 1.3rem;font-family:'Poppins',sans-serif;font-weight:800;font-size:.82rem;border:none;border-radius:8px;cursor:pointer;background:#CEE4CC;color:#063958;letter-spacing:.4px;white-space:nowrap">QUIERO CONTRATAR</button>
         <button onclick="document.querySelector('.filters-row').scrollIntoView({behavior:'smooth'})" style="padding:.65rem 1.3rem;font-family:'Poppins',sans-serif;font-weight:800;font-size:.82rem;border:none;border-radius:8px;cursor:pointer;background:#0F6B9F;color:#fff;letter-spacing:.4px;white-space:nowrap">QUIERO TRABAJAR</button>
         <button onclick="showPage('freelancers')" style="padding:.65rem 1.3rem;font-family:'Poppins',sans-serif;font-weight:700;font-size:.82rem;border:2px solid rgba(255,255,255,0.45);border-radius:8px;cursor:pointer;background:transparent;color:#fff;letter-spacing:.4px;white-space:nowrap">FREELANCER</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">340+</div><div class="stat-label">Vacantes activas</div></div>
+        <div><div class="stat-num">180+</div><div class="stat-label">Empresas aliadas</div></div>
+        <div><div class="stat-num">5,200+</div><div class="stat-label">Colocaciones exitosas</div></div>
       </div>
       <div class="search-bar">
         <input type="text" placeholder="Cargo, habilidad o empresa..." id="searchInput">
@@ -1041,11 +1048,6 @@ footer span { color: var(--green); }
             <div class="fcd-option" onclick="selectFcd('fecha','30','Último mes')">Último mes</div>
           </div>
         </div>
-      </div>
-      <div class="hero-stats">
-        <div><div class="stat-num">340+</div><div class="stat-label">Vacantes activas</div></div>
-        <div><div class="stat-num">180+</div><div class="stat-label">Empresas aliadas</div></div>
-        <div><div class="stat-num">5,200+</div><div class="stat-label">Colocaciones exitosas</div></div>
       </div>
     </div>
   </div>
@@ -1255,6 +1257,9 @@ footer span { color: var(--green); }
     </div>
   </div>
 
+  <div style="max-width:1200px;margin:0 auto;padding:.8rem 2rem 0">
+    <button class="back-btn" onclick="showPage('home')">← Volver al inicio</button>
+  </div>
   <div class="filters-row">
     <button class="filter-chip active" onclick="filterFreelancers(this,'todos')">Todos</button>
     <button class="filter-chip" onclick="filterFreelancers(this,'Diseño Gráfico')">Diseño Gráfico</button>
@@ -1579,6 +1584,7 @@ footer span { color: var(--green); }
   </div>
 
   <div class="cvb-main">
+    <button class="back-btn" style="margin-bottom:1rem" onclick="showPage('home')">← Volver al inicio</button>
 
     <!-- FORM WIZARD -->
     <div id="cvbForm">
@@ -1730,6 +1736,7 @@ footer span { color: var(--green); }
   </div>
 
   <div style="max-width:1000px;margin:0 auto;padding:2rem;">
+    <button class="back-btn" style="margin-bottom:1rem" onclick="showPage('home')">← Volver al inicio</button>
     <div style="display:flex;gap:12px;margin-bottom:1.5rem;flex-wrap:wrap;">
       <input id="dirSearch" type="text" placeholder="Buscar empresa..." oninput="renderDirectorio()"
         style="flex:1;min-width:200px;padding:10px 14px;border:1.5px solid #dde5ed;border-radius:8px;font-size:14px;outline:none;">
@@ -1874,7 +1881,7 @@ footer span { color: var(--green); }
 <!-- ═══════════════ EMPRESA PANEL PAGE ═══════════════ -->
 <div id="page-empresa-panel" class="page">
   <div class="form-page" style="max-width:1000px">
-
+    <button class="back-btn" style="margin-bottom:1rem" onclick="showPage('home')">← Volver al inicio</button>
     <div id="epLoginSection">
       <div class="form-header">
         <div class="fh-icon">🏢</div>
@@ -2080,7 +2087,10 @@ footer span { color: var(--green); }
       <p>Consejos, tendencias y guías para impulsar tu carrera profesional en República Dominicana.</p>
     </div>
   </div>
-  <div style="max-width:1000px;margin:1.5rem auto;padding:0 2rem;display:flex;gap:1rem;flex-wrap:wrap">
+  <div style="max-width:1000px;margin:.8rem auto 0;padding:0 2rem">
+    <button class="back-btn" onclick="showPage('home')">← Volver al inicio</button>
+  </div>
+  <div style="max-width:1000px;margin:1rem auto;padding:0 2rem;display:flex;gap:1rem;flex-wrap:wrap">
     <select id="blogCatFilter" style="min-width:150px" onchange="filterBlog()">
       <option value="">Todas las categorías</option>
       <option value="consejos">Consejos</option>
@@ -2105,6 +2115,7 @@ footer span { color: var(--green); }
 <!-- ═══════════════ SKILL TEST PAGE ═══════════════ -->
 <div id="page-skill-test" class="page">
   <div class="form-page" style="max-width:700px">
+    <button class="back-btn" style="margin-bottom:1rem" onclick="showPage('home')">← Volver al inicio</button>
     <div id="testIntro">
       <div class="form-header">
         <div class="fh-icon">🧠</div>
@@ -2155,6 +2166,7 @@ footer span { color: var(--green); }
   </div>
 
   <div class="calc-page">
+    <button class="back-btn" style="margin-bottom:1.5rem" onclick="showPage('home')">← Volver al inicio</button>
 
     <div id="calcResult" class="calc-result">
       <div id="calcResultRole" class="calc-result-role"></div>
@@ -2283,6 +2295,7 @@ async function loadVacantes() {
       return {
         id: p.id,
         featured: false,
+        isNew: diffDays <= 7,
         logo: LOGO_COLORS[i % LOGO_COLORS.length],
         initials: (empresa || 'WR').substring(0, 2).toUpperCase(),
         title: p.titulo || 'Vacante',
@@ -2311,6 +2324,7 @@ async function loadVacantes() {
         id: p.id,
         vpId: p.id,
         featured: false,
+        isNew: diffDays <= 7,
         logo: LOGO_COLORS[(i + (posData || []).length) % LOGO_COLORS.length],
         initials: (empresa || 'EP').substring(0, 2).toUpperCase(),
         title: p.titulo || 'Vacante',
@@ -2366,6 +2380,7 @@ function renderJobs(list) {
           </div>
         </div>
         <div class="job-badges">
+          ${j.isNew && !j.featured ? '<span class="badge badge-nuevo">✦ Nuevo</span>' : ''}
           ${j.featured ? '<span class="badge badge-featured">Destacado</span>' : ''}
           <span class="badge badge-salary">${j.salary}</span>
           <span class="badge badge-type">${j.tipo}</span>
