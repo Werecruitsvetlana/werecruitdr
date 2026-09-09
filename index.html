@@ -1078,30 +1078,15 @@ footer span { color: var(--green); }
     <div class="sidebar" id="mobileSidebar">
       <div class="sidebar-section">
         <h3>Sector</h3>
-        <div class="filter-group">
-          <div class="filter-item"><label><input type="checkbox" checked> Tecnología</label><span class="filter-count">84</span></div>
-          <div class="filter-item"><label><input type="checkbox"> Finanzas</label><span class="filter-count">62</span></div>
-          <div class="filter-item"><label><input type="checkbox"> Marketing</label><span class="filter-count">45</span></div>
-          <div class="filter-item"><label><input type="checkbox"> Operaciones</label><span class="filter-count">38</span></div>
-          <div class="filter-item"><label><input type="checkbox"> RRHH</label><span class="filter-count">29</span></div>
-          <div class="filter-item"><label><input type="checkbox"> Salud</label><span class="filter-count">22</span></div>
-        </div>
-      </div>
-      <div class="sidebar-section">
-        <h3>Salario (DOP)</h3>
-        <div class="filter-group">
-          <div class="filter-item"><label><input type="checkbox"> Hasta 40,000</label><span class="filter-count">56</span></div>
-          <div class="filter-item"><label><input type="checkbox" checked> 40K – 80K</label><span class="filter-count">112</span></div>
-          <div class="filter-item"><label><input type="checkbox"> 80K – 130K</label><span class="filter-count">89</span></div>
-          <div class="filter-item"><label><input type="checkbox"> 130K+</label><span class="filter-count">41</span></div>
-        </div>
-      </div>
-      <div class="sidebar-section">
-        <h3>Experiencia</h3>
-        <div class="filter-group">
-          <div class="filter-item"><label><input type="checkbox"> Junior (0–2 años)</label><span class="filter-count">73</span></div>
-          <div class="filter-item"><label><input type="checkbox" checked> Mid (2–5 años)</label><span class="filter-count">145</span></div>
-          <div class="filter-item"><label><input type="checkbox"> Senior (5+ años)</label><span class="filter-count">88</span></div>
+        <div class="filter-group" id="sidebarSectors">
+          <div class="filter-item"><label><input type="checkbox" data-sector="Tecnología" onchange="sidebarSectorFilter(this)"> Tecnología</label><span class="filter-count" id="sc-Tecnología">—</span></div>
+          <div class="filter-item"><label><input type="checkbox" data-sector="Finanzas" onchange="sidebarSectorFilter(this)"> Finanzas</label><span class="filter-count" id="sc-Finanzas">—</span></div>
+          <div class="filter-item"><label><input type="checkbox" data-sector="Marketing" onchange="sidebarSectorFilter(this)"> Marketing / Mercadeo</label><span class="filter-count" id="sc-Marketing">—</span></div>
+          <div class="filter-item"><label><input type="checkbox" data-sector="Operaciones" onchange="sidebarSectorFilter(this)"> Operaciones</label><span class="filter-count" id="sc-Operaciones">—</span></div>
+          <div class="filter-item"><label><input type="checkbox" data-sector="RRHH" onchange="sidebarSectorFilter(this)"> Recursos Humanos</label><span class="filter-count" id="sc-RRHH">—</span></div>
+          <div class="filter-item"><label><input type="checkbox" data-sector="Salud" onchange="sidebarSectorFilter(this)"> Salud</label><span class="filter-count" id="sc-Salud">—</span></div>
+          <div class="filter-item"><label><input type="checkbox" data-sector="Ventas" onchange="sidebarSectorFilter(this)"> Ventas</label><span class="filter-count" id="sc-Ventas">—</span></div>
+          <div class="filter-item"><label><input type="checkbox" data-sector="Legal" onchange="sidebarSectorFilter(this)"> Legal</label><span class="filter-count" id="sc-Legal">—</span></div>
         </div>
       </div>
       <div class="sidebar-card">
@@ -2386,6 +2371,7 @@ async function loadVacantes() {
       document.getElementById('jobCount').textContent = '(0 resultados)';
       return;
     }
+    updateSidebarCounts();
     filterJobs();
   } catch(err) {
     console.error(err);
@@ -2428,6 +2414,26 @@ function renderJobs(list) {
       </div>
     </div>
   `).join('');
+}
+
+function sidebarSectorFilter(el) {
+  // Solo un sector activo a la vez
+  document.querySelectorAll('#sidebarSectors input[type=checkbox]').forEach(cb => {
+    if (cb !== el) cb.checked = false;
+  });
+  const sector = el.checked ? el.dataset.sector : '';
+  document.getElementById('sectorSelect').value = sector;
+  filterJobs();
+}
+
+function updateSidebarCounts() {
+  const sectors = ['Tecnología','Finanzas','Marketing','Operaciones','RRHH','Salud','Ventas','Legal'];
+  sectors.forEach(s => {
+    const el = document.getElementById('sc-' + s);
+    if (!el) return;
+    const count = jobs.filter(j => normalizeSector(j.sector) === normalizeSector(s)).length;
+    el.textContent = count || '0';
+  });
 }
 
 function setFilter(el, val) {
