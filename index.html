@@ -1847,7 +1847,19 @@ footer span { color: var(--green); }
               <option>Presencial</option><option>Remoto</option><option>Híbrido</option>
             </select>
           </div>
-          <div class="field"><label>Ubicación</label><input type="text" id="pv-ubicacion" placeholder="Ej: Santo Domingo"></div>
+          <div class="field"><label>Ubicación</label>
+            <select id="pv-ubicacion">
+              <option value="">Selecciona ciudad...</option>
+              <option>Santo Domingo</option>
+              <option>Santiago</option>
+              <option>La Romana</option>
+              <option>San Pedro de Macorís</option>
+              <option>Punta Cana</option>
+              <option>Puerto Plata</option>
+              <option>Remoto</option>
+              <option>Otra ciudad</option>
+            </select>
+          </div>
         </div>
         <div class="form-row">
           <div class="field"><label>Salario mínimo (RD$)</label><input type="number" id="pv-salario-min" placeholder="Ej: 40000"></div>
@@ -2439,6 +2451,14 @@ document.addEventListener('click', e => {
   }
 });
 
+function normalizeLocation(loc) {
+  if (!loc) return '';
+  const l = loc.toLowerCase().trim();
+  const sdAliases = ['distrito nacional', 'd.n.', 'dn', 'sdo', 'santo domingo norte', 'santo domingo este', 'santo domingo oeste', 'los alcarrizos', 'boca chica', 'san cristobal'];
+  if (sdAliases.some(a => l.includes(a))) return 'santo domingo';
+  return l;
+}
+
 function filterJobs() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const sector = document.getElementById('sectorSelect').value;
@@ -2449,7 +2469,12 @@ function filterJobs() {
     const matchQ = !q || j.title.toLowerCase().includes(q) || j.company.toLowerCase().includes(q) || j.tags.some(t => t.toLowerCase().includes(q));
     const matchSector = !sector || j.sector === sector;
     const matchTipo = activeFilter === 'todos' || j.tipo === activeFilter;
-    const matchLocation = !location || (j.location || '').toLowerCase().includes(location.toLowerCase()) || (location === 'Remoto' && j.tipo === 'Remoto');
+    const jLocNorm = normalizeLocation(j.location);
+    const selLocNorm = location.toLowerCase();
+    const matchLocation = !location ||
+      jLocNorm.includes(selLocNorm) ||
+      (j.location || '').toLowerCase().includes(selLocNorm) ||
+      (location === 'Remoto' && j.tipo === 'Remoto');
     const matchFcdTipo = !fcdState.tipo || j.tipo === fcdState.tipo;
     const matchFcdFecha = !fcdState.fecha || (() => {
       const days = parseInt(fcdState.fecha);
