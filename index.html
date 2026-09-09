@@ -2323,6 +2323,7 @@ async function loadVacantes() {
         salarioNum: p.salario_ofrecido ? Number(p.salario_ofrecido) : 0,
         tags: p.requisitos ? p.requisitos.split(',').map(t => t.trim()).filter(t => t && !t.includes('\n') && t.length <= 35).slice(0, 4) : [],
         descripcion: p.descripcion || '',
+        rawRequisitos: p.requisitos || '',
         time: timeAgo,
         created_at: p.created_at,
         isPortalVacante: false,
@@ -2353,6 +2354,7 @@ async function loadVacantes() {
         salarioNum: p.salario_min ? Number(p.salario_min) : 0,
         tags: p.requisitos ? p.requisitos.split(',').map(t => t.trim()).filter(t => t && !t.includes('\n') && t.length <= 35).slice(0, 4) : [],
         descripcion: p.descripcion || '',
+        rawRequisitos: p.requisitos || '',
         time: timeAgo,
         created_at: p.created_at,
         isPortalVacante: true,
@@ -2405,7 +2407,7 @@ function renderJobs(list) {
           <span class="badge badge-type">${j.tipo}</span>
         </div>
       </div>
-      ${j.descripcion ? `<div style="font-size:13px;color:#555;line-height:1.6;margin:8px 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">${j.descripcion}</div>` : ''}
+      ${(j.descripcion || j.rawRequisitos) ? `<div style="font-size:13px;color:#555;line-height:1.6;margin:8px 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">${(j.descripcion || j.rawRequisitos).substring(0, 200)}</div>` : ''}
       <div class="job-tags">${j.tags.map(t => `<span class="job-tag">${t}</span>`).join('')}</div>
       <div class="job-footer">
         <span class="job-location">📍 ${(j.location||'').split(',')[0].trim()}</span>
