@@ -1124,6 +1124,11 @@ footer span { color: var(--green); }
       </div>
     </div>
 
+    <div id="formJobDesc" style="display:none;background:var(--cream);border-radius:10px;padding:1.2rem 1.4rem;margin-bottom:1.5rem;border-left:3px solid var(--mid)">
+      <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mid);margin-bottom:.6rem">Descripción del puesto</div>
+      <div id="formJobDescText" style="font-size:.9rem;color:var(--dark);line-height:1.7;white-space:pre-wrap"></div>
+    </div>
+
     <!-- SUCCESS STATE -->
     <div class="success-screen" id="successScreen">
       <div class="success-icon">✅</div>
@@ -2317,6 +2322,7 @@ async function loadVacantes() {
         salary,
         salarioNum: p.salario_ofrecido ? Number(p.salario_ofrecido) : 0,
         tags: p.requisitos ? p.requisitos.split(',').map(t => t.trim()).filter(t => t && !t.includes('\n') && t.length <= 35).slice(0, 4) : [],
+        descripcion: p.descripcion || '',
         time: timeAgo,
         created_at: p.created_at,
         isPortalVacante: false,
@@ -2346,6 +2352,7 @@ async function loadVacantes() {
         salary,
         salarioNum: p.salario_min ? Number(p.salario_min) : 0,
         tags: p.requisitos ? p.requisitos.split(',').map(t => t.trim()).filter(t => t && !t.includes('\n') && t.length <= 35).slice(0, 4) : [],
+        descripcion: p.descripcion || '',
         time: timeAgo,
         created_at: p.created_at,
         isPortalVacante: true,
@@ -2575,6 +2582,14 @@ function openApply(jobId) {
   document.getElementById('formJobTitle').textContent = currentJob.title;
   document.getElementById('formJobSub').textContent = `${currentJob.company} · ${currentJob.location} · ${currentJob.tipo}`;
   document.getElementById('formIcon').textContent = currentJob.initials;
+  const descBlock = document.getElementById('formJobDesc');
+  const descText = document.getElementById('formJobDescText');
+  if (currentJob.descripcion) {
+    descText.textContent = currentJob.descripcion;
+    descBlock.style.display = 'block';
+  } else {
+    descBlock.style.display = 'none';
+  }
   document.getElementById('successScreen').style.display = 'none';
   document.getElementById('applicationForm').style.display = 'block';
   resetForm();
