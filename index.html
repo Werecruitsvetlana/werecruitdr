@@ -2559,7 +2559,7 @@ function showPage(name) {
   window.scrollTo(0, 0);
   if (name === 'directorio' && !dirEmpresas.length) loadDirectorio();
   if (name === 'freelancers' && !freelancers.length) loadFreelancers();
-  if (name === 'blog') loadBlogPosts();
+  if (name === 'blog') loadBlog();
   if (name === 'freelancer-edit') {
     feProfileId = null; feFotoUrl = null; fePortafolioNewUrls = []; fePortafolioExisting = [];
     document.getElementById('fe-email-lookup').value = '';
