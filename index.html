@@ -2503,7 +2503,9 @@ function filterJobs() {
   const now = new Date();
 
   let filtered = jobs.filter(j => {
-    const matchQ = !q || j.title.toLowerCase().includes(q) || j.company.toLowerCase().includes(q) || j.tags.some(t => t.toLowerCase().includes(q));
+    const qWords = q.split(/\s+/).map(w => w.replace(/[()\/\\]/g, '').trim()).filter(w => w.length >= 3);
+    const searchIn = (j.title + ' ' + j.company + ' ' + j.tags.join(' ')).toLowerCase();
+    const matchQ = !q || qWords.length === 0 || qWords.every(w => searchIn.includes(w));
     const matchSector = !sector || normalizeSector(j.sector) === normalizeSector(sector) || (j.sector || '').toLowerCase() === sector.toLowerCase();
     const matchTipo = activeFilter === 'todos' || j.tipo === activeFilter;
     const jLocNorm = normalizeLocation(j.location);
