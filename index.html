@@ -1013,8 +1013,18 @@ footer span { color: var(--green); }
         <div class="search-divider"></div>
         <select id="sectorSelect">
           <option value="">Todos los sectores</option>
-          <option>Tecnología</option><option>Finanzas</option><option>Marketing</option>
-          <option>Operaciones</option><option>Salud</option><option>Legal</option>
+          <option>Tecnología</option>
+          <option>Finanzas</option>
+          <option value="Marketing">Marketing / Mercadeo</option>
+          <option>Operaciones</option>
+          <option>Salud</option>
+          <option>Legal</option>
+          <option>Educación</option>
+          <option>Construcción</option>
+          <option>Comercio</option>
+          <option>Ventas</option>
+          <option>Recursos Humanos</option>
+          <option>Turismo</option>
         </select>
         <button class="search-btn" onclick="filterJobs()">Buscar</button>
       </div>
@@ -1804,9 +1814,18 @@ footer span { color: var(--green); }
           <div class="field"><label>Sector</label>
             <select id="pv-sector">
               <option value="">Seleccionar</option>
-              <option>Tecnología</option><option>Finanzas</option><option>Marketing</option>
-              <option>Operaciones</option><option>Salud</option><option>Legal</option>
-              <option>Educación</option><option>Construcción</option><option>Comercio</option>
+              <option>Tecnología</option>
+              <option>Finanzas</option>
+              <option value="Marketing">Marketing / Mercadeo</option>
+              <option>Ventas</option>
+              <option>Operaciones</option>
+              <option>Recursos Humanos</option>
+              <option>Salud</option>
+              <option>Legal</option>
+              <option>Educación</option>
+              <option>Construcción</option>
+              <option>Comercio</option>
+              <option>Turismo</option>
               <option>Otro</option>
             </select>
           </div>
@@ -2451,6 +2470,24 @@ document.addEventListener('click', e => {
   }
 });
 
+const SECTOR_ALIASES = {
+  'marketing': ['mercadeo', 'marketing', 'publicidad', 'comunicaciones', 'branding'],
+  'tecnología': ['tecnologia', 'tecnología', 'it', 'sistemas', 'tech', 'software', 'desarrollo'],
+  'finanzas': ['finanzas', 'contabilidad', 'contable', 'finanzas y contabilidad', 'banca'],
+  'operaciones': ['operaciones', 'logística', 'logistica', 'supply chain', 'cadena de suministro'],
+  'salud': ['salud', 'medicina', 'farmacia', 'enfermería', 'enfermeria'],
+  'recursos humanos': ['recursos humanos', 'rrhh', 'hr', 'talento humano'],
+  'ventas': ['ventas', 'comercial', 'ventas y comercial'],
+};
+function normalizeSector(s) {
+  if (!s) return '';
+  const l = s.toLowerCase().trim();
+  for (const [canonical, aliases] of Object.entries(SECTOR_ALIASES)) {
+    if (aliases.some(a => l === a || l.includes(a))) return canonical;
+  }
+  return l;
+}
+
 function normalizeLocation(loc) {
   if (!loc) return '';
   const l = loc.toLowerCase().trim();
@@ -2467,7 +2504,7 @@ function filterJobs() {
 
   let filtered = jobs.filter(j => {
     const matchQ = !q || j.title.toLowerCase().includes(q) || j.company.toLowerCase().includes(q) || j.tags.some(t => t.toLowerCase().includes(q));
-    const matchSector = !sector || j.sector === sector;
+    const matchSector = !sector || normalizeSector(j.sector) === normalizeSector(sector) || (j.sector || '').toLowerCase() === sector.toLowerCase();
     const matchTipo = activeFilter === 'todos' || j.tipo === activeFilter;
     const jLocNorm = normalizeLocation(j.location);
     const selLocNorm = location.toLowerCase();
