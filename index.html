@@ -2440,6 +2440,16 @@ function setFilter(el, val) {
   document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
   activeFilter = val;
+  if (val === 'todos') {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('sectorSelect').value = '';
+    document.getElementById('locationSelect').value = '';
+    document.querySelectorAll('#sidebarSectors input[type=checkbox]').forEach(cb => cb.checked = false);
+    fcdState.sueldo = ''; fcdState.tipo = ''; fcdState.fecha = '';
+    document.querySelectorAll('.fcd-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.fcd-menu').forEach(m => m.classList.remove('open'));
+    document.querySelectorAll('.fcd-option.selected').forEach(o => o.classList.remove('selected'));
+  }
   filterJobs();
 }
 
