@@ -1011,7 +1011,7 @@ footer span { color: var(--green); }
           <option value="Remoto">Remoto</option>
         </select>
         <div class="search-divider"></div>
-        <select id="sectorSelect">
+        <select id="sectorSelect" onchange="filterJobs()">
           <option value="">Todos los sectores</option>
           <option>Tecnología</option>
           <option>Finanzas</option>
@@ -1099,16 +1099,10 @@ footer span { color: var(--green); }
     <div>
       <div class="jobs-header">
         <h2>Vacantes disponibles <span id="jobCount">(cargando...)</span></h2>
-        <select class="jobs-sort"><option>Más recientes</option><option>Mayor salario</option></select>
+        <select class="jobs-sort" id="jobsSort" onchange="filterJobs()"><option value="recientes">Más recientes</option><option value="salario">Mayor salario</option></select>
       </div>
       <div id="jobsList"></div>
-      <div class="pagination">
-        <button class="page-btn active">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">3</button>
-        <span style="color:var(--gray);font-size:13px">...</span>
-        <button class="page-btn">18</button>
-      </div>
+      <div class="pagination" id="pagination" style="display:none"></div>
     </div>
   </div>
 
@@ -2551,6 +2545,10 @@ function filterJobs() {
     })();
     return matchQ && matchSector && matchTipo && matchLocation && matchFcdTipo && matchFcdFecha && matchFcdSueldo;
   });
+  const sortVal = document.getElementById('jobsSort')?.value || 'recientes';
+  if (sortVal === 'salario') {
+    filtered.sort((a, b) => (b.salarioNum || 0) - (a.salarioNum || 0));
+  }
   renderJobs(filtered);
 }
 
@@ -3287,6 +3285,7 @@ async function feSubmit() {
 // ─── INIT ───
 loadVacantes().then(() => loadVacantesPortal());
 loadFreelancers();
+document.getElementById('searchInput').addEventListener('input', () => filterJobs());
 document.getElementById('searchInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') filterJobs();
 });
