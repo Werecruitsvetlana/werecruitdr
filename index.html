@@ -203,6 +203,35 @@ nav {
 }
 .page-btn.active { background: var(--dark); color: var(--white); border-color: var(--dark); }
 
+
+/* DETALLE DE VACANTE */
+.jd-page { max-width: 780px; margin: 0 auto; padding: 2.5rem 2rem 7rem; }
+.jd-header { background: var(--dark); color: var(--white); border-radius: 14px; padding: 1.8rem; display: flex; gap: 1.2rem; align-items: flex-start; flex-wrap: wrap; }
+.jd-header .company-logo { width: 64px; height: 64px; font-size: 18px; }
+.jd-head-txt { flex: 1; min-width: 220px; }
+.jd-title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.5rem; line-height: 1.25; margin: 0; }
+.jd-company { color: var(--green); font-size: .95rem; margin-top: .35rem; font-weight: 600; }
+.jd-time { color: rgba(255,255,255,.7); font-size: .8rem; margin-top: .3rem; }
+.jd-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: .8rem; margin: 1.2rem 0; }
+.jd-fact { background: var(--white); border: 1.5px solid var(--light); border-radius: 10px; padding: .9rem 1rem; }
+.jd-fact-lbl { font-size: .7rem; text-transform: uppercase; letter-spacing: .5px; color: var(--gray); font-weight: 700; }
+.jd-fact-val { font-size: .95rem; color: var(--dark); font-weight: 700; margin-top: .25rem; overflow-wrap: anywhere; }
+.jd-section { background: var(--white); border: 1.5px solid var(--light); border-radius: 12px; padding: 1.4rem 1.5rem; margin-bottom: 1rem; }
+.jd-section h3 { font-family: 'Poppins', sans-serif; font-size: .8rem; text-transform: uppercase; letter-spacing: .6px; color: var(--mid); margin: 0 0 .8rem; }
+.jd-text { font-size: .92rem; line-height: 1.75; color: var(--dark); white-space: pre-wrap; overflow-wrap: anywhere; }
+.jd-list { margin: 0; padding-left: 1.2rem; font-size: .92rem; line-height: 1.75; color: var(--dark); }
+.jd-list li { margin-bottom: .25rem; }
+.jd-apply-row { display: flex; gap: .7rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.jd-apply-btn { flex: 1; min-width: 200px; background: var(--dark); color: var(--white); border: none; padding: 1rem 1.5rem; border-radius: 10px; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1rem; cursor: pointer; transition: background .2s; }
+.jd-apply-btn:hover { background: var(--mid); }
+.jd-quick-btn { background: var(--green); color: var(--dark); border: none; padding: 1rem 1.3rem; border-radius: 10px; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: .9rem; cursor: pointer; }
+.jd-share-btn { background: var(--white); color: var(--mid); border: 1.5px solid var(--light); padding: 1rem 1.3rem; border-radius: 10px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: .9rem; cursor: pointer; }
+.jd-sticky { position: fixed; left: 0; right: 0; bottom: 0; background: var(--white); border-top: 1px solid var(--light); padding: .8rem 1rem calc(.8rem + env(safe-area-inset-bottom, 0px)); display: none; z-index: 50; box-shadow: 0 -4px 18px rgba(6,57,88,.08); }
+.jd-sticky .jd-apply-btn { width: 100%; }
+#page-job-detail.active .jd-sticky { display: block; }
+@media (min-width: 761px) { #page-job-detail.active .jd-sticky { display: none; } .jd-page { padding-bottom: 3rem; } }
+@media (max-width: 600px) { .jd-page { padding: 1.5rem 1rem 7rem; } .jd-title { font-size: 1.2rem; } }
+
 /* APPLICATION FORM PAGE */
 .form-page { max-width: 680px; margin: 0 auto; padding: 2.5rem 2rem; }
 .back-btn {
@@ -1112,9 +1141,17 @@ footer span { color: var(--green); }
 </div>
 
 <!-- ═══════════════ APPLICATION PAGE ═══════════════ -->
+<!-- ═══════════════════════ DETALLE DE VACANTE ═══════════════════════ -->
+<div id="page-job-detail" class="page">
+  <div class="jd-page">
+    <button class="back-btn" onclick="showPage('home')">← Volver a vacantes</button>
+    <div id="jobDetailContent"></div>
+  </div>
+</div>
+
 <div id="page-apply" class="page">
   <div class="form-page">
-    <button class="back-btn" onclick="showPage('home')">← Volver a vacantes</button>
+    <button class="back-btn" onclick="currentJob ? openJobDetail(currentJob.id) : showPage('home')">← Volver a la vacante</button>
 
     <div class="form-header">
       <div class="fh-icon" id="formIcon">WR</div>
@@ -2280,6 +2317,7 @@ var sb = window.supabase.createClient(SB_URL, SB_KEY);
 // ═══════════════════════════════════════════════════════
 
 const LOGO_COLORS = ['la','lb','lc','ld','le','lf'];
+window.__baseTitle = document.title;
 let jobs = [];
 let activeFilter = 'todos';
 let currentJob = null;
@@ -2317,7 +2355,7 @@ async function loadVacantes() {
         title: p.titulo || 'Vacante',
         company: empresa,
         location: p.ubicacion || 'Santo Domingo',
-        tipo: p.tipo || 'Presencial',
+        tipo: p.tipo || p.modalidad || 'Presencial',
         sector: p.sector || '',
         salary,
         salarioNum: p.salario_ofrecido ? Number(p.salario_ofrecido) : 0,
@@ -2327,6 +2365,7 @@ async function loadVacantes() {
         time: timeAgo,
         created_at: p.created_at,
         isPortalVacante: false,
+        raw: p,
       };
     };
 
@@ -2339,7 +2378,7 @@ async function loadVacantes() {
       const timeAgo = diffDays === 0 ? 'Hoy' : diffDays === 1 ? 'Ayer' : `Hace ${diffDays} días`;
       const empresa = p.empresas_portal?.nombre_empresa || '';
       return {
-        id: p.id,
+        id: 'vp_' + p.id,
         vpId: p.id,
         featured: false,
         isNew: diffDays <= 7,
@@ -2348,7 +2387,7 @@ async function loadVacantes() {
         title: p.titulo || 'Vacante',
         company: empresa,
         location: p.ubicacion || 'Santo Domingo',
-        tipo: p.tipo_empleo || 'Presencial',
+        tipo: p.tipo_empleo || p.modalidad || 'Presencial',
         sector: p.sector || '',
         salary,
         salarioNum: p.salario_min ? Number(p.salario_min) : 0,
@@ -2358,6 +2397,7 @@ async function loadVacantes() {
         time: timeAgo,
         created_at: p.created_at,
         isPortalVacante: true,
+        raw: p,
       };
     };
 
@@ -2391,7 +2431,7 @@ function renderJobs(list) {
     return;
   }
   el.innerHTML = list.map(j => `
-    <div class="job-card ${j.featured ? 'featured' : ''}" onclick="openApply('${j.id}')">
+    <div class="job-card ${j.featured ? 'featured' : ''}" onclick="openJobDetail('${j.id}')">
       <div class="job-card-top">
         <div class="company-info">
           <div class="company-logo ${j.logo}">${j.initials}</div>
@@ -2414,7 +2454,7 @@ function renderJobs(list) {
         <span class="job-time">${j.time}</span>
         <div style="display:flex;gap:.5rem">
           <button class="apply-btn" onclick="event.stopPropagation(); quickApply('${j.id}')" style="background:var(--green);color:var(--dark);font-size:.75rem;padding:.4rem .8rem" title="Aplica con tu perfil guardado">⚡ Quick</button>
-          <button class="apply-btn" onclick="event.stopPropagation(); openApply('${j.id}')">Aplicar</button>
+          <button class="apply-btn" onclick="event.stopPropagation(); openJobDetail('${j.id}')">Ver vacante</button>
         </div>
       </div>
     </div>
@@ -2564,6 +2604,10 @@ function filterJobs() {
 }
 
 function showPage(name) {
+  if (name !== 'job-detail' && name !== 'apply' && location.hash.startsWith('#vacante=')) {
+    try { history.replaceState(null, '', location.pathname + location.search); } catch(e) {}
+    document.title = window.__baseTitle || document.title;
+  }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
   window.scrollTo(0, 0);
@@ -2577,6 +2621,126 @@ function showPage(name) {
     document.getElementById('feLoginSection').style.display = 'block';
     document.getElementById('feFormSection').style.display = 'none';
   }
+}
+
+
+// ═══════════════════════════════════════════════════════
+//  DETALLE DE VACANTE
+// ═══════════════════════════════════════════════════════
+
+function escHtml(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// Convierte texto en lista si viene en varias líneas o separado por comas
+function jdToList(text) {
+  const t = String(text || '').trim();
+  if (!t) return [];
+  let items = t.split(/\n+/);
+  if (items.length === 1 && t.includes(',') && t.length < 400) items = t.split(',');
+  return items.map(x => x.replace(/^\s*[-•*·✓✔]+\s*/, '').trim()).filter(Boolean);
+}
+
+function jdBlock(title, value, asList) {
+  if (value === null || value === undefined || value === '' || (Array.isArray(value) && !value.length)) return '';
+  let body;
+  if (Array.isArray(value)) {
+    body = `<ul class="jd-list">${value.map(v => `<li>${escHtml(v)}</li>`).join('')}</ul>`;
+  } else if (asList) {
+    const items = jdToList(value);
+    body = items.length > 1
+      ? `<ul class="jd-list">${items.map(v => `<li>${escHtml(v)}</li>`).join('')}</ul>`
+      : `<div class="jd-text">${escHtml(value)}</div>`;
+  } else {
+    body = `<div class="jd-text">${escHtml(value)}</div>`;
+  }
+  return `<div class="jd-section"><h3>${title}</h3>${body}</div>`;
+}
+
+function openJobDetail(jobId) {
+  const job = jobs.find(j => j.id === jobId);
+  if (!job) { showToast('Esta vacante ya no está disponible', 'error'); showPage('home'); return; }
+  currentJob = job;
+  const r = job.raw || {};
+  const pick = (...keys) => { for (const k of keys) { const v = r[k]; if (v !== null && v !== undefined && v !== '') return v; } return ''; };
+
+  // Fecha límite (si la vacante tiene días de publicación o fecha de cierre)
+  let cierre = pick('fecha_cierre', 'fecha_limite');
+  if (!cierre && r.dias_publicacion && r.created_at) {
+    const d = new Date(r.created_at); d.setDate(d.getDate() + Number(r.dias_publicacion)); cierre = d.toISOString();
+  }
+  const cierreTxt = cierre ? new Date(String(cierre).length === 10 ? cierre + 'T00:00:00' : cierre).toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+
+  const facts = [
+    ['Salario', job.salary],
+    ['Modalidad', job.tipo],
+    ['Ubicación', job.location],
+    ['Sector', job.sector],
+    ['Tipo de contrato', pick('tipo_contrato', 'contrato')],
+    ['Horario', pick('horario', 'jornada')],
+    ['Experiencia', pick('experiencia', 'experiencia_requerida', 'anos_experiencia', 'años_experiencia')],
+    ['Educación', pick('educacion', 'nivel_educativo', 'formacion')],
+    ['Idiomas', pick('idiomas', 'idioma')],
+    ['Vacantes', pick('cantidad_vacantes', 'num_vacantes', 'plazas')],
+    ['Aplica hasta', cierreTxt],
+  ].filter(([, v]) => v !== '' && v !== null && v !== undefined)
+   .map(([l, v]) => `<div class="jd-fact"><div class="jd-fact-lbl">${l}</div><div class="jd-fact-val">${escHtml(Array.isArray(v) ? v.join(', ') : v)}</div></div>`).join('');
+
+  const sections =
+    jdBlock('Descripción del puesto', job.descripcion) +
+    jdBlock('Responsabilidades', pick('responsabilidades', 'funciones'), true) +
+    jdBlock('Requisitos', job.rawRequisitos, true) +
+    jdBlock('Competencias / habilidades', pick('competencias', 'habilidades'), true) +
+    jdBlock('Beneficios', pick('beneficios'), true) +
+    jdBlock('Información adicional', pick('notas_publicas', 'informacion_adicional', 'observaciones_publicas'));
+
+  const buttons = `
+    <button class="jd-apply-btn" onclick="applyFromDetail()">Aplicar ahora →</button>
+    <button class="jd-quick-btn" onclick="quickApply('${job.id}')" title="Aplica con tu perfil guardado">⚡ Aplicar con mi perfil</button>
+    <button class="jd-share-btn" onclick="shareJob()">🔗 Compartir</button>`;
+
+  document.getElementById('jobDetailContent').innerHTML = `
+    <div class="jd-header">
+      <div class="company-logo ${job.logo}">${escHtml(job.initials)}</div>
+      <div class="jd-head-txt">
+        <h1 class="jd-title">${escHtml(job.title)}</h1>
+        ${job.company ? `<div class="jd-company">${escHtml(job.company)}</div>` : ''}
+        <div class="jd-time">Publicada: ${escHtml(job.time)}</div>
+      </div>
+    </div>
+    <div class="jd-facts">${facts}</div>
+    ${sections || '<div class="jd-section"><div class="jd-text" style="color:var(--gray)">Pronto agregaremos más detalles de esta posición.</div></div>'}
+    <div class="jd-apply-row">${buttons}</div>
+    <div class="jd-sticky"><button class="jd-apply-btn" onclick="applyFromDetail()">Aplicar ahora →</button></div>
+  `;
+
+  showPage('job-detail');
+  try { history.replaceState(null, '', '#vacante=' + encodeURIComponent(job.id)); } catch(e) {}
+  document.title = `${job.title}${job.company ? ' – ' + job.company : ''} | We Recruit DR`;
+}
+
+function applyFromDetail() {
+  if (!currentJob) return;
+  openApply(currentJob.id);
+}
+
+function shareJob() {
+  const url = location.href;
+  if (navigator.share) {
+    navigator.share({ title: currentJob ? currentJob.title : 'Vacante', url }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(() => showToast('Enlace copiado ✅', 'success'), () => showToast(url, 'info'));
+  } else {
+    showToast(url, 'info');
+  }
+}
+
+// Abre la vacante directo si el enlace trae #vacante=...
+function checkJobHash() {
+  const m = location.hash.match(/^#vacante=(.+)$/);
+  if (!m) return;
+  const id = decodeURIComponent(m[1]);
+  if (jobs.find(j => j.id === id)) openJobDetail(id);
 }
 
 function openApply(jobId) {
@@ -3302,7 +3466,7 @@ async function feSubmit() {
 }
 
 // ─── INIT ───
-loadVacantes().then(() => loadVacantesPortal());
+loadVacantes().then(() => checkJobHash());
 loadFreelancers();
 document.getElementById('searchInput').addEventListener('input', () => filterJobs());
 document.getElementById('searchInput').addEventListener('keydown', e => {
@@ -4359,7 +4523,7 @@ async function viewCompanyPage(empresaId) {
     const vacantesHtml = (vacantes && vacantes.length) ? vacantes.map(v => {
       const sal = v.salario_min && v.salario_max ? `RD$ ${Number(v.salario_min).toLocaleString()} – ${Number(v.salario_max).toLocaleString()}` : 'A convenir';
       return `
-        <div style="padding:1rem;border:1px solid #e8e8e8;border-radius:10px;margin-bottom:.8rem;cursor:pointer" onclick="openApply('vp_${v.id}')">
+        <div style="padding:1rem;border:1px solid #e8e8e8;border-radius:10px;margin-bottom:.8rem;cursor:pointer" onclick="openJobDetail('vp_${v.id}')">
           <div style="font-weight:600;color:var(--dark)">${v.titulo}</div>
           <div style="color:var(--gray);font-size:.85rem;margin-top:.3rem">${v.modalidad || ''} · ${v.ubicacion || ''} · ${sal}</div>
         </div>`;
