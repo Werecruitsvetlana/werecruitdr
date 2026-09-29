@@ -922,6 +922,108 @@ footer span { color: var(--green); }
   .empresas-contact-links { flex-direction: column; align-items: center; }
 }
 
+
+/* ═════ MEJORAS VISUALES 2026 ═════ */
+/* Portada centrada */
+.hero-inner { text-align: center; }
+.hero p { margin-left: auto; margin-right: auto; margin-bottom: 0; }
+.hero-ctas { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; margin: 1.8rem 0 2rem; }
+.hero-btn { padding: .75rem 1.4rem; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: .82rem; border-radius: 8px; cursor: pointer; letter-spacing: .4px; text-transform: uppercase; white-space: nowrap; border: 2px solid transparent; transition: transform .15s, background .2s; }
+.hero-btn:hover { transform: translateY(-1px); }
+.hero-btn-green { background: var(--green); color: var(--dark); }
+.hero-btn-blue { background: var(--mid); color: #fff; }
+.hero-btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.45); }
+.search-bar { margin: 0 auto; text-align: left; }
+.search-bar #locationSelect { max-width: 170px; }
+.filter-chips-row { justify-content: center; margin-left: auto; margin-right: auto; }
+.fcd-clear { display: none; align-items: center; background: none; border: none; color: var(--green); font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; padding: 6px 8px; }
+.fcd-clear:hover { text-decoration: underline; }
+.hero-stats { justify-content: center; margin-top: 2.5rem; padding-top: 1.8rem; }
+.hero-stats > div { min-width: 120px; }
+.main { align-items: start; }
+.sidebar { position: sticky; top: 88px; }
+
+/* Menú con submenús */
+.nav-dd { position: relative; }
+.nav-dd-btn { background: none; border: none; color: rgba(255,255,255,0.65); font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 5px; padding: 0; }
+.nav-dd-btn svg { width: 9px; height: 9px; transition: transform .2s; }
+.nav-dd-btn:hover, .nav-dd.open .nav-dd-btn { color: var(--green); }
+.nav-dd.open .nav-dd-btn svg { transform: rotate(180deg); }
+.nav-dd-menu { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); background: #fff; border-radius: 10px; padding: 6px; min-width: 210px; box-shadow: 0 10px 30px rgba(6,57,88,.25); z-index: 300; }
+.nav-dd.open .nav-dd-menu { display: block; }
+.nav-links .nav-dd-menu a { display: block; color: var(--dark); padding: 9px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; }
+.nav-links .nav-dd-menu a:hover { background: var(--cream); color: var(--mid); }
+
+/* WhatsApp flotante */
+.wa-float { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); width: 56px; height: 56px; border-radius: 50%; background: #25D366; align-items: center; justify-content: center; box-shadow: 0 6px 20px rgba(0,0,0,.25); z-index: 400; transition: transform .2s; }
+.wa-float:hover { transform: scale(1.07); }
+@media (max-width: 760px) { body:has(#page-job-detail.active) .wa-float { bottom: calc(92px + env(safe-area-inset-bottom, 0px)); } }
+
+/* Logos de empresas en tarjetas */
+.company-logo-img { background: #fff; border: 1px solid var(--light); overflow: hidden; }
+.company-logo-img img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+
+/* Sección de confianza */
+.trust { max-width: 1100px; margin: 1rem auto 0; padding: 2.5rem 2rem; text-align: center; }
+.trust-title { font-family: 'Poppins', sans-serif; font-size: .8rem; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); margin-bottom: 1.4rem; }
+.trust-logos { display: flex; flex-wrap: wrap; gap: 2.2rem; justify-content: center; align-items: center; margin-bottom: 2.5rem; }
+.trust-logos img { height: 42px; max-width: 140px; object-fit: contain; filter: grayscale(1); opacity: .7; transition: all .2s; }
+.trust-logos img:hover { filter: none; opacity: 1; }
+.trust-quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; text-align: left; }
+.trust-quote { background: #fff; border: 1.5px solid var(--light); border-radius: 12px; padding: 1.4rem; margin: 0; }
+.trust-quote blockquote { margin: 0 0 1rem; font-size: .92rem; line-height: 1.7; color: var(--dark); }
+.trust-quote figcaption strong { display: block; font-size: .85rem; color: var(--dark); }
+.trust-quote figcaption span { font-size: .78rem; color: var(--gray); }
+
+/* Pie de página completo */
+footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
+.sf-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.3fr; gap: 2rem; }
+.sf-logo { display: flex; align-items: center; gap: 10px; font-family: 'Poppins', sans-serif; font-weight: 800; color: #fff; font-size: 16px; margin-bottom: .8rem; }
+.sf-logo img { width: 38px; height: 38px; border-radius: 50%; }
+.sf-brand p { color: rgba(255,255,255,.55); font-size: 13px; line-height: 1.7; max-width: 300px; }
+.sf-social { display: flex; gap: .6rem; margin-top: 1rem; flex-wrap: wrap; }
+.sf-social a { color: #fff; border: 1px solid rgba(255,255,255,.25); border-radius: 20px; padding: 5px 12px; font-size: 12px; text-decoration: none; }
+.sf-social a:hover { background: rgba(255,255,255,.1); }
+.sf-col h4 { font-family: 'Poppins', sans-serif; color: var(--green); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: .9rem; }
+.sf-col a, .sf-col span { display: block; color: rgba(255,255,255,.7); font-size: 13px; margin-bottom: .55rem; text-decoration: none; cursor: pointer; overflow-wrap: anywhere; }
+.sf-col a:hover { color: var(--green); }
+.sf-bottom { max-width: 1100px; margin: 2rem auto 0; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.4); font-size: 12px; text-align: center; }
+.sf-bottom span { color: var(--green); }
+
+@media (max-width: 900px) { .sf-inner { grid-template-columns: 1fr 1fr; } }
+
+/* Móvil */
+@media (max-width: 768px) {
+  .hero-ctas { margin: 1.4rem 0 1.5rem; }
+  .hero-btn { flex: 1 1 100%; padding: .85rem 1rem; }
+  .search-bar { flex-direction: column; align-items: stretch; border-radius: 12px; }
+  .search-bar input { min-width: 0; border-bottom: 1px solid var(--light); }
+  .search-bar select, .search-bar #locationSelect { max-width: none; width: 100%; flex: none; border-bottom: 1px solid var(--light); padding: 14px 16px; }
+  .search-divider { display: none; }
+  .search-btn { width: 100%; padding: 15px; }
+  .hero-stats { gap: 1rem; margin-top: 1.8rem; }
+  .hero-stats > div { min-width: 0; flex: 1; }
+  .sidebar { display: none !important; }
+  .nav-links { align-items: stretch; text-align: left; }
+  .nav-links > a { display: block; }
+  .nav-dd-btn { width: 100%; padding: 11px 1rem; font-size: 14px; color: rgba(255,255,255,.45); pointer-events: none; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+  .nav-dd-btn svg { display: none; }
+  .nav-dd-menu { display: block; position: static; transform: none; background: none; box-shadow: none; padding: 0; min-width: 0; }
+  .nav-links .nav-dd-menu a { color: rgba(255,255,255,0.8); padding: 11px 1.8rem; border-radius: 0; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .nav-links .nav-dd-menu a:hover { background: none; color: var(--green); }
+  .sf-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .job-card { padding: 1.1rem; }
+  .job-card-top { flex-direction: column; gap: .7rem; }
+  .job-badges { justify-content: flex-start; }
+  .job-company { white-space: normal; }
+  .job-footer { flex-wrap: wrap; gap: .6rem; }
+  .job-footer > div:last-child { width: 100%; }
+  .job-footer .apply-btn { flex: 1; padding: .7rem .8rem; font-size: .8rem !important; }
+  .jobs-header { flex-wrap: wrap; gap: .6rem; }
+  .jobs-header h2 { font-size: 1rem; }
+  footer.site-footer { padding: 2.5rem 1.4rem calc(5.5rem + env(safe-area-inset-bottom, 0px)); }
+}
+
 /* nav hamburguesa solo visible en mobile */
 .nav-hamburger { display: none; }
 @media (max-width: 768px) { .nav-hamburger { display: flex; } }
@@ -943,6 +1045,9 @@ footer span { color: var(--green); }
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
+<a class="wa-float" id="waFloat" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" style="display:none">
+  <svg viewBox="0 0 32 32" width="30" height="30" fill="#fff" aria-hidden="true"><path d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.4.7 4.7 1.9 6.7L3 29l6.9-2.1c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-1.9 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4c-1.1-1.7-1.7-3.6-1.7-5.6C5.3 9.7 10.1 5 16 5s10.7 4.8 10.7 10.6S21.9 26.2 16 26.2zm5.9-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1c-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2s0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.7 1.2 3.1 1.3 3.4c.2.2 2.3 3.5 5.6 4.9 2.8 1.1 3.3.9 3.9.8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+</a>
 
 <!-- NAV -->
 <nav>
@@ -956,12 +1061,22 @@ footer span { color: var(--green); }
   <div class="nav-links" id="navLinks">
     <a onclick="showPage('home');closeMobileNav()">Vacantes</a>
     <a onclick="showPage('freelancers');closeMobileNav()">Freelancers</a>
-    <a onclick="showPage('blog');closeMobileNav()">Blog</a>
-    <a onclick="showPage('salarios');closeMobileNav()">Salarios</a>
-    <a onclick="showPage('directorio');closeMobileNav()">Directorio</a>
     <a onclick="showPage('para-empresas');closeMobileNav()">Empresas</a>
-    <a onclick="showPage('empresa-panel');closeMobileNav()">Mi empresa</a>
-    <a onclick="showPage('mi-perfil');closeMobileNav()">Mi perfil</a>
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="toggleNavDd(this)">Recursos <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
+      <div class="nav-dd-menu">
+        <a onclick="showPage('blog');closeMobileNav()">Blog</a>
+        <a onclick="showPage('salarios');closeMobileNav()">Calculadora de salarios</a>
+        <a onclick="showPage('directorio');closeMobileNav()">Directorio de empresas</a>
+      </div>
+    </div>
+    <div class="nav-dd">
+      <button class="nav-dd-btn" onclick="toggleNavDd(this)">Iniciar sesión <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
+      <div class="nav-dd-menu">
+        <a onclick="showPage('mi-perfil');closeMobileNav()">Soy candidato</a>
+        <a onclick="showPage('empresa-panel');closeMobileNav()">Soy empresa</a>
+      </div>
+    </div>
     <button class="nav-cta" onclick="showPage('publicar-vacante');closeMobileNav()">Publicar vacante</button>
   </div>
 </nav>
@@ -1010,7 +1125,7 @@ footer span { color: var(--green); }
       </div>
     </div>
   </div>
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <footer class="site-footer"></footer>
 </div>
 
 <!-- ═══════════════ HOME PAGE ═══════════════ -->
@@ -1020,20 +1135,15 @@ footer span { color: var(--green); }
       <div class="hero-tag"><span>Santo Domingo · República Dominicana</span></div>
       <h1>Tu próxima oportunidad<br>profesional <em>te espera</em></h1>
       <p>Conectamos el mejor talento dominicano con las empresas líderes del país y la región.</p>
-      <div class="hero-ctas" style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin:1.8rem 0 1.4rem">
-        <button onclick="showPage('para-empresas')" style="padding:.65rem 1.3rem;font-family:'Poppins',sans-serif;font-weight:800;font-size:.82rem;border:none;border-radius:8px;cursor:pointer;background:#CEE4CC;color:#063958;letter-spacing:.4px;white-space:nowrap">QUIERO CONTRATAR</button>
-        <button onclick="document.querySelector('.filters-row').scrollIntoView({behavior:'smooth'})" style="padding:.65rem 1.3rem;font-family:'Poppins',sans-serif;font-weight:800;font-size:.82rem;border:none;border-radius:8px;cursor:pointer;background:#0F6B9F;color:#fff;letter-spacing:.4px;white-space:nowrap">QUIERO TRABAJAR</button>
-        <button onclick="showPage('freelancers')" style="padding:.65rem 1.3rem;font-family:'Poppins',sans-serif;font-weight:700;font-size:.82rem;border:2px solid rgba(255,255,255,0.45);border-radius:8px;cursor:pointer;background:transparent;color:#fff;letter-spacing:.4px;white-space:nowrap">FREELANCER</button>
-      </div>
-      <div class="hero-stats">
-        <div><div class="stat-num">340+</div><div class="stat-label">Vacantes activas</div></div>
-        <div><div class="stat-num">180+</div><div class="stat-label">Empresas aliadas</div></div>
-        <div><div class="stat-num">5,200+</div><div class="stat-label">Colocaciones exitosas</div></div>
+      <div class="hero-ctas">
+        <button class="hero-btn hero-btn-green" onclick="showPage('para-empresas')">Quiero contratar</button>
+        <button class="hero-btn hero-btn-blue" onclick="document.getElementById('vacantesAnchor').scrollIntoView({behavior:'smooth'})">Quiero trabajar</button>
+        <button class="hero-btn hero-btn-ghost" onclick="showPage('freelancers')">Soy freelancer</button>
       </div>
       <div class="search-bar">
-        <input type="text" placeholder="Cargo, habilidad o empresa..." id="searchInput">
+        <input type="text" placeholder="Cargo, habilidad o empresa..." id="searchInput" onkeydown="if(event.key==='Enter')filterJobs()">
         <div class="search-divider"></div>
-        <select id="locationSelect" onchange="filterJobs()" style="max-width:160px;">
+        <select id="locationSelect" onchange="filterJobs()">
           <option value="">📍 Toda la RD</option>
           <option value="Santo Domingo">Santo Domingo</option>
           <option value="Santiago">Santiago</option>
@@ -1073,9 +1183,9 @@ footer span { color: var(--green); }
           </div>
         </div>
         <div class="filter-chip-dropdown" id="fcd-tipo">
-          <button class="fcd-btn" onclick="toggleFcd('fcd-tipo')">Tipo de empleo <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
+          <button class="fcd-btn" onclick="toggleFcd('fcd-tipo')">Modalidad <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
           <div class="fcd-menu" id="fcd-tipo-menu">
-            <div class="fcd-option" onclick="selectFcd('tipo','','Tipo de empleo')">Todos</div>
+            <div class="fcd-option" onclick="selectFcd('tipo','','Modalidad')">Todas</div>
             <div class="fcd-option" onclick="selectFcd('tipo','Presencial','Presencial')">Presencial</div>
             <div class="fcd-option" onclick="selectFcd('tipo','Remoto','Remoto')">Remoto</div>
             <div class="fcd-option" onclick="selectFcd('tipo','Híbrido','Híbrido')">Híbrido</div>
@@ -1091,41 +1201,23 @@ footer span { color: var(--green); }
             <div class="fcd-option" onclick="selectFcd('fecha','30','Último mes')">Último mes</div>
           </div>
         </div>
+        <button class="fcd-clear" id="fcdClear" onclick="clearAllFilters()">✕ Limpiar filtros</button>
+      </div>
+      <div class="hero-stats" id="heroStats" style="display:none">
+        <div><div class="stat-num" id="statVacantes">—</div><div class="stat-label">Vacantes activas</div></div>
+        <div><div class="stat-num" id="statEmpresas">—</div><div class="stat-label">Empresas contratando</div></div>
+        <div id="statColocWrap" style="display:none"><div class="stat-num" id="statColoc">—</div><div class="stat-label">Colocaciones exitosas</div></div>
       </div>
     </div>
   </div>
 
-  <div class="filters-row">
-    <button class="filter-chip active" onclick="setFilter(this,'todos')">Todos</button>
-    <button class="filter-chip" onclick="setFilter(this,'Presencial')">Presencial</button>
-    <button class="filter-chip" onclick="setFilter(this,'Remoto')">Remoto</button>
-    <button class="filter-chip" onclick="setFilter(this,'Híbrido')">Híbrido</button>
-    <button class="filter-chip" onclick="setFilter(this,'Freelance')">Freelance</button>
-  </div>
-
+  <div id="vacantesAnchor"></div>
   <div class="main">
-    <button class="mobile-filter-toggle" onclick="toggleMobileFilters()">
-      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-      Filtrar resultados
-    </button>
     <div class="sidebar" id="mobileSidebar">
-      <div class="sidebar-section">
-        <h3>Sector</h3>
-        <div class="filter-group" id="sidebarSectors">
-          <div class="filter-item"><label><input type="checkbox" data-sector="Tecnología" onchange="sidebarSectorFilter(this)"> Tecnología</label><span class="filter-count" id="sc-Tecnología">—</span></div>
-          <div class="filter-item"><label><input type="checkbox" data-sector="Finanzas" onchange="sidebarSectorFilter(this)"> Finanzas</label><span class="filter-count" id="sc-Finanzas">—</span></div>
-          <div class="filter-item"><label><input type="checkbox" data-sector="Marketing" onchange="sidebarSectorFilter(this)"> Marketing / Mercadeo</label><span class="filter-count" id="sc-Marketing">—</span></div>
-          <div class="filter-item"><label><input type="checkbox" data-sector="Operaciones" onchange="sidebarSectorFilter(this)"> Operaciones</label><span class="filter-count" id="sc-Operaciones">—</span></div>
-          <div class="filter-item"><label><input type="checkbox" data-sector="RRHH" onchange="sidebarSectorFilter(this)"> Recursos Humanos</label><span class="filter-count" id="sc-RRHH">—</span></div>
-          <div class="filter-item"><label><input type="checkbox" data-sector="Salud" onchange="sidebarSectorFilter(this)"> Salud</label><span class="filter-count" id="sc-Salud">—</span></div>
-          <div class="filter-item"><label><input type="checkbox" data-sector="Ventas" onchange="sidebarSectorFilter(this)"> Ventas</label><span class="filter-count" id="sc-Ventas">—</span></div>
-          <div class="filter-item"><label><input type="checkbox" data-sector="Legal" onchange="sidebarSectorFilter(this)"> Legal</label><span class="filter-count" id="sc-Legal">—</span></div>
-        </div>
-      </div>
       <div class="sidebar-card">
         <h4>¿Eres empresa?</h4>
         <p>Encuentra el talento que necesitas con nuestro equipo de headhunting especializado.</p>
-        <button onclick="showToast('Te contactaremos pronto 👋', 'success')">Contratar talento ↗</button>
+        <button onclick="showPage('para-empresas')">Contratar talento ↗</button>
       </div>
     </div>
 
@@ -1139,8 +1231,8 @@ footer span { color: var(--green); }
     </div>
   </div>
 
-  <!-- SOBRE NOSOTROS -->
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <section class="trust" id="trustSection" style="display:none"></section>
+  <footer class="site-footer"></footer>
 </div>
 
 <!-- ═══════════════ APPLICATION PAGE ═══════════════ -->
@@ -1325,7 +1417,7 @@ footer span { color: var(--green); }
     </div>
   </div>
 
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <footer class="site-footer"></footer>
 </div>
 
 <!-- ═══════════════════════ FREELANCER REGISTER PAGE ═══════════════════════ -->
@@ -1757,7 +1849,7 @@ footer span { color: var(--green); }
 
   </div>
 
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <footer class="site-footer"></footer>
 </div>
 
 <!-- ═══════════════ DIRECTORIO DE EMPRESAS ═══════════════ -->
@@ -1796,7 +1888,7 @@ footer span { color: var(--green); }
     <div id="dirGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;"></div>
   </div>
 
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <footer class="site-footer"></footer>
 </div>
 
 <!-- PERFIL DE EMPRESA -->
@@ -1805,7 +1897,7 @@ footer span { color: var(--green); }
     <button class="back-btn" onclick="showPage('directorio')" style="margin-bottom:1.5rem;">← Volver al directorio</button>
     <div id="empresaPerfilContent"></div>
   </div>
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <footer class="site-footer"></footer>
 </div>
 
 <!-- ═══════════════ PUBLICAR VACANTE PAGE ═══════════════ -->
@@ -2123,7 +2215,7 @@ footer span { color: var(--green); }
     </select>
   </div>
   <div id="talentGrid" class="talent-grid"></div>
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <footer class="site-footer"></footer>
 </div>
 
 <!-- ═══════════════ COMPANY PUBLIC PAGE ═══════════════ -->
@@ -2157,7 +2249,7 @@ footer span { color: var(--green); }
     </select>
   </div>
   <div id="blogGrid" class="blog-grid"></div>
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <footer class="site-footer"></footer>
 </div>
 
 <!-- ═══════════════ BLOG DETAIL PAGE ═══════════════ -->
@@ -2292,7 +2384,7 @@ footer span { color: var(--green); }
     </div>
 
   </div>
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <footer class="site-footer"></footer>
 </div>
 
 <div id="page-evaluaciones" class="page">
@@ -2304,7 +2396,7 @@ footer span { color: var(--green); }
     </div>
   </div>
   <div class="blog-grid" id="testsGrid" style="margin-top:2rem"></div>
-  <footer><p>© 2026 <span>We Recruit DR</span> · Reclutamiento especializado · Santo Domingo, RD</p></footer>
+  <footer class="site-footer"></footer>
 </div>
 
 <script>
@@ -2328,6 +2420,133 @@ let uploadedFileUrl  = null;
 let uploadedFileName = null;
 let isUploading = false;
 
+
+// ═══════════════════════════════════════════════════════
+//  ⚙️  DATOS DE CONTACTO Y CONTENIDO — edita aquí
+// ═══════════════════════════════════════════════════════
+const SITE = {
+  email: 'svetlana@werecruitdr.com',
+  whatsapp: '18493505577',               // solo números, con código de país
+  whatsappTexto: 'Hola, vengo de werecruitdr.com y quisiera más información.',
+  instagram: 'https://www.instagram.com/werecruitdr',                         // ej: 'https://instagram.com/werecruitdr'
+  linkedin: 'https://www.linkedin.com/company/we-recruit-dr',                          // ej: 'https://linkedin.com/company/werecruitdr'
+  facebook: '',
+  colocaciones: '',                      // ej: '250+'  (vacío = no se muestra)
+  // Logos de clientes (con su permiso):  { nombre: 'Empresa', logo: 'https://...png' }
+  clientes: [],
+  // Testimonios:  { texto: '...', nombre: 'Nombre', cargo: 'Cargo, Empresa' }
+  testimonios: [],
+};
+
+function logoHtml(j) {
+  if (j.logoUrl) return `<div class="company-logo company-logo-img" data-i="${escHtml(j.initials)}"><img src="${escHtml(j.logoUrl)}" alt="${escHtml(j.company)}" loading="lazy" onerror="var p=this.parentNode;p.classList.remove('company-logo-img');p.classList.add('${j.logo}');p.textContent=p.dataset.i"></div>`;
+  return `<div class="company-logo ${j.logo}">${escHtml(j.initials)}</div>`;
+}
+
+function updateHeroStats() {
+  const box = document.getElementById('heroStats');
+  if (!box || !jobs.length) return;
+  document.getElementById('statVacantes').textContent = jobs.length;
+  const empresas = new Set(jobs.map(j => (j.company || '').trim().toLowerCase()).filter(Boolean));
+  document.getElementById('statEmpresas').textContent = empresas.size || '—';
+  if (SITE.colocaciones) {
+    document.getElementById('statColoc').textContent = SITE.colocaciones;
+    document.getElementById('statColocWrap').style.display = '';
+  }
+  box.style.display = '';
+}
+
+function clearAllFilters() {
+  activeFilter = 'todos';
+  document.getElementById('searchInput').value = '';
+  document.getElementById('sectorSelect').value = '';
+  document.getElementById('locationSelect').value = '';
+  fcdState.sueldo = ''; fcdState.tipo = ''; fcdState.fecha = '';
+  const labels = { sueldo: 'Sueldo', tipo: 'Modalidad', fecha: 'Fecha' };
+  Object.keys(labels).forEach(k => {
+    const btn = document.querySelector('#fcd-' + k + ' .fcd-btn');
+    if (btn) { btn.childNodes[0].textContent = labels[k] + ' '; btn.classList.remove('active'); }
+  });
+  document.querySelectorAll('.fcd-option.selected').forEach(o => o.classList.remove('selected'));
+  filterJobs();
+}
+
+function toggleNavDd(btn) {
+  const dd = btn.parentNode;
+  const open = dd.classList.contains('open');
+  document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open'));
+  if (!open) dd.classList.add('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-dd')) document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open'));
+});
+document.addEventListener('click', e => {
+  if (e.target.closest('.nav-dd-menu a')) document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open'));
+});
+
+function waLink(texto) {
+  return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(texto || SITE.whatsappTexto)}`;
+}
+
+function renderSiteExtras() {
+  // WhatsApp flotante
+  const wa = document.getElementById('waFloat');
+  if (wa && SITE.whatsapp) { wa.href = waLink(); wa.style.display = 'flex'; }
+
+  // Pie de página
+  const tel = SITE.whatsapp ? '+' + SITE.whatsapp.replace(/^1(\d{3})(\d{3})(\d{4})$/, '1 ($1) $2-$3') : '';
+  const redes = [
+    SITE.instagram && `<a href="${SITE.instagram}" target="_blank" rel="noopener">Instagram</a>`,
+    SITE.linkedin && `<a href="${SITE.linkedin}" target="_blank" rel="noopener">LinkedIn</a>`,
+    SITE.facebook && `<a href="${SITE.facebook}" target="_blank" rel="noopener">Facebook</a>`,
+  ].filter(Boolean).join('');
+  const logoSrc = document.querySelector('.logo-img')?.src || '';
+  const html = `
+    <div class="sf-inner">
+      <div class="sf-brand">
+        <div class="sf-logo">${logoSrc ? `<img src="${logoSrc}" alt="">` : ''}<span>We Recruit DR</span></div>
+        <p>Reclutamiento especializado en República Dominicana. Conectamos talento con las empresas que lo necesitan.</p>
+        ${redes ? `<div class="sf-social">${redes}</div>` : ''}
+      </div>
+      <div class="sf-col">
+        <h4>Candidatos</h4>
+        <a onclick="showPage('home')">Ver vacantes</a>
+        <a onclick="showPage('mi-perfil')">Mi perfil</a>
+        <a onclick="showPage('cv-builder')">Crear mi CV</a>
+        <a onclick="showPage('salarios')">Calculadora de salarios</a>
+      </div>
+      <div class="sf-col">
+        <h4>Empresas</h4>
+        <a onclick="showPage('para-empresas')">Nuestros servicios</a>
+        <a onclick="showPage('publicar-vacante')">Publicar vacante</a>
+        <a onclick="showPage('empresa-panel')">Panel de empresa</a>
+        <a onclick="showPage('freelancers')">Contratar freelancers</a>
+      </div>
+      <div class="sf-col">
+        <h4>Contacto</h4>
+        ${SITE.email ? `<a href="mailto:${SITE.email}">✉ ${SITE.email}</a>` : ''}
+        ${SITE.whatsapp ? `<a href="${waLink()}" target="_blank" rel="noopener">💬 WhatsApp ${tel}</a>` : ''}
+        <span>📍 Santo Domingo, RD</span>
+      </div>
+    </div>
+    <div class="sf-bottom">© ${new Date().getFullYear()} <span>We Recruit DR</span> · Todos los derechos reservados</div>`;
+  document.querySelectorAll('footer.site-footer').forEach(f => f.innerHTML = html);
+
+  // Sección de confianza (solo si hay contenido)
+  const t = document.getElementById('trustSection');
+  if (t && (SITE.clientes.length || SITE.testimonios.length)) {
+    t.innerHTML = `
+      ${SITE.clientes.length ? `<h3 class="trust-title">Empresas que confían en nosotros</h3>
+        <div class="trust-logos">${SITE.clientes.map(c => `<img src="${escHtml(c.logo)}" alt="${escHtml(c.nombre)}" title="${escHtml(c.nombre)}" loading="lazy">`).join('')}</div>` : ''}
+      ${SITE.testimonios.length ? `<div class="trust-quotes">${SITE.testimonios.map(q => `
+        <figure class="trust-quote"><blockquote>“${escHtml(q.texto)}”</blockquote>
+        <figcaption><strong>${escHtml(q.nombre)}</strong>${q.cargo ? `<span>${escHtml(q.cargo)}</span>` : ''}</figcaption></figure>`).join('')}</div>` : ''}`;
+    t.style.display = '';
+  }
+}
+document.addEventListener('DOMContentLoaded', renderSiteExtras);
+if (document.readyState !== 'loading') renderSiteExtras();
+
 // ─── LOAD VACANTES FROM SUPABASE ───
 async function loadVacantes() {
   const el = document.getElementById('jobsList');
@@ -2335,7 +2554,7 @@ async function loadVacantes() {
   try {
     const [{ data: posData, error: posError }, { data: vpData, error: vpError }] = await Promise.all([
       sb.from('posiciones').select('*, empresas(nombre)').eq('estado', 'abierta').order('created_at', { ascending: false }),
-      sb.from('vacantes_portal').select('*, empresas_portal(nombre_empresa)').eq('estado', 'aprobada').order('created_at', { ascending: false })
+      sb.from('vacantes_portal').select('*, empresas_portal(*)').eq('estado', 'aprobada').order('created_at', { ascending: false })
     ]);
 
     if (posError) throw posError;
@@ -2400,6 +2619,7 @@ async function loadVacantes() {
         time: timeAgo,
         created_at: p.created_at,
         isPortalVacante: true,
+        logoUrl: p.empresas_portal?.logo_url || '',
         raw: p,
       };
     };
@@ -2419,6 +2639,7 @@ async function loadVacantes() {
       return;
     }
     updateSidebarCounts();
+    updateHeroStats();
     filterJobs();
   } catch(err) {
     console.error(err);
@@ -2437,7 +2658,7 @@ function renderJobs(list) {
     <div class="job-card ${j.featured ? 'featured' : ''}" onclick="openJobDetail('${j.id}')">
       <div class="job-card-top">
         <div class="company-info">
-          <div class="company-logo ${j.logo}">${j.initials}</div>
+          ${logoHtml(j)}
           <div>
             <div class="job-title">${j.title}</div>
             <div class="job-company">${j.company} · ${(j.location||'').split(',')[0].trim()}</div>
@@ -2599,6 +2820,8 @@ function filterJobs() {
     })();
     return matchQ && matchSector && matchTipo && matchLocation && matchFcdTipo && matchFcdFecha && matchFcdSueldo;
   });
+  const anyFilter = q || sector || location || fcdState.tipo || fcdState.fecha || fcdState.sueldo;
+  const clr = document.getElementById('fcdClear'); if (clr) clr.style.display = anyFilter ? 'inline-flex' : 'none';
   const sortVal = document.getElementById('jobsSort')?.value || 'recientes';
   if (sortVal === 'salario') {
     filtered.sort((a, b) => (b.salarioNum || 0) - (a.salarioNum || 0));
@@ -2704,7 +2927,7 @@ function openJobDetail(jobId) {
 
   document.getElementById('jobDetailContent').innerHTML = `
     <div class="jd-header">
-      <div class="company-logo ${job.logo}">${escHtml(job.initials)}</div>
+      ${logoHtml(job)}
       <div class="jd-head-txt">
         <h1 class="jd-title">${escHtml(job.title)}</h1>
         ${job.company ? `<div class="jd-company">${escHtml(job.company)}</div>` : ''}
