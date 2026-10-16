@@ -1277,9 +1277,9 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           <button class="ww-link" onclick="showPage('cv-builder')">Crear mi CV →</button>
         </div>
         <div class="ww-card">
-          <h3>Vacantes compatibles con el cuidado</h3>
-          <p>Busca la etiqueta <b>Compatible con el cuidado</b>: empleos con horario flexible, remotos o híbridos.</p>
-          <button class="ww-link" onclick="wwVerCuidado()">Ver vacantes →</button>
+          <h3>Vacantes remotas e híbridas</h3>
+          <p>Empleos con horarios y modalidades más flexibles para organizar tu día.</p>
+          <button class="ww-link" onclick="wwVerVacantes('Remoto','Remoto')">Ver vacantes remotas →</button>
         </div>
         <div class="ww-card">
           <h3>Conoce lo que vale tu trabajo</h3>
@@ -1420,9 +1420,6 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <div class="fcd-option" onclick="selectFcd('fecha','7','Última semana')">Última semana</div>
             <div class="fcd-option" onclick="selectFcd('fecha','30','Último mes')">Último mes</div>
           </div>
-        </div>
-        <div class="filter-chip-dropdown">
-          <button class="fcd-btn fcd-ww" id="fcdCuidado" onclick="toggleCuidadoFilter()" title="Vacantes con horario flexible, remoto o híbrido">Compatible con el cuidado</button>
         </div>
         <button class="fcd-clear" id="fcdClear" onclick="clearAllFilters()">✕ Limpiar filtros</button>
       </div>
@@ -2274,7 +2271,6 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             </select>
           </div>
         </div>
-        <label class="pv-ww-check"><input type="checkbox" id="pv-cuidado"> <span>Esta vacante es compatible con el cuidado <small>Horario flexible, remoto o híbrido. Se mostrará con la etiqueta de We Recruit Women.</small></span></label>
         <div class="form-row">
           <div class="field"><label>Salario mínimo (RD$)</label><input type="number" id="pv-salario-min" placeholder="Ej: 40000"></div>
           <div class="field"><label>Salario máximo (RD$)</label><input type="number" id="pv-salario-max" placeholder="Ej: 80000"></div>
@@ -2951,7 +2947,6 @@ function renderJobs(list) {
           ${j.featured ? '<span class="badge badge-featured">Destacado</span>' : ''}
           <span class="badge badge-salary">${j.salary}</span>
           <span class="badge badge-type">${j.tipo}</span>
-          ${j.cuidado ? '<span class="badge badge-ww" title="Horario flexible, remoto o híbrido">Compatible con el cuidado</span>' : ''}
         </div>
       </div>
       ${(j.descripcion || j.rawRequisitos) ? `<div style="font-size:13px;color:#555;line-height:1.6;margin:8px 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">${(j.descripcion || j.rawRequisitos).substring(0, 200)}</div>` : ''}
@@ -3218,7 +3213,6 @@ function openJobDetail(jobId) {
   const facts = [
     ['Salario', job.salary],
     ['Modalidad', job.tipo],
-    ['We Recruit Women', job.cuidado ? 'Compatible con el cuidado' : ''],
     ['Ubicación', job.location],
     ['Sector', job.sector],
     ['Tipo de contrato', pick('tipo_contrato', 'contrato')],
