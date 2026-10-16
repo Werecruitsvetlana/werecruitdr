@@ -3170,12 +3170,12 @@ async function submitApplication() {
       const { error } = await sb.from('aplicaciones_vacante').insert([appRecord]);
       if (error) throw error;
     }
-    const { data: candData, error: candError } = await sb.from('candidatos').insert([record]).select();
+    const { id: candId, error: candError } = await insertarCandidato(record);
     if (candError) console.warn('Candidato insert:', candError.message);
 
-    if (candData && candData[0] && record.posicion_id) {
+    if (candId && record.posicion_id) {
       await sb.from('candidato_posicion').insert([{
-        candidato_id: candData[0].id,
+        candidato_id: candId,
         posicion_id: record.posicion_id,
         estado: 'identificado',
       }]);
@@ -4112,6 +4112,39 @@ cvbRenderSteps();
 let pvEmpresaId = null;
 let pvEmpresaEmail = null;
 
+// ─── Cuentas con Supabase Auth (ver DB/seguridad-2-cuentas-portal.sql) ───
+async function authRegistrar(email, password, datos) {
+  const { data, error } = await sb.auth.signUp({
+    email, password,
+    options: { data: datos, emailRedirectTo: location.origin + location.pathname }
+  });
+  if (error) throw error;
+  // Supabase devuelve un usuario sin identidades cuando el email ya está registrado
+  if (data.user && Array.isArray(data.user.identities) && !data.user.identities.length) return 'existe';
+  return data.session ? 'activa' : 'confirmar';
+}
+
+async function authEntrar(email, password) {
+  const { error } = await sb.auth.signInWithPassword({ email, password });
+  if (!error) return null;
+  return /confirm/i.test(error.message)
+    ? 'Confirma tu email antes de iniciar sesión (revisa tu correo)'
+    : 'Email o contraseña incorrectos';
+}
+
+async function miPerfil(funcion) {
+  const { data, error } = await sb.rpc(funcion);
+  if (error) throw error;
+  return data && data[0] ? data[0] : null;
+}
+
+async function insertarCandidato(rec) {
+  // El id se genera aquí porque el portal no puede leer la tabla candidatos
+  const id = crypto.randomUUID();
+  const { error } = await sb.from('candidatos').insert([{ id, ...rec }]);
+  return { id: error ? null : id, error };
+}
+
 function pvShowRegister() {
   document.getElementById('pvLoginSection').style.display = 'none';
   document.getElementById('pvRegisterSection').style.display = 'block';
@@ -4135,16 +4168,18 @@ async function pvRegister() {
   }
 
   try {
-    const { data, error } = await sb.from('empresas_portal').insert([{
-      nombre_empresa: empresa, contacto_nombre: contacto, email, password, telefono, sector
-    }]).select().single();
-
-    if (error) {
-      if (error.message.includes('duplicate') || error.message.includes('unique')) {
-        showToast('Ya existe una cuenta con ese email. Inicia sesión.', 'error');
-      } else throw error;
+    const estado = await authRegistrar(email, password, {
+      tipo: 'empresa', nombre_empresa: empresa, contacto_nombre: contacto, telefono, sector
+    });
+    if (estado === 'existe') { showToast('Ya existe una cuenta con ese email. Inicia sesión.', 'error'); return; }
+    if (estado === 'confirmar') {
+      pvShowLogin();
+      showToast('Te enviamos un correo para confirmar tu cuenta. Después inicia sesión.', 'success');
       return;
     }
+
+    const data = await miPerfil('mi_empresa_portal');
+    if (!data) throw new Error('No se pudo crear el perfil de empresa');
 
     pvEmpresaId = data.id;
     pvEmpresaEmail = email;
@@ -4164,10 +4199,10 @@ async function pvLogin() {
   if (!email || !pass) { showToast('Ingresa email y contraseña', 'error'); return; }
 
   try {
-    const { data, error } = await sb.from('empresas_portal')
-      .select('*').eq('email', email).eq('password', pass).single();
-
-    if (error || !data) { showToast('Email o contraseña incorrectos', 'error'); return; }
+    const fallo = await authEntrar(email, pass);
+    if (fallo) { showToast(fallo, 'error'); return; }
+    const data = await miPerfil('mi_empresa_portal');
+    if (!data) { await sb.auth.signOut(); showToast('Esta cuenta no está registrada como empresa', 'error'); return; }
 
     pvEmpresaId = data.id;
     pvEmpresaEmail = email;
@@ -4231,10 +4266,10 @@ async function epLogin() {
   if (!email || !pass) { showToast('Ingresa email y contraseña', 'error'); return; }
 
   try {
-    const { data, error } = await sb.from('empresas_portal')
-      .select('*').eq('email', email).eq('password', pass).single();
-
-    if (error || !data) { showToast('Email o contraseña incorrectos', 'error'); return; }
+    const fallo = await authEntrar(email, pass);
+    if (fallo) { showToast(fallo, 'error'); return; }
+    const data = await miPerfil('mi_empresa_portal');
+    if (!data) { await sb.auth.signOut(); showToast('Esta cuenta no está registrada como empresa', 'error'); return; }
 
     epEmpresa = data;
     document.getElementById('epLoginSection').style.display = 'none';
@@ -4249,6 +4284,7 @@ async function epLogin() {
 }
 
 function epLogout() {
+  sb.auth.signOut();
   epEmpresa = null;
   document.getElementById('epDashboard').style.display = 'none';
   document.getElementById('epLoginSection').style.display = 'block';
@@ -4398,11 +4434,15 @@ async function cpRegister() {
   const pass = document.getElementById('cp-reg-pass').value;
   if (!nombre || !email || pass.length < 6) { showToast('Completa nombre, email y contraseña (mín 6 caracteres)', 'error'); return; }
   try {
-    const { data, error } = await sb.from('perfiles_candidato').insert([{ nombre, apellido, email, password: pass }]).select().single();
-    if (error) {
-      if (error.message.includes('duplicate') || error.message.includes('unique')) { showToast('Ya existe una cuenta con ese email', 'error'); return; }
-      throw error;
+    const estado = await authRegistrar(email, pass, { tipo: 'candidata', nombre, apellido });
+    if (estado === 'existe') { showToast('Ya existe una cuenta con ese email. Inicia sesión.', 'error'); return; }
+    if (estado === 'confirmar') {
+      cpToggleAuth('login');
+      showToast('Te enviamos un correo para confirmar tu cuenta. Después inicia sesión.', 'success');
+      return;
     }
+    const data = await miPerfil('mi_perfil_candidata');
+    if (!data) throw new Error('No se pudo crear el perfil');
     cpPerfil = data;
     cpShowEdit();
     showToast('Cuenta creada. Completa tu perfil.', 'success');
@@ -4414,8 +4454,10 @@ async function cpLogin() {
   const pass = document.getElementById('cp-login-pass').value;
   if (!email || !pass) { showToast('Ingresa email y contraseña', 'error'); return; }
   try {
-    const { data, error } = await sb.from('perfiles_candidato').select('*').eq('email', email).eq('password', pass).single();
-    if (error || !data) { showToast('Email o contraseña incorrectos', 'error'); return; }
+    const fallo = await authEntrar(email, pass);
+    if (fallo) { showToast(fallo, 'error'); return; }
+    const data = await miPerfil('mi_perfil_candidata');
+    if (!data) { await sb.auth.signOut(); showToast('Esta cuenta no tiene perfil de candidata', 'error'); return; }
     cpPerfil = data;
     cpShowEdit();
     showToast('Bienvenido, ' + data.nombre, 'success');
@@ -4477,6 +4519,7 @@ async function cpSave() {
 }
 
 function cpLogout() {
+  sb.auth.signOut();
   cpPerfil = null;
   document.getElementById('cpEditSection').style.display = 'none';
   document.getElementById('cpAuthSection').style.display = 'block';
@@ -4549,16 +4592,16 @@ async function quickApply(jobId) {
         vacante_aplicada: [job.title, job.company].filter(Boolean).join(' · '),
         posicion_id: job.id,
       };
-      const { data: candData, error: candErr } = await sb.from('candidatos').insert([candRecord]).select();
+      const { id: candId, error: candErr } = await insertarCandidato(candRecord);
       if (candErr) console.warn('Candidato insert:', candErr.message);
-      if (candData && candData[0] && job.id) {
-        await sb.from('candidato_posicion').insert([{ candidato_id: candData[0].id, posicion_id: job.id, estado: 'identificado' }]);
+      if (candId && job.id) {
+        await sb.from('candidato_posicion').insert([{ candidato_id: candId, posicion_id: job.id, estado: 'identificado' }]);
       }
     } else {
-      const { data: candData, error } = await sb.from('candidatos').insert([record]).select();
+      const { id: candId, error } = await insertarCandidato(record);
       if (error) throw error;
-      if (candData && candData[0] && record.posicion_id) {
-        await sb.from('candidato_posicion').insert([{ candidato_id: candData[0].id, posicion_id: record.posicion_id, estado: 'identificado' }]);
+      if (candId && record.posicion_id) {
+        await sb.from('candidato_posicion').insert([{ candidato_id: candId, posicion_id: record.posicion_id, estado: 'identificado' }]);
       }
     }
     showToast('¡Aplicación enviada! ' + job.company + ' recibirá tu perfil.', 'success');
