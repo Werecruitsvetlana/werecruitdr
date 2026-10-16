@@ -1143,16 +1143,25 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 .ww-privacy { background: var(--white); border-left: 4px solid var(--green-dk); border-radius: 8px; padding: 1.1rem 1.3rem; margin-top: 1.4rem; font-size: 13px; color: var(--dark); line-height: 1.6; }
 .ww-en { background: var(--white); border: 1.5px solid var(--light); border-radius: 12px; padding: 0 1.4rem; }
 .ww-en summary { cursor: pointer; padding: 1.1rem 0; font-weight: 700; font-size: 14px; color: var(--dark); }
-.ww-en div { padding-bottom: 1.3rem; font-size: 13.5px; color: var(--gray); line-height: 1.7; }
-.ww-en div p + p { margin-top: .7rem; }
+.ww-en > div { padding-bottom: 1.3rem; font-size: 13.5px; color: var(--gray); line-height: 1.7; }
+.ww-en > div p + p { margin-top: .7rem; }
+.ww-en h3 { font-size: 14px; color: var(--dark); margin: 1.2rem 0 .5rem; }
+.ww-en h3:first-child { margin-top: 0; }
+.ww-en .ww-metrics { margin: .6rem 0 1rem; }
+.ww-en .ww-sources { margin-top: 1.2rem; }
+#page-ww-unete .ww-privacy { margin: 0 0 1rem; }
+.ww-empresas-linea { text-align: center; font-size: 13.5px; color: var(--gray); margin: 2rem 0 1.5rem; }
+.ww-empresas-linea a { color: var(--mid); font-weight: 700; text-decoration: none; }
 .ww-sources { font-size: 11.5px; color: var(--gray); line-height: 1.6; margin-top: 2.4rem; }
 @media (max-width: 640px) {
   .ww-main { padding: 0 1rem 2.5rem; }
   .ww-empresas { padding: 1.8rem 1.2rem; }
   .ww-empresas .ww-grid { grid-template-columns: 1fr; }
   .ww-hero { padding-bottom: 4rem; }
-  .ww-stat b { font-size: 1.7rem; }
-  .ww-stats { grid-template-columns: 1fr 1fr; }
+  .ww-stat { padding: .9rem .7rem; }
+  .ww-stat b { font-size: 1.35rem; }
+  .ww-stat span { font-size: 11.5px; display: block; }
+  .ww-stats { grid-template-columns: repeat(3, 1fr); gap: .5rem; }
 }
 </style>
 </head>
@@ -1250,12 +1259,11 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     <div class="hero-inner">
       <div class="hero-tag"><span>Una iniciativa de We Recruit DR</span></div>
       <h1>We Recruit <em>Women</em></h1>
-      <div class="ww-sello">Acompañamos a las empresas hacia el Sello Igualando RD</div>
-      <p>Abrimos la puerta del empleo formal a más mujeres.</p>
+      <div class="ww-sello">Oportunidades que impulsan la igualdad.</div>
+      <p>Conectamos a mujeres con empresas comprometidas con la igualdad de género y el desarrollo profesional femenino.</p>
       <div class="ww-hero-ctas">
         <button class="ww-btn ww-btn-primary" onclick="showPage('ww-unete')">Únete a la banca de talento</button>
         <button class="ww-btn ww-btn-ghost" onclick="wwIrACVBuilder()">Crear mi CV gratis</button>
-        <button class="ww-btn ww-btn-ghost" onclick="wwScrollEmpresas()">Soy empresa</button>
       </div>
     </div>
   </div>
@@ -1263,15 +1271,12 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
   <div class="ww-main">
     <div class="ww-stats">
       <div class="ww-stat"><b>2 de 3</b><span>egresados universitarios en RD son mujeres</span></div>
-      <div class="ww-stat"><b>43.9%</b><span>de las personas ocupadas son mujeres (ene–mar 2026)</span></div>
-      <div class="ww-stat"><b>157,078</b><span>mujeres más con empleo en un año (marzo 2025 a marzo 2026)</span></div>
-      <div class="ww-stat"><b>48%</b><span>de los trabajadores formales son mujeres (octubre 2025), frente a 45.1% en 2020</span></div>
+      <div class="ww-stat"><b>43.9%</b><span>de las personas ocupadas son mujeres</span></div>
       <div class="ww-stat"><b>27%</b><span>menos ganan las mujeres que los hombres, en promedio</span></div>
-      <div class="ww-stat"><b>19.3%</b><span>de las empresas formales están dirigidas por una mujer</span></div>
     </div>
-    <div class="ww-note">Fuentes: Banco Central, ONE, TSS y Banco Mundial. Ver detalle al final de la página.</div>
+    <div class="ww-note">Fuentes: Banco Central, ONE y Banco Mundial. Detalle en "Sobre la iniciativa", al final.</div>
 
-    <p class="ww-lead">Las dominicanas se forman más y cada año ganan espacio en el empleo formal. Aun así, todavía trabajan menos, ganan menos y dirigen menos empresas que los hombres. El problema no es la preparación: es el acceso a empleos formales y flexibles. Ese es el puente que construimos.</p>
+    <p class="ww-lead">El problema no es la preparación: es el acceso a empleos formales y flexibles. Ese es el puente que construimos.</p>
 
     <!-- PARA TI -->
     <section class="ww-section">
@@ -1299,60 +1304,33 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     </section>
 
     <!-- PARA EMPRESAS -->
-    <section class="ww-section ww-empresas" id="ww-empresas">
-      <div class="ww-kicker">Para empresas</div>
-      <h2>Contrata con igualdad</h2>
-      <p>Acompañamos a empresas que quieren más mujeres en su equipo y en sus posiciones de liderazgo, incluidas las que trabajan hacia el Sello Igualando RD.</p>
-      <div class="ww-grid">
-        <div class="ww-card">
-          <h3>Ternas balanceadas</h3>
-          <p>Presentamos candidaturas diversas en cada proceso, incluidas posiciones gerenciales y ejecutivas.</p>
-        </div>
-        <div class="ww-card">
-          <h3>Bandas salariales claras</h3>
-          <p>Te ayudamos a definir rangos salariales transparentes y competitivos para cada vacante.</p>
-        </div>
-        <div class="ww-card">
-          <h3>Reportes de igualdad</h3>
-          <p>Datos de tus procesos de selección por sexo, útiles para tus políticas internas y certificaciones.</p>
-        </div>
-      </div>
-      <div class="ww-empresas-cta">
-        <a class="ww-btn ww-btn-primary" href="https://wa.me/18493505577?text=Hola%2C%20me%20interesa%20We%20Recruit%20Women%20para%20mi%20empresa" target="_blank" rel="noopener">Hablemos por WhatsApp</a>
-        <a class="ww-btn ww-btn-ghost" href="mailto:svetlana@werecruitdr.com?subject=We%20Recruit%20Women">✉ svetlana@werecruitdr.com</a>
-      </div>
-    </section>
+    <p class="ww-empresas-linea" id="ww-empresas">¿Eres empresa y quieres más mujeres en tu equipo? <a href="https://wa.me/18493505577?text=Hola%2C%20me%20interesa%20We%20Recruit%20Women%20para%20mi%20empresa" target="_blank" rel="noopener">Escríbenos por WhatsApp →</a></p>
 
-    <!-- COMPROMISO DE MEDIR -->
-    <section class="ww-section">
-      <div class="ww-kicker">Nuestro compromiso</div>
-      <h2>Medir lo que logramos, y publicarlo</h2>
-      <p>No basta con decir que ayudamos: lo vamos a demostrar con datos. Desde ahora medimos estos indicadores y publicaremos nuestro primer informe en marzo de 2027.</p>
-      <ul class="ww-metrics">
-        <li>Mujeres colocadas cada trimestre</li>
-        <li>Salario de colocación frente al empleo anterior</li>
-        <li>Porcentaje de colocaciones en empleo formal</li>
-        <li>Retención a 6 y 12 meses</li>
-        <li>Mujeres en roles gerenciales o no tradicionales</li>
-        <li>Mujeres que regresan tras una pausa por cuidado</li>
-      </ul>
-      <div class="ww-privacy"><b>Tus datos, tu decisión.</b> Las preguntas que usamos para medir son opcionales, se tratan de forma confidencial, se reportan solo en conjunto y nunca afectan tu candidatura.</div>
-    </section>
-
-    <!-- ENGLISH -->
+    <!-- SOBRE LA INICIATIVA: compromiso, inglés y fuentes (cerrado por defecto) -->
     <section class="ww-section">
       <details class="ww-en">
-        <summary>About We Recruit Women (English)</summary>
+        <summary>Sobre la iniciativa · cómo medimos, fuentes y versión en inglés</summary>
         <div>
+          <h3>Medir lo que logramos, y publicarlo</h3>
+          <p>Desde ahora medimos estos indicadores y publicaremos nuestro primer informe en marzo de 2027:</p>
+          <ul class="ww-metrics">
+            <li>Mujeres colocadas cada trimestre</li>
+            <li>Salario de colocación frente al empleo anterior</li>
+            <li>Porcentaje de colocaciones en empleo formal</li>
+            <li>Retención a 6 y 12 meses</li>
+            <li>Mujeres en roles gerenciales o no tradicionales</li>
+            <li>Mujeres que regresan tras una pausa por cuidado</li>
+          </ul>
+          <p>Otros datos: 157,078 mujeres más con empleo en un año (marzo 2025 a marzo 2026); 48% de los trabajadores formales son mujeres (octubre 2025), frente a 45.1% en 2020; 19.3% de las empresas formales están dirigidas por una mujer.</p>
+          <h3>About We Recruit Women (English)</h3>
           <p><b>We Recruit Women</b> is an initiative of We Recruit DR, a recruitment firm and job portal in the Dominican Republic. Our goal: to connect more Dominican women with formal employment.</p>
           <p>Women make up two of every three university graduates in the country, yet only 43.9% of employed people. They now hold 48% of formal jobs, up from 45.1% in 2020, but on average earn 27% less than men and lead only 19.3% of formal companies. The bottleneck is access, not education.</p>
-          <p>We offer free profiles, CV building, salary transparency tools and remote or hybrid vacancies for women, and balanced shortlists, clear salary bands and equality reports for employers. We track placements, wage gains, formality and 12-month retention, and will publish our first report in March 2027.</p>
+          <p>We offer free CV building, a talent pool, salary transparency tools and remote or hybrid vacancies for women, and balanced shortlists, clear salary bands and equality reports for employers. We track placements, wage gains, formality and 12-month retention, and will publish our first report in March 2027.</p>
           <p>Contact: svetlana@werecruitdr.com · WhatsApp +1 (849) 350-5577</p>
+          <div class="ww-sources"><b>Fuentes:</b> Encuesta Nacional Continua de Fuerza de Trabajo (ENCFT), Banco Central de la República Dominicana, enero–marzo 2026 (ocupados y nuevos empleos); Tesorería de la Seguridad Social (TSS), octubre 2025, vía elDinero (trabajadores formales); Banco Mundial, estudio de 2023 con datos de la ENCFT 2019, vía Revista Mercado (brecha salarial); Oficina Nacional de Estadística (ONE), vía elDinero (egresados y empresas dirigidas por mujeres). Sello Igualando RD: Ministerio de la Mujer y PNUD.</div>
         </div>
       </details>
     </section>
-
-    <div class="ww-sources"><b>Fuentes:</b> Encuesta Nacional Continua de Fuerza de Trabajo (ENCFT), Banco Central de la República Dominicana, enero–marzo 2026 (ocupados y nuevos empleos); Tesorería de la Seguridad Social (TSS), octubre 2025, vía elDinero (trabajadores formales); Banco Mundial, estudio de 2023 con datos de la ENCFT 2019, vía Revista Mercado (brecha salarial); Oficina Nacional de Estadística (ONE), vía elDinero (egresados y empresas dirigidas por mujeres). Sello Igualando RD: Ministerio de la Mujer y PNUD.</div>
   </div>
   <footer class="site-footer"></footer>
 </div>
@@ -1453,6 +1431,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <p style="font-size:12px;color:var(--gray);margin-top:8px;text-align:center">¿No tienes CV? <a style="color:var(--mid);cursor:pointer;font-weight:600" onclick="wwIrACVBuilder()">Créalo gratis con el CV Builder →</a></p>
       </div>
 
+      <div class="ww-privacy"><b>Tus datos, tu decisión.</b> Solo los usamos para buscarte empleo, de forma confidencial. Las preguntas opcionales se reportan solo en conjunto y nunca afectan tu candidatura.</div>
       <label class="ww-consent"><input type="checkbox" id="wwj-consent"> Acepto que We Recruit DR guarde mis datos y mi CV en su banca de candidatos para contactarme por oportunidades de empleo. <span class="req">*</span></label>
 
       <button class="submit-btn" id="wwjSubmitBtn" onclick="wwjEnviar()">
