@@ -1122,13 +1122,6 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 .ww-card p { font-size: 13px; color: var(--gray); line-height: 1.6; flex: 1; }
 .ww-card .ww-link { margin-top: .9rem; font-size: 13px; font-weight: 700; color: var(--mid); cursor: pointer; background: none; border: none; padding: 0; text-align: left; font-family: inherit; }
 .ww-card .ww-link:hover { text-decoration: underline; }
-.ww-card .ww-link + .ww-link { display: block; margin-top: .4rem; }
-.ww-cv-enviar { background: var(--cream); border: 1.5px solid var(--green-dk); border-radius: 12px; padding: 1.2rem 1.4rem; margin: 1.5rem 0 1rem; }
-.ww-cv-enviar > b { font-family: 'Nunito', sans-serif; color: var(--dark); font-size: 15px; }
-.ww-cv-enviar > p { font-size: 13px; color: var(--gray); margin: .3rem 0 1rem; }
-.ww-cv-enviar .cvb-download-btn { margin-top: 1rem; }
-.ww-cv-enviar.enviado { text-align: center; }
-#page-ww-unete .ww-consent { margin: 0 0 1.2rem; }
 .ww-empresas { background: var(--dark); border-radius: 14px; padding: 2.4rem 2rem; color: var(--white); }
 .ww-empresas h2 { color: var(--white) !important; }
 .ww-empresas > p { color: rgba(255,255,255,0.65) !important; }
@@ -1143,25 +1136,16 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 .ww-privacy { background: var(--white); border-left: 4px solid var(--green-dk); border-radius: 8px; padding: 1.1rem 1.3rem; margin-top: 1.4rem; font-size: 13px; color: var(--dark); line-height: 1.6; }
 .ww-en { background: var(--white); border: 1.5px solid var(--light); border-radius: 12px; padding: 0 1.4rem; }
 .ww-en summary { cursor: pointer; padding: 1.1rem 0; font-weight: 700; font-size: 14px; color: var(--dark); }
-.ww-en > div { padding-bottom: 1.3rem; font-size: 13.5px; color: var(--gray); line-height: 1.7; }
-.ww-en > div p + p { margin-top: .7rem; }
-.ww-en h3 { font-size: 14px; color: var(--dark); margin: 1.2rem 0 .5rem; }
-.ww-en h3:first-child { margin-top: 0; }
-.ww-en .ww-metrics { margin: .6rem 0 1rem; }
-.ww-en .ww-sources { margin-top: 1.2rem; }
-#page-ww-unete .ww-privacy { margin: 0 0 1rem; }
-.ww-empresas-linea { text-align: center; font-size: 13.5px; color: var(--gray); margin: 2rem 0 1.5rem; }
-.ww-empresas-linea a { color: var(--mid); font-weight: 700; text-decoration: none; }
+.ww-en div { padding-bottom: 1.3rem; font-size: 13.5px; color: var(--gray); line-height: 1.7; }
+.ww-en div p + p { margin-top: .7rem; }
 .ww-sources { font-size: 11.5px; color: var(--gray); line-height: 1.6; margin-top: 2.4rem; }
 @media (max-width: 640px) {
   .ww-main { padding: 0 1rem 2.5rem; }
   .ww-empresas { padding: 1.8rem 1.2rem; }
   .ww-empresas .ww-grid { grid-template-columns: 1fr; }
   .ww-hero { padding-bottom: 4rem; }
-  .ww-stat { padding: .9rem .7rem; }
-  .ww-stat b { font-size: 1.35rem; }
-  .ww-stat span { font-size: 11.5px; display: block; }
-  .ww-stats { grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+  .ww-stat b { font-size: 1.7rem; }
+  .ww-stats { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
@@ -1257,12 +1241,13 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 <div id="page-mujeres" class="page">
   <div class="hero hero-sm ww-hero">
     <div class="hero-inner">
+      <div class="hero-tag"><span>Una iniciativa de We Recruit DR</span></div>
       <h1>We Recruit <em>Women</em></h1>
-      <div class="ww-sello">Oportunidades que impulsan la igualdad.</div>
-      <p>Conectamos a mujeres con empresas comprometidas con la igualdad de género y el desarrollo profesional femenino.</p>
+      <div class="ww-sello">Acompañamos a las empresas hacia el Sello Igualando RD</div>
+      <p>Abrimos la puerta del empleo formal a más mujeres.</p>
       <div class="ww-hero-ctas">
-        <button class="ww-btn ww-btn-primary" onclick="showPage('ww-unete')">Únete a la banca de talento</button>
-        <button class="ww-btn ww-btn-ghost" onclick="wwIrACVBuilder()">Crear mi CV gratis</button>
+        <button class="ww-btn ww-btn-primary" onclick="showPage('mi-perfil')">Crear mi perfil gratis</button>
+        <button class="ww-btn ww-btn-ghost" onclick="wwScrollEmpresas()">Soy empresa</button>
       </div>
     </div>
   </div>
@@ -1270,12 +1255,15 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
   <div class="ww-main">
     <div class="ww-stats">
       <div class="ww-stat"><b>2 de 3</b><span>egresados universitarios en RD son mujeres</span></div>
-      <div class="ww-stat"><b>43.9%</b><span>de las personas ocupadas son mujeres</span></div>
-      <div class="ww-stat"><b>N.º 1</b><span>barrera para buscar empleo: el cuidado del hogar</span></div>
+      <div class="ww-stat"><b>64.9</b><span>mujeres con empleo por cada 100 hombres con empleo (2024)</span></div>
+      <div class="ww-stat"><b>70%</b><span>de las personas fuera del mercado laboral son mujeres</span></div>
+      <div class="ww-stat"><b>48%</b><span>de los trabajadores formales son mujeres (octubre 2025), frente a 45.1% en 2020</span></div>
+      <div class="ww-stat"><b>27%</b><span>menos ganan las mujeres que los hombres, en promedio</span></div>
+      <div class="ww-stat"><b>19.3%</b><span>de las empresas formales están dirigidas por una mujer</span></div>
     </div>
-    <div class="ww-note">Fuentes: Banco Central (ENCFT) y ONE, 2026. Detalle en "Sobre la iniciativa", al final.</div>
+    <div class="ww-note">Fuentes: ONE, TSS y Banco Mundial. Ver detalle al final de la página.</div>
 
-    <p class="ww-lead">El talento de la mujer dominicana impulsa el desarrollo del país. Nuestro trabajo es abrirle las puertas del empleo formal, flexible y con crecimiento.</p>
+    <p class="ww-lead">Las dominicanas se forman más y cada año ganan espacio en el empleo formal. Aun así, todavía trabajan menos, ganan menos y dirigen menos empresas que los hombres. El problema no es la preparación: es el acceso a empleos formales y flexibles. Ese es el puente que construimos.</p>
 
     <!-- PARA TI -->
     <section class="ww-section">
@@ -1284,10 +1272,9 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       <p>Todo lo que ofrece el portal es gratuito para candidatas, sin importar si buscas tu primer empleo formal, un mejor salario o regresas después de una pausa por cuidado.</p>
       <div class="ww-grid">
         <div class="ww-card">
-          <h3>Tu CV, directo a nuestra banca</h3>
-          <p>Envía tu CV en un minuto, sin crear cuenta. ¿No tienes uno? Ármalo aquí en 5 pasos y envíalo desde ahí.</p>
-          <button class="ww-link" onclick="showPage('ww-unete')">Unirme a la banca →</button>
-          <button class="ww-link" onclick="wwIrACVBuilder()">Crear mi CV →</button>
+          <h3>Tu perfil y tu CV</h3>
+          <p>Crea tu perfil y arma un CV profesional en minutos, listo para aplicar.</p>
+          <button class="ww-link" onclick="showPage('cv-builder')">Crear mi CV →</button>
         </div>
         <div class="ww-card">
           <h3>Vacantes compatibles con el cuidado</h3>
@@ -1303,160 +1290,60 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     </section>
 
     <!-- PARA EMPRESAS -->
-    <p class="ww-empresas-linea" id="ww-empresas">¿Eres empresa y quieres más mujeres en tu equipo? <a href="https://wa.me/18493505577?text=Hola%2C%20me%20interesa%20We%20Recruit%20Women%20para%20mi%20empresa" target="_blank" rel="noopener">Escríbenos por WhatsApp →</a></p>
+    <section class="ww-section ww-empresas" id="ww-empresas">
+      <div class="ww-kicker">Para empresas</div>
+      <h2>Contrata con igualdad</h2>
+      <p>Acompañamos a empresas que quieren más mujeres en su equipo y en sus posiciones de liderazgo, incluidas las que trabajan hacia el Sello Igualando RD.</p>
+      <div class="ww-grid">
+        <div class="ww-card">
+          <h3>Ternas balanceadas</h3>
+          <p>Presentamos candidaturas diversas en cada proceso, incluidas posiciones gerenciales y ejecutivas.</p>
+        </div>
+        <div class="ww-card">
+          <h3>Bandas salariales claras</h3>
+          <p>Te ayudamos a definir rangos salariales transparentes y competitivos para cada vacante.</p>
+        </div>
+        <div class="ww-card">
+          <h3>Reportes de igualdad</h3>
+          <p>Datos de tus procesos de selección por sexo, útiles para tus políticas internas y certificaciones.</p>
+        </div>
+      </div>
+      <div class="ww-empresas-cta">
+        <a class="ww-btn ww-btn-primary" href="https://wa.me/18493505577?text=Hola%2C%20me%20interesa%20We%20Recruit%20Women%20para%20mi%20empresa" target="_blank" rel="noopener">Hablemos por WhatsApp</a>
+        <a class="ww-btn ww-btn-ghost" href="mailto:svetlana@werecruitdr.com?subject=We%20Recruit%20Women">✉ svetlana@werecruitdr.com</a>
+      </div>
+    </section>
 
-    <!-- SOBRE LA INICIATIVA: compromiso, inglés y fuentes (cerrado por defecto) -->
+    <!-- COMPROMISO DE MEDIR -->
+    <section class="ww-section">
+      <div class="ww-kicker">Nuestro compromiso</div>
+      <h2>Medir lo que logramos, y publicarlo</h2>
+      <p>No basta con decir que ayudamos: lo vamos a demostrar con datos. Desde ahora medimos estos indicadores y publicaremos nuestro primer informe en marzo de 2027.</p>
+      <ul class="ww-metrics">
+        <li>Mujeres colocadas cada trimestre</li>
+        <li>Salario de colocación frente al empleo anterior</li>
+        <li>Porcentaje de colocaciones en empleo formal</li>
+        <li>Retención a 6 y 12 meses</li>
+        <li>Mujeres en roles gerenciales o no tradicionales</li>
+        <li>Mujeres que regresan tras una pausa por cuidado</li>
+      </ul>
+      <div class="ww-privacy"><b>Tus datos, tu decisión.</b> Las preguntas que usamos para medir son opcionales, se tratan de forma confidencial, se reportan solo en conjunto y nunca afectan tu candidatura.</div>
+    </section>
+
+    <!-- ENGLISH -->
     <section class="ww-section">
       <details class="ww-en">
-        <summary>Sobre la iniciativa · cómo medimos, fuentes y versión en inglés</summary>
+        <summary>About We Recruit Women (English)</summary>
         <div>
-          <h3>Medir lo que logramos, y publicarlo</h3>
-          <p>Desde ahora medimos estos indicadores y publicaremos nuestro primer informe en marzo de 2027:</p>
-          <ul class="ww-metrics">
-            <li>Mujeres colocadas cada trimestre</li>
-            <li>Salario de colocación frente al empleo anterior</li>
-            <li>Porcentaje de colocaciones en empleo formal</li>
-            <li>Retención a 6 y 12 meses</li>
-            <li>Mujeres en roles gerenciales o no tradicionales</li>
-            <li>Mujeres que regresan tras una pausa por cuidado</li>
-          </ul>
-          <p>Otros datos: 157,078 mujeres más con empleo en un año (marzo 2025 a marzo 2026), pero el 82.7% del aumento neto de empleo fue informal; el cuidado del hogar es la principal razón por la que las mujeres inactivas no buscan empleo; 48% de los trabajadores formales son mujeres (octubre 2025), frente a 45.1% en 2020; las mujeres ganan en promedio 27% menos que los hombres (Banco Mundial, datos de 2019); 19.3% de las empresas formales están dirigidas por una mujer.</p>
-          <h3>About We Recruit Women (English)</h3>
           <p><b>We Recruit Women</b> is an initiative of We Recruit DR, a recruitment firm and job portal in the Dominican Republic. Our goal: to connect more Dominican women with formal employment.</p>
-          <p>Women make up two of every three university graduates in the country, yet only 43.9% of employed people. They now hold 48% of formal jobs, up from 45.1% in 2020, but on average earn 27% less than men and lead only 19.3% of formal companies. The bottleneck is access, not education.</p>
-          <p>We offer free CV building, a talent pool, salary transparency tools and remote or hybrid vacancies for women, and balanced shortlists, clear salary bands and equality reports for employers. We track placements, wage gains, formality and 12-month retention, and will publish our first report in March 2027.</p>
+          <p>Women make up two of every three university graduates in the country, yet fewer than 65 women are employed for every 100 employed men, and women are 70% of the population outside the labor force. They now hold 48% of formal jobs, up from 45.1% in 2020, but on average earn 27% less than men and lead only 19.3% of formal companies. The bottleneck is access, not education.</p>
+          <p>We offer free profiles, CV building, salary transparency tools and remote or hybrid vacancies for women, and balanced shortlists, clear salary bands and equality reports for employers. We track placements, wage gains, formality and 12-month retention, and will publish our first report in March 2027.</p>
           <p>Contact: svetlana@werecruitdr.com · WhatsApp +1 (849) 350-5577</p>
-          <div class="ww-sources"><b>Fuentes:</b> Encuesta Nacional Continua de Fuerza de Trabajo (ENCFT), Banco Central de la República Dominicana, enero–marzo 2026 (ocupados y nuevos empleos); Tesorería de la Seguridad Social (TSS), octubre 2025, vía elDinero (trabajadores formales); Banco Mundial, estudio de 2023 con datos de la ENCFT 2019, vía Revista Mercado (brecha salarial); Oficina Nacional de Estadística (ONE), vía elDinero (egresados y empresas dirigidas por mujeres). Sello Igualando RD: Ministerio de la Mujer y PNUD.</div>
         </div>
       </details>
     </section>
-  </div>
-  <footer class="site-footer"></footer>
-</div>
 
-<!-- ═══════════════ WE RECRUIT WOMEN — ÚNETE A LA BANCA ═══════════════ -->
-<div id="page-ww-unete" class="page">
-  <div class="form-page">
-    <button class="back-btn" onclick="goBack('mujeres')">← Volver</button>
-
-    <div class="form-header">
-      <div class="fh-icon">WW</div>
-      <div>
-        <div class="fh-title">Únete a la banca de talento</div>
-        <div class="fh-sub">We Recruit Women · Gratis · Sin crear cuenta</div>
-      </div>
-    </div>
-
-    <div class="success-screen" id="wwjSuccess">
-      <div class="success-icon">✅</div>
-      <h3>¡Listo, ya estás en nuestra banca!</h3>
-      <p>Te tendremos en cuenta para las vacantes que encajen con tu perfil.<br>Si hay una oportunidad para ti, te contactamos por WhatsApp o email.</p>
-      <button onclick="wwVerCuidado()">Ver vacantes compatibles con el cuidado</button>
-    </div>
-
-    <div id="wwjForm">
-      <p class="ww-form-intro">Déjanos tus datos y tu CV en un minuto. Si todavía no tienes CV, <a onclick="wwIrACVBuilder()">créalo aquí en 5 pasos</a> y lo envías desde ahí.</p>
-
-      <div class="form-section">
-        <h3>Tus datos</h3>
-        <div class="form-row">
-          <div class="field">
-            <label>Nombre completo <span class="req">*</span></label>
-            <input type="text" id="wwj-nombre" placeholder="María Pérez">
-            <div class="error-msg" id="err-wwj-nombre">Campo requerido</div>
-          </div>
-          <div class="field">
-            <label>WhatsApp / Teléfono <span class="req">*</span></label>
-            <input type="tel" id="wwj-telefono" placeholder="+1 (809) 000-0000">
-            <div class="error-msg" id="err-wwj-telefono">Campo requerido</div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="field">
-            <label>Email <span class="req">*</span></label>
-            <input type="email" id="wwj-email" placeholder="maria@email.com">
-            <div class="error-msg" id="err-wwj-email">Email válido requerido</div>
-          </div>
-          <div class="field">
-            <label>Ciudad <span class="req">*</span></label>
-            <input type="text" id="wwj-ciudad" placeholder="Santo Domingo">
-            <div class="error-msg" id="err-wwj-ciudad">Campo requerido</div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="field">
-            <label>¿Qué trabajo buscas? <span class="req">*</span></label>
-            <input type="text" id="wwj-puesto" placeholder="Ej: Asistente administrativa, Ventas, Contabilidad">
-            <div class="error-msg" id="err-wwj-puesto">Campo requerido</div>
-          </div>
-          <div class="field">
-            <label>Años de experiencia</label>
-            <select id="wwj-experiencia">
-              <option value="">Seleccionar</option>
-              <option>Sin experiencia</option>
-              <option>Menos de 2 años</option>
-              <option>2–5 años</option>
-              <option>5–10 años</option>
-              <option>Más de 10 años</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-section ww-form-section">
-        <h3>Ayúdanos a medir <small>Opcional</small></h3>
-        <p class="ww-form-intro">Con estas respuestas medimos si más mujeres llegan a empleos formales y mejor pagados. Son voluntarias, confidenciales y <b>no afectan tu candidatura</b>.</p>
-        <div class="form-row">
-          <div class="field">
-            <label>Sexo</label>
-            <select id="wwj-sexo">
-              <option value="">Prefiero no responder</option>
-              <option>Mujer</option>
-              <option>Hombre</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Salario de tu último empleo (RD$)</label>
-            <input type="text" id="wwj-salario" inputmode="numeric" placeholder="Ej: 35,000">
-          </div>
-        </div>
-        <div class="form-row full">
-          <div class="field">
-            <label>¿Regresas al trabajo después de una pausa por cuidado de familiares?</label>
-            <select id="wwj-pausa">
-              <option value="">Prefiero no responder</option>
-              <option>Sí</option>
-              <option>No</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-section">
-        <h3>Tu CV <small>Opcional</small></h3>
-        <div class="upload-box" id="wwjUploadBox" onclick="document.getElementById('wwjCvInput').click()">
-          <input type="file" id="wwjCvInput" accept=".pdf,.doc,.docx" style="display:none" onchange="wwjElegirCV(this)">
-          <div class="upload-icon">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#063958" stroke-width="2.5">
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-              <polyline points="17 8 12 3 7 8"/>
-              <line x1="12" y1="3" x2="12" y2="15"/>
-            </svg>
-          </div>
-          <strong id="wwjCvLabel">Haz clic para subir tu CV</strong>
-          <p>PDF o Word · Máx. 5MB</p>
-        </div>
-        <p style="font-size:12px;color:var(--gray);margin-top:8px;text-align:center">¿No tienes CV? <a style="color:var(--mid);cursor:pointer;font-weight:600" onclick="wwIrACVBuilder()">Créalo gratis con el CV Builder →</a></p>
-      </div>
-
-      <div class="ww-privacy"><b>Tus datos, tu decisión.</b> Solo los usamos para buscarte empleo, de forma confidencial. Las preguntas opcionales se reportan solo en conjunto y nunca afectan tu candidatura.</div>
-      <label class="ww-consent"><input type="checkbox" id="wwj-consent"> Acepto que We Recruit DR guarde mis datos y mi CV en su banca de candidatos para contactarme por oportunidades de empleo, y que use mis respuestas opcionales solo en estadísticas confidenciales. <span class="req">*</span></label>
-
-      <button class="submit-btn" id="wwjSubmitBtn" onclick="wwjEnviar()">
-        Enviar a la banca
-        <div class="spinner" id="wwjSpinner"></div>
-      </button>
-    </div>
+    <div class="ww-sources"><b>Fuentes:</b> Oficina Nacional de Estadística (ONE), «Brecha de género en la tasa de ocupación en la República Dominicana», septiembre 2025, con datos de 2024, vía elDinero (mujeres ocupadas por cada 100 hombres y población inactiva); Tesorería de la Seguridad Social (TSS), octubre 2025, vía elDinero (trabajadores formales); Banco Mundial, estudio de 2023 con datos de la ENCFT 2019, vía Revista Mercado (brecha salarial); Oficina Nacional de Estadística (ONE), vía elDinero (egresados y empresas dirigidas por mujeres). Sello Igualando RD: Ministerio de la Mujer y PNUD.</div>
   </div>
   <footer class="site-footer"></footer>
 </div>
@@ -2232,40 +2119,6 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     <div id="cvbPreview" style="display:none">
       <div id="cv-print-area">
         <div class="cv-doc" id="cvDoc"></div>
-      </div>
-      <div class="ww-cv-enviar" id="wwCvEnviar">
-        <b>¿Quieres que We Recruit te tenga en cuenta?</b>
-        <p>Envía este CV a nuestra banca de talento y te contactamos cuando haya una vacante para ti.</p>
-        <div class="form-row">
-          <div class="field">
-            <label>¿Qué trabajo buscas? <span class="req">*</span></label>
-            <input type="text" id="wwcv-puesto" placeholder="Ej: Asistente administrativa">
-          </div>
-          <div class="field">
-            <label>¿Regresas tras una pausa por cuidado? <small>Opcional</small></label>
-            <select id="wwcv-pausa">
-              <option value="">Prefiero no responder</option>
-              <option>Sí</option>
-              <option>No</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="field">
-            <label>Sexo <small>Opcional</small></label>
-            <select id="wwcv-sexo">
-              <option value="">Prefiero no responder</option>
-              <option>Mujer</option>
-              <option>Hombre</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Salario de tu último empleo (RD$) <small>Opcional</small></label>
-            <input type="text" id="wwcv-salario" inputmode="numeric" placeholder="Ej: 35,000">
-          </div>
-        </div>
-        <label class="ww-consent"><input type="checkbox" id="wwcv-consent"> Acepto que We Recruit DR guarde mis datos y este CV en su banca de candidatos para contactarme por oportunidades de empleo, y que use mis respuestas opcionales solo en estadísticas confidenciales.</label>
-        <button class="cvb-download-btn" id="wwCvEnviarBtn" onclick="wwEnviarCVBuilder()">Enviar mi CV a la banca</button>
       </div>
       <button class="cvb-download-btn" onclick="downloadCV()">Descargar PDF</button>
       <button class="cvb-restart-btn" onclick="cvbRestart()">← Editar información</button>
@@ -3266,7 +3119,6 @@ let navFromHistory = false;
 function pageUrl(name, jobId) {
   const base = location.pathname + location.search;
   if (name === 'mujeres') return base + '#we-recruit-women';
-  if (name === 'ww-unete') return base + '#unete';
   if ((name === 'job-detail' || name === 'apply') && jobId) return base + '#vacante=' + encodeURIComponent(jobId);
   return base;
 }
@@ -3639,16 +3491,16 @@ async function submitApplication() {
       if (error) throw error;
     }
     const wwData = wwCollectAnswers();
-    let { id: candId, error: candError } = await insertarCandidato({ ...record, ...wwData });
+    let { data: candData, error: candError } = await sb.from('candidatos').insert([{ ...record, ...wwData }]).select();
     if (candError && Object.keys(wwData).length) {
       // Si las columnas nuevas aún no existen en la base de datos, guardar la aplicación sin ellas
-      ({ id: candId, error: candError } = await insertarCandidato(record));
+      ({ data: candData, error: candError } = await sb.from('candidatos').insert([record]).select());
     }
     if (candError) console.warn('Candidato insert:', candError.message);
 
-    if (candId && record.posicion_id) {
+    if (candData && candData[0] && record.posicion_id) {
       await sb.from('candidato_posicion').insert([{
-        candidato_id: candId,
+        candidato_id: candData[0].id,
         posicion_id: record.posicion_id,
         estado: 'identificado',
       }]);
@@ -4600,39 +4452,6 @@ cvbRenderSteps();
 let pvEmpresaId = null;
 let pvEmpresaEmail = null;
 
-// ─── Cuentas con Supabase Auth (ver DB/seguridad-2-cuentas-portal.sql) ───
-async function authRegistrar(email, password, datos) {
-  const { data, error } = await sb.auth.signUp({
-    email, password,
-    options: { data: datos, emailRedirectTo: location.origin + location.pathname }
-  });
-  if (error) throw error;
-  // Supabase devuelve un usuario sin identidades cuando el email ya está registrado
-  if (data.user && Array.isArray(data.user.identities) && !data.user.identities.length) return 'existe';
-  return data.session ? 'activa' : 'confirmar';
-}
-
-async function authEntrar(email, password) {
-  const { error } = await sb.auth.signInWithPassword({ email, password });
-  if (!error) return null;
-  return /confirm/i.test(error.message)
-    ? 'Confirma tu email antes de iniciar sesión (revisa tu correo)'
-    : 'Email o contraseña incorrectos';
-}
-
-async function miPerfil(funcion) {
-  const { data, error } = await sb.rpc(funcion);
-  if (error) throw error;
-  return data && data[0] ? data[0] : null;
-}
-
-async function insertarCandidato(rec) {
-  // El id se genera aquí porque el portal no puede leer la tabla candidatos
-  const id = crypto.randomUUID();
-  const { error } = await sb.from('candidatos').insert([{ id, ...rec }]);
-  return { id: error ? null : id, error };
-}
-
 function pvShowRegister() {
   document.getElementById('pvLoginSection').style.display = 'none';
   document.getElementById('pvRegisterSection').style.display = 'block';
@@ -4656,18 +4475,16 @@ async function pvRegister() {
   }
 
   try {
-    const estado = await authRegistrar(email, password, {
-      tipo: 'empresa', nombre_empresa: empresa, contacto_nombre: contacto, telefono, sector
-    });
-    if (estado === 'existe') { showToast('Ya existe una cuenta con ese email. Inicia sesión.', 'error'); return; }
-    if (estado === 'confirmar') {
-      pvShowLogin();
-      showToast('Te enviamos un correo para confirmar tu cuenta. Después inicia sesión.', 'success');
+    const { data, error } = await sb.from('empresas_portal').insert([{
+      nombre_empresa: empresa, contacto_nombre: contacto, email, password, telefono, sector
+    }]).select().single();
+
+    if (error) {
+      if (error.message.includes('duplicate') || error.message.includes('unique')) {
+        showToast('Ya existe una cuenta con ese email. Inicia sesión.', 'error');
+      } else throw error;
       return;
     }
-
-    const data = await miPerfil('mi_empresa_portal');
-    if (!data) throw new Error('No se pudo crear el perfil de empresa');
 
     pvEmpresaId = data.id;
     pvEmpresaEmail = email;
@@ -4687,10 +4504,10 @@ async function pvLogin() {
   if (!email || !pass) { showToast('Ingresa email y contraseña', 'error'); return; }
 
   try {
-    const fallo = await authEntrar(email, pass);
-    if (fallo) { showToast(fallo, 'error'); return; }
-    const data = await miPerfil('mi_empresa_portal');
-    if (!data) { await sb.auth.signOut(); showToast('Esta cuenta no está registrada como empresa', 'error'); return; }
+    const { data, error } = await sb.from('empresas_portal')
+      .select('*').eq('email', email).eq('password', pass).single();
+
+    if (error || !data) { showToast('Email o contraseña incorrectos', 'error'); return; }
 
     pvEmpresaId = data.id;
     pvEmpresaEmail = email;
@@ -4757,10 +4574,10 @@ async function epLogin() {
   if (!email || !pass) { showToast('Ingresa email y contraseña', 'error'); return; }
 
   try {
-    const fallo = await authEntrar(email, pass);
-    if (fallo) { showToast(fallo, 'error'); return; }
-    const data = await miPerfil('mi_empresa_portal');
-    if (!data) { await sb.auth.signOut(); showToast('Esta cuenta no está registrada como empresa', 'error'); return; }
+    const { data, error } = await sb.from('empresas_portal')
+      .select('*').eq('email', email).eq('password', pass).single();
+
+    if (error || !data) { showToast('Email o contraseña incorrectos', 'error'); return; }
 
     epEmpresa = data;
     document.getElementById('epLoginSection').style.display = 'none';
@@ -4775,7 +4592,6 @@ async function epLogin() {
 }
 
 function epLogout() {
-  sb.auth.signOut();
   epEmpresa = null;
   document.getElementById('epDashboard').style.display = 'none';
   document.getElementById('epLoginSection').style.display = 'block';
@@ -4925,15 +4741,11 @@ async function cpRegister() {
   const pass = document.getElementById('cp-reg-pass').value;
   if (!nombre || !email || pass.length < 6) { showToast('Completa nombre, email y contraseña (mín 6 caracteres)', 'error'); return; }
   try {
-    const estado = await authRegistrar(email, pass, { tipo: 'candidata', nombre, apellido });
-    if (estado === 'existe') { showToast('Ya existe una cuenta con ese email. Inicia sesión.', 'error'); return; }
-    if (estado === 'confirmar') {
-      cpToggleAuth('login');
-      showToast('Te enviamos un correo para confirmar tu cuenta. Después inicia sesión.', 'success');
-      return;
+    const { data, error } = await sb.from('perfiles_candidato').insert([{ nombre, apellido, email, password: pass }]).select().single();
+    if (error) {
+      if (error.message.includes('duplicate') || error.message.includes('unique')) { showToast('Ya existe una cuenta con ese email', 'error'); return; }
+      throw error;
     }
-    const data = await miPerfil('mi_perfil_candidata');
-    if (!data) throw new Error('No se pudo crear el perfil');
     cpPerfil = data;
     cpShowEdit();
     showToast('Cuenta creada. Completa tu perfil.', 'success');
@@ -4945,10 +4757,8 @@ async function cpLogin() {
   const pass = document.getElementById('cp-login-pass').value;
   if (!email || !pass) { showToast('Ingresa email y contraseña', 'error'); return; }
   try {
-    const fallo = await authEntrar(email, pass);
-    if (fallo) { showToast(fallo, 'error'); return; }
-    const data = await miPerfil('mi_perfil_candidata');
-    if (!data) { await sb.auth.signOut(); showToast('Esta cuenta no tiene perfil de candidata', 'error'); return; }
+    const { data, error } = await sb.from('perfiles_candidato').select('*').eq('email', email).eq('password', pass).single();
+    if (error || !data) { showToast('Email o contraseña incorrectos', 'error'); return; }
     cpPerfil = data;
     cpShowEdit();
     showToast('Bienvenido, ' + data.nombre, 'success');
@@ -5010,7 +4820,6 @@ async function cpSave() {
 }
 
 function cpLogout() {
-  sb.auth.signOut();
   cpPerfil = null;
   document.getElementById('cpEditSection').style.display = 'none';
   document.getElementById('cpAuthSection').style.display = 'block';
@@ -5083,16 +4892,16 @@ async function quickApply(jobId) {
         vacante_aplicada: [job.title, job.company].filter(Boolean).join(' · '),
         posicion_id: job.id,
       };
-      const { id: candId, error: candErr } = await insertarCandidato(candRecord);
+      const { data: candData, error: candErr } = await sb.from('candidatos').insert([candRecord]).select();
       if (candErr) console.warn('Candidato insert:', candErr.message);
-      if (candId && job.id) {
-        await sb.from('candidato_posicion').insert([{ candidato_id: candId, posicion_id: job.id, estado: 'identificado' }]);
+      if (candData && candData[0] && job.id) {
+        await sb.from('candidato_posicion').insert([{ candidato_id: candData[0].id, posicion_id: job.id, estado: 'identificado' }]);
       }
     } else {
-      const { id: candId, error } = await insertarCandidato(record);
+      const { data: candData, error } = await sb.from('candidatos').insert([record]).select();
       if (error) throw error;
-      if (candId && record.posicion_id) {
-        await sb.from('candidato_posicion').insert([{ candidato_id: candId, posicion_id: record.posicion_id, estado: 'identificado' }]);
+      if (candData && candData[0] && record.posicion_id) {
+        await sb.from('candidato_posicion').insert([{ candidato_id: candData[0].id, posicion_id: record.posicion_id, estado: 'identificado' }]);
       }
     }
     showToast('¡Aplicación enviada! ' + job.company + ' recibirá tu perfil.', 'success');
@@ -5838,139 +5647,7 @@ function wwVerVacantes(value, label) {
 }
 window.addEventListener('DOMContentLoaded', () => {
   if (__initHash === '#we-recruit-women') showPage('mujeres');
-  if (__initHash === '#unete') showPage('ww-unete');
 });
-
-// ─── Banca de talento We Recruit Women (sin cuenta) ───
-// Guarda en banca_candidatos con posicion "We Recruit Women"; el CV va al bucket privado banca-cvs.
-// Reglas en DB/seguridad-3-cerrar-lecturas.sql (solo permite insertar, nunca leer).
-const WW_BANCA = 'We Recruit Women';
-let wwjArchivo = null;
-
-function wwIrACVBuilder() {
-  showPage('cv-builder');
-}
-
-function wwjElegirCV(input) {
-  const f = input.files[0];
-  wwjArchivo = null;
-  if (!f) return;
-  if (f.size > 5 * 1024 * 1024) { showToast('El archivo debe ser menor a 5MB', 'error'); input.value = ''; return; }
-  if (!/\.(pdf|doc|docx)$/i.test(f.name)) { showToast('Solo se permiten archivos PDF o Word', 'error'); input.value = ''; return; }
-  wwjArchivo = f;
-  document.getElementById('wwjCvLabel').textContent = '✅ ' + f.name;
-  document.getElementById('wwjUploadBox').classList.add('uploaded');
-}
-
-function wwHoy() {
-  const d = new Date();
-  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-}
-
-async function wwGuardarEnBanca({ nombre, email, telefono, ciudad, puesto, experiencia, pausa, sexo, salario, archivo, texto, origen }) {
-  const id = 'ww-' + crypto.randomUUID();
-  let cv_path = null, cv_nombre = null;
-  if (archivo) {
-    const ext = archivo.name.split('.').pop().toLowerCase();
-    cv_path = `women/${id}.${ext}`;
-    cv_nombre = archivo.name;
-    const { error: upErr } = await sb.storage.from('banca-cvs')
-      .upload(cv_path, archivo, { upsert: false, contentType: archivo.type || 'application/octet-stream' });
-    if (upErr) throw upErr;
-  }
-  const notas = [
-    'Llegó por We Recruit Women (' + origen + ').',
-    'Busca: ' + puesto,
-    experiencia && 'Experiencia: ' + experiencia,
-    pausa && 'Regresa tras pausa por cuidado: ' + pausa,
-    texto && '\n' + texto,
-  ].filter(Boolean).join('\n');
-  // Preguntas de medición (DB/women-5-medicion-banca.sql); solo se guardan si respondió algo
-  const medicion = {};
-  if (sexo) medicion.sexo = sexo;
-  const sal = String(salario || '').replace(/[^\d]/g, '');
-  if (sal) medicion.salario_anterior_dop = Number(sal);
-  if (pausa) medicion.regresa_pausa_cuidado = pausa === 'Sí';
-  if (Object.keys(medicion).length) medicion.consentimiento_datos_ww = true;
-
-  const fila = {
-    id, nombre, email, telefono, ciudad,
-    posicion: WW_BANCA, tipo: WW_BANCA, estado: 'nuevo', pais: 'RD',
-    fecha_correo: wwHoy(),
-    asunto: WW_BANCA + ' · busca: ' + puesto,
-    cv_path, cv_nombre, cv_ok: !!archivo,
-    notas,
-    // La búsqueda de la banca compara sin acentos
-    texto: [puesto, ciudad, texto].filter(Boolean).join(' ').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(),
-  };
-  let { error } = await sb.from('banca_candidatos').insert([{ ...fila, ...medicion }]);
-  // Si las columnas de medición aún no existen, guardar a la candidata sin ellas
-  if (error && Object.keys(medicion).length) ({ error } = await sb.from('banca_candidatos').insert([fila]));
-  if (error) throw error;
-}
-
-async function wwjEnviar() {
-  const val = id => document.getElementById(id).value.trim();
-  const datos = {
-    nombre: val('wwj-nombre'), telefono: val('wwj-telefono'), email: val('wwj-email'),
-    ciudad: val('wwj-ciudad'), puesto: val('wwj-puesto'),
-    experiencia: val('wwj-experiencia'), pausa: val('wwj-pausa'),
-    sexo: val('wwj-sexo'), salario: val('wwj-salario'),
-    archivo: wwjArchivo, origen: 'formulario de la banca',
-  };
-  let ok = true;
-  [['wwj-nombre', datos.nombre], ['wwj-telefono', datos.telefono], ['wwj-ciudad', datos.ciudad], ['wwj-puesto', datos.puesto],
-   ['wwj-email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(datos.email)]].forEach(([id, v]) => {
-    const err = document.getElementById('err-' + id);
-    document.getElementById(id).classList.toggle('error', !v);
-    if (err) err.style.display = v ? 'none' : 'block';
-    if (!v) ok = false;
-  });
-  if (!ok) { showToast('Completa los campos requeridos', 'error'); return; }
-  if (!document.getElementById('wwj-consent').checked) { showToast('Debes aceptar que guardemos tus datos', 'error'); return; }
-
-  const btn = document.getElementById('wwjSubmitBtn');
-  btn.disabled = true;
-  document.getElementById('wwjSpinner').style.display = 'block';
-  try {
-    await wwGuardarEnBanca(datos);
-    document.getElementById('wwjForm').style.display = 'none';
-    document.getElementById('wwjSuccess').style.display = 'block';
-    window.scrollTo(0, 0);
-  } catch (e) {
-    console.error('Banca WW:', e);
-    showToast('No pudimos enviar tus datos. Intenta de nuevo.', 'error');
-  } finally {
-    btn.disabled = false;
-    document.getElementById('wwjSpinner').style.display = 'none';
-  }
-}
-
-async function wwEnviarCVBuilder() {
-  const val = id => document.getElementById(id).value.trim();
-  const puesto = val('wwcv-puesto') || val('cv-titulo');
-  if (!puesto) { showToast('Escribe qué trabajo buscas', 'error'); return; }
-  if (!document.getElementById('wwcv-consent').checked) { showToast('Debes aceptar que guardemos tus datos', 'error'); return; }
-  const btn = document.getElementById('wwCvEnviarBtn');
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
-  try {
-    await wwGuardarEnBanca({
-      nombre: val('cv-nombre'), email: val('cv-email'), telefono: val('cv-telefono'), ciudad: val('cv-ciudad'),
-      puesto, pausa: val('wwcv-pausa'), sexo: val('wwcv-sexo'), salario: val('wwcv-salario'),
-      archivo: null, origen: 'CV Builder',
-      texto: (document.querySelector('#cvDoc .cvt')?.innerText || '').replace(/\n{3,}/g, '\n\n').trim(),
-    });
-    const box = document.getElementById('wwCvEnviar');
-    box.classList.add('enviado');
-    box.innerHTML = '<b>✅ ¡Tu CV ya está en nuestra banca!</b><p>Te contactamos cuando haya una vacante para ti. También puedes descargarlo en PDF.</p>';
-  } catch (e) {
-    console.error('Banca WW (CV Builder):', e);
-    showToast('No pudimos enviar tu CV. Intenta de nuevo.', 'error');
-    btn.disabled = false;
-    btn.textContent = 'Enviar mi CV a la banca';
-  }
-}
 </script>
 </body>
 </html>
