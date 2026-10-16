@@ -1257,7 +1257,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 <div id="page-mujeres" class="page">
   <div class="hero hero-sm ww-hero">
     <div class="hero-inner">
-      <div class="hero-tag"><span>Una iniciativa de We Recruit DR</span></div>
+      <div class="hero-tag"><span>Una iniciativa de We Recruit DR · fundada y dirigida por una mujer</span></div>
       <h1>We Recruit <em>Women</em></h1>
       <div class="ww-sello">Oportunidades que impulsan la igualdad.</div>
       <p>Conectamos a mujeres con empresas comprometidas con la igualdad de género y el desarrollo profesional femenino.</p>
@@ -1272,9 +1272,9 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     <div class="ww-stats">
       <div class="ww-stat"><b>2 de 3</b><span>egresados universitarios en RD son mujeres</span></div>
       <div class="ww-stat"><b>43.9%</b><span>de las personas ocupadas son mujeres</span></div>
-      <div class="ww-stat"><b>27%</b><span>menos ganan las mujeres que los hombres, en promedio</span></div>
+      <div class="ww-stat"><b>N.º 1</b><span>barrera para buscar empleo: el cuidado del hogar</span></div>
     </div>
-    <div class="ww-note">Fuentes: Banco Central, ONE y Banco Mundial. Detalle en "Sobre la iniciativa", al final.</div>
+    <div class="ww-note">Fuentes: Banco Central (ENCFT) y ONE, 2026. Detalle en "Sobre la iniciativa", al final.</div>
 
     <p class="ww-lead">El problema no es la preparación: es el acceso a empleos formales y flexibles. Ese es el puente que construimos.</p>
 
@@ -1321,7 +1321,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <li>Mujeres en roles gerenciales o no tradicionales</li>
             <li>Mujeres que regresan tras una pausa por cuidado</li>
           </ul>
-          <p>Otros datos: 157,078 mujeres más con empleo en un año (marzo 2025 a marzo 2026); 48% de los trabajadores formales son mujeres (octubre 2025), frente a 45.1% en 2020; 19.3% de las empresas formales están dirigidas por una mujer.</p>
+          <p>Otros datos: 157,078 mujeres más con empleo en un año (marzo 2025 a marzo 2026), pero el 82.7% del aumento neto de empleo fue informal; el cuidado del hogar es la principal razón por la que las mujeres inactivas no buscan empleo; 48% de los trabajadores formales son mujeres (octubre 2025), frente a 45.1% en 2020; las mujeres ganan en promedio 27% menos que los hombres (Banco Mundial, datos de 2019); 19.3% de las empresas formales están dirigidas por una mujer.</p>
           <h3>About We Recruit Women (English)</h3>
           <p><b>We Recruit Women</b> is an initiative of We Recruit DR, a recruitment firm and job portal in the Dominican Republic. Our goal: to connect more Dominican women with formal employment.</p>
           <p>Women make up two of every three university graduates in the country, yet only 43.9% of employed people. They now hold 48% of formal jobs, up from 45.1% in 2020, but on average earn 27% less than men and lead only 19.3% of formal companies. The bottleneck is access, not education.</p>
@@ -1402,6 +1402,25 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             </select>
           </div>
         </div>
+      </div>
+
+      <div class="form-section ww-form-section">
+        <h3>Ayúdanos a medir <small>Opcional</small></h3>
+        <p class="ww-form-intro">Con estas respuestas medimos si más mujeres llegan a empleos formales y mejor pagados. Son voluntarias, confidenciales y <b>no afectan tu candidatura</b>.</p>
+        <div class="form-row">
+          <div class="field">
+            <label>Sexo</label>
+            <select id="wwj-sexo">
+              <option value="">Prefiero no responder</option>
+              <option>Mujer</option>
+              <option>Hombre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Salario de tu último empleo (RD$)</label>
+            <input type="text" id="wwj-salario" inputmode="numeric" placeholder="Ej: 35,000">
+          </div>
+        </div>
         <div class="form-row full">
           <div class="field">
             <label>¿Regresas al trabajo después de una pausa por cuidado de familiares?</label>
@@ -1432,7 +1451,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       </div>
 
       <div class="ww-privacy"><b>Tus datos, tu decisión.</b> Solo los usamos para buscarte empleo, de forma confidencial. Las preguntas opcionales se reportan solo en conjunto y nunca afectan tu candidatura.</div>
-      <label class="ww-consent"><input type="checkbox" id="wwj-consent"> Acepto que We Recruit DR guarde mis datos y mi CV en su banca de candidatos para contactarme por oportunidades de empleo. <span class="req">*</span></label>
+      <label class="ww-consent"><input type="checkbox" id="wwj-consent"> Acepto que We Recruit DR guarde mis datos y mi CV en su banca de candidatos para contactarme por oportunidades de empleo, y que use mis respuestas opcionales solo en estadísticas confidenciales. <span class="req">*</span></label>
 
       <button class="submit-btn" id="wwjSubmitBtn" onclick="wwjEnviar()">
         Enviar a la banca
@@ -2224,7 +2243,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <input type="text" id="wwcv-puesto" placeholder="Ej: Asistente administrativa">
           </div>
           <div class="field">
-            <label>¿Regresas tras una pausa por cuidado?</label>
+            <label>¿Regresas tras una pausa por cuidado? <small>Opcional</small></label>
             <select id="wwcv-pausa">
               <option value="">Prefiero no responder</option>
               <option>Sí</option>
@@ -2232,7 +2251,21 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             </select>
           </div>
         </div>
-        <label class="ww-consent"><input type="checkbox" id="wwcv-consent"> Acepto que We Recruit DR guarde mis datos y este CV en su banca de candidatos para contactarme por oportunidades de empleo.</label>
+        <div class="form-row">
+          <div class="field">
+            <label>Sexo <small>Opcional</small></label>
+            <select id="wwcv-sexo">
+              <option value="">Prefiero no responder</option>
+              <option>Mujer</option>
+              <option>Hombre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Salario de tu último empleo (RD$) <small>Opcional</small></label>
+            <input type="text" id="wwcv-salario" inputmode="numeric" placeholder="Ej: 35,000">
+          </div>
+        </div>
+        <label class="ww-consent"><input type="checkbox" id="wwcv-consent"> Acepto que We Recruit DR guarde mis datos y este CV en su banca de candidatos para contactarme por oportunidades de empleo, y que use mis respuestas opcionales solo en estadísticas confidenciales.</label>
         <button class="cvb-download-btn" id="wwCvEnviarBtn" onclick="wwEnviarCVBuilder()">Enviar mi CV a la banca</button>
       </div>
       <button class="cvb-download-btn" onclick="downloadCV()">Descargar PDF</button>
@@ -5835,7 +5868,7 @@ function wwHoy() {
   return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
 }
 
-async function wwGuardarEnBanca({ nombre, email, telefono, ciudad, puesto, experiencia, pausa, archivo, texto, origen }) {
+async function wwGuardarEnBanca({ nombre, email, telefono, ciudad, puesto, experiencia, pausa, sexo, salario, archivo, texto, origen }) {
   const id = 'ww-' + crypto.randomUUID();
   let cv_path = null, cv_nombre = null;
   if (archivo) {
@@ -5853,7 +5886,15 @@ async function wwGuardarEnBanca({ nombre, email, telefono, ciudad, puesto, exper
     pausa && 'Regresa tras pausa por cuidado: ' + pausa,
     texto && '\n' + texto,
   ].filter(Boolean).join('\n');
-  const { error } = await sb.from('banca_candidatos').insert([{
+  // Preguntas de medición (DB/women-5-medicion-banca.sql); solo se guardan si respondió algo
+  const medicion = {};
+  if (sexo) medicion.sexo = sexo;
+  const sal = String(salario || '').replace(/[^\d]/g, '');
+  if (sal) medicion.salario_anterior_dop = Number(sal);
+  if (pausa) medicion.regresa_pausa_cuidado = pausa === 'Sí';
+  if (Object.keys(medicion).length) medicion.consentimiento_datos_ww = true;
+
+  const fila = {
     id, nombre, email, telefono, ciudad,
     posicion: WW_BANCA, tipo: WW_BANCA, estado: 'nuevo', pais: 'RD',
     fecha_correo: wwHoy(),
@@ -5862,7 +5903,10 @@ async function wwGuardarEnBanca({ nombre, email, telefono, ciudad, puesto, exper
     notas,
     // La búsqueda de la banca compara sin acentos
     texto: [puesto, ciudad, texto].filter(Boolean).join(' ').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(),
-  }]);
+  };
+  let { error } = await sb.from('banca_candidatos').insert([{ ...fila, ...medicion }]);
+  // Si las columnas de medición aún no existen, guardar a la candidata sin ellas
+  if (error && Object.keys(medicion).length) ({ error } = await sb.from('banca_candidatos').insert([fila]));
   if (error) throw error;
 }
 
@@ -5872,6 +5916,7 @@ async function wwjEnviar() {
     nombre: val('wwj-nombre'), telefono: val('wwj-telefono'), email: val('wwj-email'),
     ciudad: val('wwj-ciudad'), puesto: val('wwj-puesto'),
     experiencia: val('wwj-experiencia'), pausa: val('wwj-pausa'),
+    sexo: val('wwj-sexo'), salario: val('wwj-salario'),
     archivo: wwjArchivo, origen: 'formulario de la banca',
   };
   let ok = true;
@@ -5913,7 +5958,8 @@ async function wwEnviarCVBuilder() {
   try {
     await wwGuardarEnBanca({
       nombre: val('cv-nombre'), email: val('cv-email'), telefono: val('cv-telefono'), ciudad: val('cv-ciudad'),
-      puesto, pausa: val('wwcv-pausa'), archivo: null, origen: 'CV Builder',
+      puesto, pausa: val('wwcv-pausa'), sexo: val('wwcv-sexo'), salario: val('wwcv-salario'),
+      archivo: null, origen: 'CV Builder',
       texto: (document.querySelector('#cvDoc .cvt')?.innerText || '').replace(/\n{3,}/g, '\n\n').trim(),
     });
     const box = document.getElementById('wwCvEnviar');
