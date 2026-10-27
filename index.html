@@ -3194,7 +3194,7 @@ function renderJobs(list) {
         <span class="job-location">📍 ${(j.location||'').split(',')[0].trim()}</span>
         <span class="job-time">${j.time}</span>
         <div style="display:flex;gap:.5rem">
-          <button class="apply-btn" onclick="event.stopPropagation(); quickApply('${j.id}')" style="background:var(--green);color:var(--dark);font-size:.75rem;padding:.4rem .8rem" title="Aplica con tu perfil guardado">⚡ Quick</button>
+          <button class="apply-btn" onclick="event.stopPropagation(); qcvStart('${j.id}')" style="background:var(--green);color:var(--dark)" title="Sube tu CV y aplica en 30 segundos">📄 Sube tu CV</button>
           <button class="apply-btn" onclick="event.stopPropagation(); openJobDetail('${j.id}')">Ver vacante</button>
         </div>
       </div>
@@ -3554,7 +3554,8 @@ function qcvBuild() {
   document.body.appendChild(el);
 }
 
-function qcvStart() {
+function qcvStart(jobId) {
+  if (jobId) { const j = jobs.find(x => x.id === jobId); if (j) currentJob = j; }
   if (!currentJob) return;
   qcvBuild();
   qcvFile = null; qcvUrl = null; qcvUploading = null;
@@ -3582,7 +3583,7 @@ function qcvClose() {
   const o = document.getElementById('qcvOverlay');
   if (o) o.classList.remove('open');
   document.body.style.overflow = '';
-  if (document.getElementById('qcvDone')?.style.display === 'block') showPage('home');
+  if (document.getElementById('qcvDone')?.style.display === 'block' && document.getElementById('page-job-detail')?.classList.contains('active')) showPage('home');
 }
 
 function qcvPicked(input) {
