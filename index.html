@@ -233,6 +233,32 @@ nav {
 .jd-sticky .jd-apply-btn { width: 100%; }
 #page-job-detail.active .jd-sticky { display: block; }
 @media (min-width: 761px) { #page-job-detail.active .jd-sticky { display: none; } .jd-page { padding-bottom: 3rem; } }
+/* Bottom bar solo cuando el botón principal no está a la vista (evita botones duplicados) */
+#page-job-detail.active .jd-sticky { transform: translateY(110%); transition: transform .25s ease; }
+#page-job-detail.active .jd-sticky.show { transform: translateY(0); }
+.jd-alt-link { width: 100%; text-align: center; font-size: .85rem; color: var(--mid); background: none; border: none; cursor: pointer; text-decoration: underline; font-family: inherit; padding: .2rem; }
+/* ── Hoja rápida: subir CV y aplicar ── */
+.qcv-overlay { position: fixed; inset: 0; background: rgba(6,57,88,.45); z-index: 300; display: none; align-items: flex-end; justify-content: center; }
+.qcv-overlay.open { display: flex; }
+.qcv-sheet { background: var(--white); width: 100%; max-width: 520px; border-radius: 18px 18px 0 0; padding: 1.3rem 1.2rem calc(1.2rem + env(safe-area-inset-bottom, 0px)); max-height: 92vh; overflow-y: auto; animation: qcvUp .25s ease; }
+@media (min-width: 761px) { .qcv-overlay { align-items: center; } .qcv-sheet { border-radius: 18px; } }
+@keyframes qcvUp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+.qcv-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+.qcv-head h3 { font-size: 1.1rem; color: var(--dark); margin: 0; }
+.qcv-head p { font-size: .82rem; color: var(--gray); margin: .2rem 0 0; }
+.qcv-close { background: var(--cream); border: none; width: 34px; height: 34px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; color: var(--dark); flex-shrink: 0; }
+.qcv-file { border: 2px dashed var(--green-dk); background: var(--cream); border-radius: 12px; padding: 1rem; text-align: center; cursor: pointer; font-weight: 700; color: var(--dark); font-size: .95rem; margin-bottom: 1rem; }
+.qcv-file.ok { border-style: solid; border-color: #2e7d32; background: #eef7ee; }
+.qcv-file small { display: block; font-weight: 400; color: var(--gray); font-size: .78rem; margin-top: .25rem; }
+.qcv-sheet label { display: block; font-size: .8rem; font-weight: 700; color: var(--dark); margin: .7rem 0 .3rem; }
+.qcv-sheet input[type=text], .qcv-sheet input[type=email], .qcv-sheet input[type=tel] { width: 100%; box-sizing: border-box; padding: .85rem .9rem; border: 1.5px solid var(--light); border-radius: 10px; font-size: 1rem; font-family: inherit; }
+.qcv-sheet input.error { border-color: #d32f2f; }
+.qcv-send { width: 100%; margin-top: 1.2rem; }
+.qcv-send:disabled { opacity: .6; cursor: default; }
+.qcv-done { text-align: center; padding: 1rem 0 .5rem; }
+.qcv-done .big { font-size: 2.6rem; }
+.qcv-done h3 { color: var(--dark); margin: .5rem 0; }
+.qcv-done p { color: var(--gray); font-size: .9rem; }
 @media (max-width: 600px) { .jd-page { padding: 1.5rem 1rem 7rem; } .jd-title { font-size: 1.2rem; } }
 
 /* APPLICATION FORM PAGE */
@@ -3448,9 +3474,10 @@ function openJobDetail(jobId) {
     jdBlock('Información adicional', pick('notas_publicas', 'informacion_adicional', 'observaciones_publicas'));
 
   const buttons = `
-    <button class="jd-apply-btn" onclick="applyFromDetail()">Aplicar ahora →</button>
+    <button class="jd-apply-btn" id="jdMainApply" onclick="qcvStart()">📄 Sube tu CV y aplica</button>
     <button class="jd-quick-btn" onclick="quickApply('${job.id}')" title="Aplica con tu perfil guardado">⚡ Aplicar con mi perfil</button>
-    <button class="jd-share-btn" onclick="shareJob()">🔗 Compartir</button>`;
+    <button class="jd-share-btn" onclick="shareJob()">🔗 Compartir</button>
+    <button class="jd-alt-link" onclick="applyFromDetail()">Prefiero llenar el formulario completo</button>`;
 
   document.getElementById('jobDetailContent').innerHTML = `
     <div class="jd-header">
@@ -3464,11 +3491,177 @@ function openJobDetail(jobId) {
     <div class="jd-facts">${facts}</div>
     ${sections || '<div class="jd-section"><div class="jd-text" style="color:var(--gray)">Pronto agregaremos más detalles de esta posición.</div></div>'}
     <div class="jd-apply-row">${buttons}</div>
-    <div class="jd-sticky"><button class="jd-apply-btn" onclick="applyFromDetail()">Aplicar ahora →</button></div>
+    <div class="jd-sticky" id="jdSticky"><button class="jd-apply-btn" onclick="qcvStart()">📄 Sube tu CV y aplica</button></div>
   `;
 
   showPage('job-detail');
   document.title = `${job.title}${job.company ? ' – ' + job.company : ''} | We Recruit DR`;
+  jdWatchMainButton();
+}
+
+// La barra de abajo solo aparece cuando el botón principal no se ve
+let jdObserver = null;
+function jdWatchMainButton() {
+  const main = document.getElementById('jdMainApply');
+  const sticky = document.getElementById('jdSticky');
+  if (!main || !sticky) return;
+  if (jdObserver) jdObserver.disconnect();
+  if (!('IntersectionObserver' in window)) { sticky.classList.add('show'); return; }
+  jdObserver = new IntersectionObserver(([e]) => {
+    const below = !e.isIntersecting && e.boundingClientRect.top > 0;
+    sticky.classList.toggle('show', below);
+  });
+  jdObserver.observe(main);
+}
+
+// ═══════════════════════════════════════════════════════
+//  📄  APLICACIÓN RÁPIDA CON CV (desde el detalle)
+// ═══════════════════════════════════════════════════════
+let qcvFile = null, qcvUrl = null, qcvUploading = null, qcvSending = false;
+
+function qcvBuild() {
+  if (document.getElementById('qcvOverlay')) return;
+  const el = document.createElement('div');
+  el.className = 'qcv-overlay'; el.id = 'qcvOverlay';
+  el.innerHTML = `
+    <div class="qcv-sheet" role="dialog" aria-modal="true" aria-labelledby="qcvTitle">
+      <div id="qcvForm">
+        <div class="qcv-head">
+          <div><h3 id="qcvTitle">Aplica en 30 segundos</h3><p id="qcvJob"></p></div>
+          <button class="qcv-close" onclick="qcvClose()" aria-label="Cerrar">✕</button>
+        </div>
+        <div class="qcv-file" id="qcvFileBox" onclick="document.getElementById('qcvInput').click()">
+          <span id="qcvFileLbl">📎 Toca para elegir tu CV</span>
+          <small id="qcvFileSub">PDF o Word · máximo 5MB</small>
+        </div>
+        <input type="file" id="qcvInput" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none" onchange="qcvPicked(this)">
+        <label for="qcvNombre">Nombre y apellido</label>
+        <input type="text" id="qcvNombre" autocomplete="name" placeholder="Ej. María Pérez">
+        <label for="qcvEmail">Correo</label>
+        <input type="email" id="qcvEmail" autocomplete="email" inputmode="email" placeholder="tucorreo@ejemplo.com">
+        <label for="qcvTel">WhatsApp</label>
+        <input type="tel" id="qcvTel" autocomplete="tel" inputmode="tel" placeholder="809-000-0000">
+        <button class="jd-apply-btn qcv-send" id="qcvSend" onclick="qcvSubmit()">Enviar aplicación →</button>
+      </div>
+      <div class="qcv-done" id="qcvDone" style="display:none">
+        <div class="big">✅</div>
+        <h3>¡Listo! Recibimos tu CV</h3>
+        <p>Nuestro equipo lo revisará y te contactará por WhatsApp o correo si tu perfil encaja.</p>
+        <button class="jd-apply-btn qcv-send" onclick="qcvClose()">Ver más vacantes</button>
+      </div>
+    </div>`;
+  el.addEventListener('click', e => { if (e.target === el) qcvClose(); });
+  document.body.appendChild(el);
+}
+
+function qcvStart() {
+  if (!currentJob) return;
+  qcvBuild();
+  qcvFile = null; qcvUrl = null; qcvUploading = null;
+  document.getElementById('qcvForm').style.display = 'block';
+  document.getElementById('qcvDone').style.display = 'none';
+  document.getElementById('qcvJob').textContent = [currentJob.title, currentJob.company].filter(Boolean).join(' · ');
+  document.getElementById('qcvFileBox').classList.remove('ok');
+  document.getElementById('qcvFileLbl').textContent = '📎 Toca para elegir tu CV';
+  document.getElementById('qcvFileSub').textContent = 'PDF o Word · máximo 5MB';
+  document.getElementById('qcvInput').value = '';
+  // Si ya tiene perfil guardado, se rellenan sus datos
+  if (typeof cpPerfil !== 'undefined' && cpPerfil) {
+    const n = [cpPerfil.nombre, cpPerfil.apellido].filter(Boolean).join(' ');
+    if (n) document.getElementById('qcvNombre').value = n;
+    if (cpPerfil.email) document.getElementById('qcvEmail').value = cpPerfil.email;
+    if (cpPerfil.telefono) document.getElementById('qcvTel').value = cpPerfil.telefono;
+  }
+  document.getElementById('qcvOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Abre el selector de archivos de una vez (mismo toque del usuario)
+  document.getElementById('qcvInput').click();
+}
+
+function qcvClose() {
+  const o = document.getElementById('qcvOverlay');
+  if (o) o.classList.remove('open');
+  document.body.style.overflow = '';
+  if (document.getElementById('qcvDone')?.style.display === 'block') showPage('home');
+}
+
+function qcvPicked(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('El CV debe pesar menos de 5MB', 'error'); input.value = ''; return; }
+  if (!/\.(pdf|doc|docx)$/i.test(file.name)) { showToast('Solo PDF o Word', 'error'); input.value = ''; return; }
+  qcvFile = file; qcvUrl = null;
+  const box = document.getElementById('qcvFileBox');
+  box.classList.remove('ok');
+  document.getElementById('qcvFileLbl').textContent = '⏳ Subiendo ' + file.name;
+  document.getElementById('qcvFileSub').textContent = 'Mientras tanto, completa tus datos';
+  // La subida empieza en segundo plano mientras la persona escribe
+  qcvUploading = (async () => {
+    const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `cvs/${Date.now()}_${safe}`;
+    const { error } = await sb.storage.from('archivos').upload(path, file, { contentType: file.type || undefined, upsert: false });
+    if (error) throw error;
+    const { data } = sb.storage.from('archivos').getPublicUrl(path);
+    return data.publicUrl;
+  })();
+  qcvUploading.then(url => {
+    if (qcvFile !== file) return;
+    qcvUrl = url;
+    box.classList.add('ok');
+    document.getElementById('qcvFileLbl').textContent = '✅ ' + file.name;
+    document.getElementById('qcvFileSub').textContent = 'Toca para cambiar el archivo';
+  }).catch(err => {
+    console.error('CV upload:', err);
+    if (qcvFile !== file) return;
+    qcvFile = null; qcvUploading = null; input.value = '';
+    document.getElementById('qcvFileLbl').textContent = '📎 Toca para elegir tu CV';
+    document.getElementById('qcvFileSub').textContent = 'No se pudo subir, intenta de nuevo';
+    showToast('No se pudo subir el CV, intenta de nuevo', 'error');
+  });
+}
+
+async function qcvSubmit() {
+  if (qcvSending || !currentJob) return;
+  const nEl = document.getElementById('qcvNombre'), eEl = document.getElementById('qcvEmail'), tEl = document.getElementById('qcvTel');
+  const nombreFull = nEl.value.trim().replace(/\s+/g, ' ');
+  const email = eEl.value.trim(), tel = tEl.value.trim();
+  const okN = nombreFull.length > 1, okE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), okT = tel.replace(/\D/g, '').length >= 7;
+  nEl.classList.toggle('error', !okN); eEl.classList.toggle('error', !okE); tEl.classList.toggle('error', !okT);
+  if (!qcvFile) { showToast('Elige tu CV primero', 'error'); document.getElementById('qcvInput').click(); return; }
+  if (!okN || !okE || !okT) { showToast('Completa nombre, correo y WhatsApp', 'error'); return; }
+
+  const btn = document.getElementById('qcvSend');
+  qcvSending = true; btn.disabled = true; btn.textContent = 'Enviando...';
+  try {
+    const cvUrl = qcvUrl || await qcvUploading;
+    const parts = nombreFull.split(' ');
+    const nombre = parts.shift();
+    const apellido = parts.join(' ') || '';
+    const job = currentJob;
+    const vacanteStr = [job.title, job.company, job.sector, job.location].filter(Boolean).join(' · ');
+
+    if (job.isPortalVacante) {
+      const { error } = await sb.from('aplicaciones_vacante').insert([{
+        vacante_id: job.vpId, nombre, apellido, email, telefono: tel, cv_url: cvUrl, motivacion: 'Aplicó con CV rápido',
+      }]);
+      if (error) console.warn('aplicaciones_vacante:', error.message);
+    }
+    const { id: candId, error: candErr } = await insertarCandidato({
+      nombre, apellido, email, telefono: tel, cv_url: cvUrl,
+      fuente: 'Portal público', notas: 'Aplicó con CV rápido', vacante_aplicada: vacanteStr, posicion_id: job.id || null,
+    });
+    if (candErr) throw candErr;
+    if (candId && job.id) {
+      await sb.from('candidato_posicion').insert([{ candidato_id: candId, posicion_id: job.id, estado: 'identificado' }]);
+    }
+    document.getElementById('qcvForm').style.display = 'none';
+    document.getElementById('qcvDone').style.display = 'block';
+  } catch (err) {
+    console.error('Aplicación rápida:', err);
+    showToast('Error al enviar: ' + (err.message || 'intenta de nuevo'), 'error');
+  } finally {
+    qcvSending = false; btn.disabled = false; btn.textContent = 'Enviar aplicación →';
+  }
 }
 
 function applyFromDetail() {
