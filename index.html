@@ -3243,10 +3243,25 @@ function toggleFcd(id) {
   document.querySelectorAll('.fcd-menu').forEach(m => m.classList.remove('open'));
   document.querySelectorAll('.fcd-btn').forEach(b => b.classList.remove('active'));
   if (!isOpen) {
+    const btn = document.querySelector('#' + id + ' .fcd-btn');
+    // El menú se posiciona fijo en pantalla para que el hero (overflow:hidden) no lo corte
+    const r = btn.getBoundingClientRect();
+    menu.style.position = 'fixed';
+    menu.style.top = (r.bottom + 6) + 'px';
+    menu.style.left = Math.max(8, Math.min(r.left, window.innerWidth - 196)) + 'px';
     menu.classList.add('open');
-    document.querySelector('#' + id + ' .fcd-btn').classList.add('active');
+    btn.classList.add('active');
   }
 }
+function closeFcdMenus() {
+  document.querySelectorAll('.fcd-menu.open').forEach(m => m.classList.remove('open'));
+  document.querySelectorAll('.filter-chip-dropdown .fcd-btn').forEach(b => {
+    const t = b.childNodes[0].textContent.trim();
+    if (['Sueldo', 'Modalidad', 'Fecha'].includes(t)) b.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', () => { if (document.querySelector('.fcd-menu.open')) closeFcdMenus(); }, { passive: true });
+window.addEventListener('resize', () => { if (document.querySelector('.fcd-menu.open')) closeFcdMenus(); });
 
 function selectFcd(type, value, label) {
   fcdState[type] = value;
