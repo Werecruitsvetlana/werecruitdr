@@ -2824,7 +2824,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <div class="calc-bar-labels"><span id="calcBarMin"></span><span id="calcBarMax"></span></div>
       </div>
       <div id="calcSectorTags" class="calc-sector-tags"></div>
-      <div class="calc-disclaimer">💡 Rangos mensuales en pesos dominicanos (RD$) basados en referencias del mercado laboral dominicano 2026. Pueden variar según empresa, beneficios, modalidad y negociación individual. Fuente: We Recruit DR.</div>
+      <div class="calc-disclaimer">💡 Salario base mensual bruto en RD$, sin bonos ni comisiones, para empresas medianas y grandes. Rangos de referencia 2026 elaborados por We Recruit DR a partir de nuestros procesos de reclutamiento y referencias del mercado dominicano. Pueden variar según empresa, beneficios y negociación individual. Ningún rango está por debajo del salario mínimo vigente (RD$29,988 en empresa grande; RD$21,840 en hoteles).</div>
     </div>
 
     <div class="calc-card">
@@ -2842,6 +2842,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <option value="operaciones">Operaciones & Logística</option>
             <option value="legal">Legal</option>
             <option value="salud">Salud</option>
+            <option value="ingenieria">Ingeniería &amp; Construcción</option>
             <option value="servicio">Servicio al Cliente & Call Center</option>
             <option value="turismo">Turismo & Hotelería</option>
           </select>
@@ -5936,8 +5937,8 @@ const SALARY_DATA = {
       'UX/UI Designer': { junior: [30000,48000], mid: [50000,82000], senior: [82000,135000] },
       'DevOps / Cloud Engineer': { junior: [45000,65000], mid: [68000,110000], senior: [110000,180000] },
       'Product Manager': { junior: [40000,60000], mid: [65000,105000], senior: [105000,170000] },
-      'QA / Tester': { junior: [28000,42000], mid: [45000,72000], senior: [72000,110000] },
-      'Soporte Técnico / Help Desk': { junior: [22000,32000], mid: [33000,50000], senior: [50000,75000] },
+      'QA / Tester': { junior: [30000,42000], mid: [45000,72000], senior: [72000,110000] },
+      'Soporte Técnico / Help Desk': { junior: [30000,38000], mid: [38000,52000], senior: [52000,75000] },
       'Data Scientist': { junior: [45000,65000], mid: [70000,115000], senior: [115000,185000] },
       'Ingeniero de Ciberseguridad': { junior: [45000,65000], mid: [70000,115000], senior: [115000,190000] },
       'Administrador de Redes / Sistemas': { junior: [30000,45000], mid: [46000,75000], senior: [75000,120000] },
@@ -5950,64 +5951,64 @@ const SALARY_DATA = {
   marketing: {
     label: 'Marketing & Creativos',
     puestos: {
-      'Diseñador Gráfico': { junior: [25000,38000], mid: [40000,65000], senior: [65000,105000] },
+      'Diseñador Gráfico': { junior: [30000,38000], mid: [40000,65000], senior: [65000,105000] },
       'Director Creativo': { junior: [50000,70000], mid: [75000,120000], senior: [120000,200000] },
-      'Community Manager': { junior: [22000,34000], mid: [35000,55000], senior: [55000,90000] },
-      'Content Creator / Copywriter': { junior: [22000,35000], mid: [36000,58000], senior: [58000,90000] },
-      'Fotógrafo / Videógrafo': { junior: [25000,40000], mid: [40000,70000], senior: [70000,120000] },
-      'Social Media Manager': { junior: [25000,38000], mid: [38000,62000], senior: [62000,100000] },
+      'Community Manager': { junior: [30000,34000], mid: [35000,55000], senior: [55000,90000] },
+      'Content Creator / Copywriter': { junior: [30000,35000], mid: [36000,58000], senior: [58000,90000] },
+      'Fotógrafo / Videógrafo': { junior: [30000,40000], mid: [40000,70000], senior: [70000,120000] },
+      'Social Media Manager': { junior: [30000,38000], mid: [38000,62000], senior: [62000,100000] },
       'Marketing Digital Manager': { junior: [35000,52000], mid: [55000,90000], senior: [90000,145000] },
-      'SEO / SEM Specialist': { junior: [28000,44000], mid: [45000,72000], senior: [72000,115000] },
-      'Brand Manager': { junior: [45000,65000], mid: [68000,110000], senior: [110000,175000] },
-      'Assistant Brand Manager': { junior: [32000,45000], mid: [46000,68000], senior: [68000,95000] },
-      'Trade Marketing Manager': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
-      'Trade Marketing Analyst': { junior: [28000,42000], mid: [43000,68000], senior: [68000,100000] },
-      'Gerente de Marketing': { junior: [55000,78000], mid: [80000,130000], senior: [130000,210000] },
-      'Director de Marketing (CMO)': { junior: [90000,125000], mid: [130000,200000], senior: [200000,340000] },
+      'SEO / SEM Specialist': { junior: [30000,44000], mid: [45000,72000], senior: [72000,115000] },
+      'Brand Manager': { junior: [50000,70000], mid: [75000,120000], senior: [120000,190000] },
+      'Assistant Brand Manager': { junior: [35000,48000], mid: [50000,72000], senior: [72000,100000] },
+      'Trade Marketing Manager': { junior: [60000,85000], mid: [90000,140000], senior: [140000,230000] },
+      'Trade Marketing Analyst': { junior: [30000,42000], mid: [43000,68000], senior: [68000,100000] },
+      'Gerente de Marketing': { junior: [65000,90000], mid: [95000,150000], senior: [150000,250000] },
+      'Director de Marketing (CMO)': { junior: [110000,150000], mid: [150000,240000], senior: [240000,400000] },
       'Product Marketing Manager': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
-      'Analista de Marketing': { junior: [28000,42000], mid: [43000,68000], senior: [68000,105000] },
-      'Coordinador de Marketing': { junior: [28000,40000], mid: [42000,62000], senior: [62000,90000] },
-      'Ejecutivo de Cuentas (Agencia)': { junior: [28000,42000], mid: [43000,68000], senior: [68000,105000] },
+      'Analista de Marketing': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
+      'Coordinador de Marketing': { junior: [30000,42000], mid: [45000,70000], senior: [70000,95000] },
+      'Ejecutivo de Cuentas (Agencia)': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
       'Director de Cuentas (Agencia)': { junior: [60000,85000], mid: [88000,140000], senior: [140000,220000] },
       'Planner / Estratega': { junior: [35000,52000], mid: [55000,88000], senior: [88000,140000] },
       'Media Planner / Buyer': { junior: [30000,45000], mid: [46000,75000], senior: [75000,120000] },
       'Director de Arte': { junior: [38000,55000], mid: [58000,92000], senior: [92000,145000] },
-      'Ejecutivo de Relaciones Públicas': { junior: [28000,42000], mid: [43000,70000], senior: [70000,110000] },
+      'Ejecutivo de Relaciones Públicas': { junior: [30000,42000], mid: [43000,70000], senior: [70000,110000] },
       'Gerente de Comunicación': { junior: [50000,70000], mid: [72000,115000], senior: [115000,180000] },
       'Gerente de E-commerce': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
       'Performance Marketing Specialist': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
-      'Event Manager / Eventos': { junior: [28000,42000], mid: [43000,70000], senior: [70000,110000] },
+      'Event Manager / Eventos': { junior: [30000,42000], mid: [43000,70000], senior: [70000,110000] },
     }
   },
   finanzas: {
     label: 'Finanzas & Contabilidad',
     puestos: {
-      'Contador': { junior: [28000,42000], mid: [45000,72000], senior: [72000,115000] },
+      'Contador': { junior: [30000,42000], mid: [45000,72000], senior: [72000,115000] },
       'Analista Financiero': { junior: [35000,52000], mid: [55000,88000], senior: [88000,140000] },
       'Auditor': { junior: [32000,48000], mid: [50000,82000], senior: [82000,130000] },
       'Tesorero': { junior: [38000,55000], mid: [58000,95000], senior: [95000,155000] },
       'CFO / Director Financiero': { junior: [80000,110000], mid: [115000,180000], senior: [180000,300000] },
-      'Analista de Crédito': { junior: [28000,42000], mid: [43000,68000], senior: [68000,105000] },
-      'Auxiliar Contable': { junior: [20000,30000], mid: [31000,45000], senior: [45000,65000] },
+      'Analista de Crédito': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
+      'Auxiliar Contable': { junior: [30000,36000], mid: [36000,46000], senior: [46000,62000] },
       'Gerente de Contabilidad': { junior: [55000,78000], mid: [80000,125000], senior: [125000,190000] },
       'Gerente Financiero': { junior: [65000,90000], mid: [95000,150000], senior: [150000,240000] },
       'Controller': { junior: [60000,85000], mid: [88000,140000], senior: [140000,220000] },
       'Analista de Impuestos': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
       'Analista de Riesgo': { junior: [35000,52000], mid: [55000,88000], senior: [88000,140000] },
       'Oficial de Negocios (Banca)': { junior: [30000,45000], mid: [46000,75000], senior: [75000,120000] },
-      'Cajero/a': { junior: [18000,26000], mid: [27000,38000], senior: [38000,52000] },
-      'Gestor de Cobros': { junior: [20000,30000], mid: [31000,48000], senior: [48000,72000] },
+      'Cajero/a': { junior: [30000,34000], mid: [34000,40000], senior: [40000,52000] },
+      'Gestor de Cobros': { junior: [30000,35000], mid: [35000,48000], senior: [48000,70000] },
     }
   },
   rrhh: {
     label: 'Recursos Humanos',
     puestos: {
-      'Asistente de RRHH': { junior: [20000,30000], mid: [31000,48000], senior: [48000,70000] },
-      'Generalista de RRHH': { junior: [30000,45000], mid: [46000,72000], senior: [72000,110000] },
-      'Reclutador / Talent Acquisition': { junior: [28000,42000], mid: [43000,70000], senior: [70000,115000] },
-      'Gerente de RRHH': { junior: [55000,75000], mid: [78000,120000], senior: [120000,185000] },
-      'Especialista en Nómina': { junior: [25000,38000], mid: [39000,62000], senior: [62000,95000] },
-      'Capacitador / L&D': { junior: [28000,42000], mid: [43000,68000], senior: [68000,110000] },
+      'Asistente de RRHH': { junior: [30000,36000], mid: [36000,48000], senior: [48000,68000] },
+      'Generalista de RRHH': { junior: [35000,50000], mid: [55000,85000], senior: [80000,120000] },
+      'Reclutador / Talent Acquisition': { junior: [30000,42000], mid: [43000,70000], senior: [70000,115000] },
+      'Gerente de RRHH': { junior: [65000,90000], mid: [95000,140000], senior: [140000,210000] },
+      'Especialista en Nómina': { junior: [30000,38000], mid: [39000,62000], senior: [62000,95000] },
+      'Capacitador / L&D': { junior: [30000,42000], mid: [43000,68000], senior: [68000,110000] },
       'HR Business Partner': { junior: [50000,70000], mid: [72000,115000], senior: [115000,180000] },
       'Analista de Compensación y Beneficios': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
       'Especialista en Clima y Cultura': { junior: [30000,45000], mid: [46000,72000], senior: [72000,112000] },
@@ -6017,35 +6018,35 @@ const SALARY_DATA = {
   ventas: {
     label: 'Ventas & Comercial',
     puestos: {
-      'Ejecutivo de Ventas': { junior: [25000,40000], mid: [42000,68000], senior: [68000,110000] },
-      'Gerente de Ventas': { junior: [55000,75000], mid: [78000,125000], senior: [125000,200000] },
+      'Ejecutivo de Ventas': { junior: [30000,42000], mid: [42000,65000], senior: [65000,95000] },
+      'Gerente de Ventas': { junior: [60000,85000], mid: [90000,130000], senior: [130000,200000] },
       'Director Comercial': { junior: [80000,110000], mid: [115000,180000], senior: [180000,300000] },
       'Key Account Manager': { junior: [40000,58000], mid: [60000,95000], senior: [95000,155000] },
-      'Representante de Ventas': { junior: [22000,35000], mid: [36000,55000], senior: [55000,85000] },
+      'Representante de Ventas': { junior: [30000,35000], mid: [36000,55000], senior: [55000,85000] },
       'Supervisor de Ventas': { junior: [35000,50000], mid: [52000,80000], senior: [80000,120000] },
       'Business Development Manager': { junior: [50000,70000], mid: [72000,115000], senior: [115000,185000] },
       'Ejecutivo Comercial B2B': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
-      'Asesor de Ventas Inmobiliarias': { junior: [25000,40000], mid: [42000,70000], senior: [70000,120000] },
+      'Asesor de Ventas Inmobiliarias': { junior: [30000,40000], mid: [42000,70000], senior: [70000,120000] },
       'Gerente de Tienda / Retail': { junior: [35000,50000], mid: [52000,80000], senior: [80000,125000] },
-      'Vendedor / Asesor de Tienda': { junior: [18000,26000], mid: [27000,38000], senior: [38000,55000] },
-      'Category Manager': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
+      'Vendedor / Asesor de Tienda': { junior: [30000,34000], mid: [34000,40000], senior: [40000,55000] },
+      'Category Manager': { junior: [60000,85000], mid: [90000,140000], senior: [140000,220000] },
     }
   },
   operaciones: {
     label: 'Operaciones & Logística',
     puestos: {
-      'Asistente Administrativo': { junior: [18000,28000], mid: [29000,45000], senior: [45000,68000] },
+      'Asistente Administrativo': { junior: [30000,36000], mid: [36000,48000], senior: [48000,65000] },
       'Coordinador de Operaciones': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
       'Gerente de Operaciones': { junior: [55000,75000], mid: [78000,125000], senior: [125000,195000] },
-      'Analista de Logística': { junior: [28000,42000], mid: [43000,68000], senior: [68000,105000] },
+      'Analista de Logística': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
       'Gerente de Proyectos': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
-      'Asistente de Compras': { junior: [22000,34000], mid: [35000,55000], senior: [55000,85000] },
-      'Gerente de Compras': { junior: [50000,70000], mid: [72000,115000], senior: [115000,180000] },
+      'Asistente de Compras': { junior: [30000,34000], mid: [35000,55000], senior: [55000,85000] },
+      'Gerente de Compras': { junior: [55000,75000], mid: [78000,120000], senior: [120000,180000] },
       'Supply Chain Manager': { junior: [60000,85000], mid: [88000,140000], senior: [140000,220000] },
-      'Supervisor de Almacén': { junior: [28000,40000], mid: [42000,62000], senior: [62000,92000] },
-      'Encargado de Inventario': { junior: [24000,35000], mid: [36000,55000], senior: [55000,80000] },
-      'Recepcionista': { junior: [16000,22000], mid: [23000,32000], senior: [32000,45000] },
-      'Asistente Ejecutivo/a': { junior: [28000,40000], mid: [42000,65000], senior: [65000,95000] },
+      'Supervisor de Almacén': { junior: [30000,40000], mid: [42000,62000], senior: [62000,92000] },
+      'Encargado de Inventario': { junior: [30000,35000], mid: [36000,55000], senior: [55000,80000] },
+      'Recepcionista': { junior: [30000,33000], mid: [33000,38000], senior: [38000,46000] },
+      'Asistente Ejecutivo/a': { junior: [30000,40000], mid: [42000,65000], senior: [65000,95000] },
       'Gerente General': { junior: [100000,140000], mid: [145000,230000], senior: [230000,400000] },
     }
   },
@@ -6054,7 +6055,7 @@ const SALARY_DATA = {
     puestos: {
       'Abogado Corporativo': { junior: [35000,52000], mid: [55000,90000], senior: [90000,155000] },
       'Abogado Laboral': { junior: [32000,48000], mid: [50000,82000], senior: [82000,140000] },
-      'Paralegal': { junior: [22000,35000], mid: [36000,55000], senior: [55000,85000] },
+      'Paralegal': { junior: [30000,35000], mid: [36000,55000], senior: [55000,85000] },
       'Compliance Officer': { junior: [38000,56000], mid: [58000,95000], senior: [95000,160000] },
       'Director Legal / General Counsel': { junior: [80000,110000], mid: [115000,185000], senior: [185000,320000] },
       'Abogado Litigante': { junior: [32000,50000], mid: [52000,88000], senior: [88000,150000] },
@@ -6066,25 +6067,42 @@ const SALARY_DATA = {
     label: 'Salud',
     puestos: {
       'Médico General': { junior: [45000,65000], mid: [68000,105000], senior: [105000,170000] },
-      'Enfermero/a': { junior: [28000,42000], mid: [43000,68000], senior: [68000,105000] },
+      'Enfermero/a': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
       'Administrador Hospitalario': { junior: [40000,58000], mid: [60000,95000], senior: [95000,155000] },
-      'Fisioterapeuta': { junior: [28000,42000], mid: [43000,68000], senior: [68000,108000] },
-      'Nutricionista': { junior: [25000,38000], mid: [39000,62000], senior: [62000,98000] },
+      'Fisioterapeuta': { junior: [30000,42000], mid: [43000,68000], senior: [68000,108000] },
+      'Nutricionista': { junior: [30000,38000], mid: [39000,62000], senior: [62000,98000] },
       'Médico Especialista': { junior: [70000,100000], mid: [105000,170000], senior: [170000,300000] },
       'Odontólogo/a': { junior: [40000,60000], mid: [62000,100000], senior: [100000,170000] },
-      'Psicólogo/a': { junior: [28000,42000], mid: [43000,68000], senior: [68000,110000] },
+      'Psicólogo/a': { junior: [30000,42000], mid: [43000,68000], senior: [68000,110000] },
       'Farmacéutico/a': { junior: [30000,45000], mid: [46000,72000], senior: [72000,110000] },
-      'Bioanalista': { junior: [28000,40000], mid: [42000,62000], senior: [62000,95000] },
+      'Bioanalista': { junior: [30000,40000], mid: [42000,62000], senior: [62000,95000] },
       'Visitador Médico': { junior: [32000,48000], mid: [50000,78000], senior: [78000,120000] },
+    }
+  },
+  ingenieria: {
+    label: 'Ingeniería & Construcción',
+    puestos: {
+      'Ingeniero Civil': { junior: [40000,55000], mid: [58000,85000], senior: [85000,130000] },
+      'Ingeniero Residente': { junior: [42000,55000], mid: [58000,85000], senior: [85000,125000] },
+      'Ingeniero Estructural': { junior: [50000,68000], mid: [72000,105000], senior: [105000,160000] },
+      'Ingeniero Eléctrico': { junior: [45000,62000], mid: [65000,100000], senior: [100000,160000] },
+      'Ingeniero de Calidad': { junior: [45000,62000], mid: [65000,95000], senior: [95000,140000] },
+      'Ingeniero SSMA / Seguridad Industrial': { junior: [40000,55000], mid: [58000,88000], senior: [88000,130000] },
+      'Ingeniero Industrial': { junior: [38000,52000], mid: [55000,85000], senior: [85000,130000] },
+      'Analista de Presupuesto (Obras)': { junior: [40000,55000], mid: [58000,85000], senior: [85000,120000] },
+      'Arquitecto/a': { junior: [35000,48000], mid: [50000,80000], senior: [80000,130000] },
+      'Gerente de Producción / Planta': { junior: [55000,75000], mid: [78000,120000], senior: [120000,190000] },
+      'Gerente de Proyectos de Construcción': { junior: [65000,90000], mid: [95000,150000], senior: [150000,240000] },
+      'Supervisor de Mantenimiento': { junior: [30000,42000], mid: [45000,65000], senior: [65000,95000] },
     }
   },
   servicio: {
     label: 'Servicio al Cliente & Call Center',
     puestos: {
-      'Agente de Call Center (Español)': { junior: [18000,24000], mid: [25000,32000], senior: [32000,42000] },
-      'Agente de Call Center (Bilingüe)': { junior: [28000,36000], mid: [37000,48000], senior: [48000,62000] },
+      'Agente de Call Center (Español)': { junior: [30000,34000], mid: [34000,38000], senior: [38000,45000] },
+      'Agente de Call Center (Bilingüe)': { junior: [30000,36000], mid: [37000,48000], senior: [48000,62000] },
       'Supervisor de Call Center': { junior: [35000,48000], mid: [50000,70000], senior: [70000,95000] },
-      'Representante de Servicio al Cliente': { junior: [18000,26000], mid: [27000,38000], senior: [38000,55000] },
+      'Representante de Servicio al Cliente': { junior: [30000,35000], mid: [35000,42000], senior: [42000,55000] },
       'Gerente de Servicio al Cliente': { junior: [50000,70000], mid: [72000,110000], senior: [110000,170000] },
       'Customer Success Manager': { junior: [38000,55000], mid: [58000,90000], senior: [90000,140000] },
     }
@@ -6092,18 +6110,18 @@ const SALARY_DATA = {
   turismo: {
     label: 'Turismo & Hotelería',
     puestos: {
-      'Recepcionista de Hotel': { junior: [18000,25000], mid: [26000,35000], senior: [35000,48000] },
+      'Recepcionista de Hotel': { junior: [22000,27000], mid: [27000,34000], senior: [34000,45000] },
       'Gerente de Hotel': { junior: [70000,100000], mid: [105000,170000], senior: [170000,280000] },
       'Revenue Manager': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
       'Chef / Jefe de Cocina': { junior: [35000,50000], mid: [52000,85000], senior: [85000,140000] },
       'Gerente de Alimentos y Bebidas': { junior: [50000,70000], mid: [72000,115000], senior: [115000,180000] },
       'Ejecutivo de Ventas Hoteleras': { junior: [30000,45000], mid: [46000,72000], senior: [72000,115000] },
-      'Guest Relations': { junior: [20000,28000], mid: [29000,42000], senior: [42000,60000] },
+      'Guest Relations': { junior: [24000,30000], mid: [30000,40000], senior: [40000,58000] },
     }
   },
 };
 
-const REMOTE_BONUS = { presencial: 0, hibrido: 0.05, remoto: 0.12 };
+const REMOTE_BONUS = { presencial: 0, hibrido: 0, remoto: 0 };
 
 function updateCalcPuestos() {
   const sector = document.getElementById('calcSector').value;
@@ -6137,7 +6155,7 @@ function calcularSalario() {
 
   const fmt = n => 'RD$ ' + n.toLocaleString('es-DO');
   const nivelLabel = { junior: 'Junior (0–2 años)', mid: 'Mid (3–5 años)', senior: 'Senior (6+ años)' };
-  const modalLabel = { presencial: 'Presencial', hibrido: 'Híbrido (+5%)', remoto: 'Remoto (+12%)' };
+  const modalLabel = { presencial: 'Presencial', hibrido: 'Híbrido', remoto: 'Remoto' };
 
   document.getElementById('calcResultRole').textContent = puesto + ' · ' + SALARY_DATA[sector].label;
   document.getElementById('calcResultLevel').textContent = nivelLabel[nivel] + ' · ' + modalLabel[modalidad] + ' · Mensual bruto';
@@ -6148,7 +6166,7 @@ function calcularSalario() {
   document.getElementById('calcBarMin').textContent = fmt(min);
   document.getElementById('calcBarMax').textContent = fmt(max);
 
-  const tags = ['Santo Domingo', 'Santiago', bonus > 0 ? 'Aplica ajuste ' + modalLabel[modalidad] : 'Sin ajuste remoto'];
+  const tags = ['Santo Domingo', 'Santiago', 'Empresas medianas y grandes'];
   document.getElementById('calcSectorTags').innerHTML = tags.map(t => `<span class="calc-sector-tag">${t}</span>`).join('');
 
   const result = document.getElementById('calcResult');
