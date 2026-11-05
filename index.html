@@ -774,6 +774,12 @@ footer span { color: var(--green); }
 .blog-detail .blog-content h2 { font-family: 'Poppins',sans-serif; font-size: 1.3rem; color: var(--dark); margin: 2rem 0 .8rem; }
 .blog-detail .blog-content ul { margin: 1rem 0; padding-left: 1.5rem; }
 .blog-detail .blog-content li { margin-bottom: .5rem; }
+.blog-detail .blog-content ol { margin: 1rem 0; padding-left: 1.5rem; }
+.blog-table-wrap { overflow-x: auto; margin: 1.2rem 0 1.6rem; }
+.blog-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.blog-table th { background: var(--dark); color: #fff; text-align: left; padding: 10px 12px; font-family: 'Poppins',sans-serif; font-weight: 700; font-size: .85rem; }
+.blog-table td { padding: 9px 12px; border-bottom: 1px solid var(--light); vertical-align: top; }
+.blog-table tr:nth-child(even) td { background: var(--cream); }
 
 /* ── CALCULADORA DE SALARIOS ── */
 .calc-page { max-width: 780px; margin: 0 auto; padding: 2.5rem 2rem; }
@@ -3365,6 +3371,7 @@ function pageUrl(name, jobId) {
   const base = location.pathname + location.search;
   if (name === 'mujeres') return base + '#we-recruit-women';
   if (name === 'ww-unete') return base + '#unete';
+  if (name === 'blog') return base + '#blog';
   if ((name === 'job-detail' || name === 'apply') && jobId) return base + '#vacante=' + encodeURIComponent(jobId);
   return base;
 }
@@ -5506,21 +5513,50 @@ function filterBlog() {
   renderBlog(cat ? allBlogPosts.filter(p => p.categoria === cat) : allBlogPosts);
 }
 
+let currentBlogSlug = null;
+function blogInline(t) {
+  return escHtml(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+function renderBlogMarkdown(md) {
+  const lines = (md || '').split('\n');
+  let html = '', i = 0;
+  while (i < lines.length) {
+    const line = lines[i].trim();
+    if (!line) { i++; continue; }
+    if (line.startsWith('## ')) { html += `<h2>${blogInline(line.slice(3))}</h2>`; i++; continue; }
+    if (line.startsWith('|')) {
+      const rows = [];
+      while (i < lines.length && lines[i].trim().startsWith('|')) { rows.push(lines[i].trim()); i++; }
+      const cells = r => r.replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+      const body = rows.filter((r, k) => !(k === 1 && /^\|?\s*:?-{2,}/.test(r)));
+      html += '<div class="blog-table-wrap"><table class="blog-table"><thead><tr>' + cells(body[0]).map(c => `<th>${blogInline(c)}</th>`).join('') + '</tr></thead><tbody>' +
+        body.slice(1).map(r => '<tr>' + cells(r).map(c => `<td>${blogInline(c)}</td>`).join('') + '</tr>').join('') + '</tbody></table></div>';
+      continue;
+    }
+    if (/^- /.test(line)) {
+      html += '<ul>'; while (i < lines.length && /^- /.test(lines[i].trim())) { html += `<li>${blogInline(lines[i].trim().slice(2))}</li>`; i++; } html += '</ul>'; continue;
+    }
+    if (/^\d+\. /.test(line)) {
+      html += '<ol>'; while (i < lines.length && /^\d+\. /.test(lines[i].trim())) { html += `<li>${blogInline(lines[i].trim().replace(/^\d+\. /, ''))}</li>`; i++; } html += '</ol>'; continue;
+    }
+    html += `<p>${blogInline(line)}</p>`; i++;
+  }
+  return html;
+}
 async function viewBlogPost(id) {
   const el = document.getElementById('blogDetailContent');
   el.innerHTML = '<div class="ep-empty">⏳ Cargando...</div>';
   showPage('blog-detail');
   try {
-    const { data: p } = await sb.from('blog_posts').select('*').eq('id', id).single();
+    const isUuid = /^[0-9a-f-]{36}$/i.test(id);
+    const { data: p } = await sb.from('blog_posts').select('*').eq(isUuid ? 'id' : 'slug', id).maybeSingle();
     if (!p) { el.innerHTML = '<div class="ep-empty">Artículo no encontrado.</div>'; return; }
     const fecha = new Date(p.fecha_publicacion).toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' });
     const cat = BLOG_LABELS[p.categoria] || p.categoria;
-    const content = p.contenido.split('\n').map(line => {
-      if (line.startsWith('## ')) return `<h2>${line.substring(3)}</h2>`;
-      if (line.startsWith('- ')) return `<li>${line.substring(2)}</li>`;
-      if (line.trim()) return `<p>${line}</p>`;
-      return '';
-    }).join('');
+    const content = renderBlogMarkdown(p.contenido);
+    currentBlogSlug = p.slug || p.id;
+    try { history.replaceState(history.state, '', location.pathname + location.search + '#blog=' + encodeURIComponent(currentBlogSlug)); } catch(e) {}
+    document.title = p.titulo + ' — We Recruit DR';
     el.innerHTML = `
       <span class="blog-card-cat">${cat}</span>
       <h1>${p.titulo}</h1>
@@ -6206,6 +6242,8 @@ function wwVerVacantes(value, label) {
 window.addEventListener('DOMContentLoaded', () => {
   if (__initHash === '#we-recruit-women') showPage('mujeres');
   if (__initHash === '#unete') showPage('ww-unete');
+  if (__initHash === '#blog') showPage('blog');
+  { const bm = __initHash.match(/^#blog=(.+)$/); if (bm) viewBlogPost(decodeURIComponent(bm[1])); }
 });
 
 // ─── Banca de talento We Recruit Women (sin cuenta) ───
