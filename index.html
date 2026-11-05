@@ -1607,8 +1607,6 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <button class="fcd-clear" id="fcdClear" onclick="clearAllFilters()">✕ Limpiar filtros</button>
       </div>
       <div class="hero-stats" id="heroStats" style="display:none">
-        <div><div class="stat-num" id="statVacantes">—</div><div class="stat-label">Vacantes activas</div></div>
-        <div><div class="stat-num" id="statEmpresas">—</div><div class="stat-label">Empresas contratando</div></div>
         <div id="statColocWrap" style="display:none"><div class="stat-num" id="statColoc">—</div><div class="stat-label">Colocaciones exitosas</div></div>
       </div>
      </div>
@@ -2958,14 +2956,9 @@ function renderHomeRecent() {
 function updateHeroStats() {
   const box = document.getElementById('heroStats');
   try { renderHomeRecent(); } catch (e) {}
-  if (!box || !jobs.length) return;
-  document.getElementById('statVacantes').textContent = jobs.length;
-  const empresas = new Set(jobs.map(j => (j.company || '').trim().toLowerCase()).filter(Boolean));
-  document.getElementById('statEmpresas').textContent = empresas.size || '—';
-  if (SITE.colocaciones) {
-    document.getElementById('statColoc').textContent = SITE.colocaciones;
-    document.getElementById('statColocWrap').style.display = '';
-  }
+  if (!box || !SITE.colocaciones) return;
+  document.getElementById('statColoc').textContent = SITE.colocaciones;
+  document.getElementById('statColocWrap').style.display = '';
   box.style.display = '';
 }
 
