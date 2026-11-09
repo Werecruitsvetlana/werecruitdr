@@ -61,11 +61,18 @@ nav {
 }
 .hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
 .hero-tag {
-  display: inline-flex; align-items: center;
-  background: rgba(206,228,204,0.1); border: 1px solid rgba(206,228,204,0.25);
-  border-radius: 3px; padding: 5px 14px; margin-bottom: 1.5rem;
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 1.5rem;
 }
-.hero-tag span { color: var(--green); font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+.hero-tag span { color: var(--green); font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; }
+.hero-tag::before, .hero-tag::after { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); opacity: .8; }
+/* Etiqueta pequeña sobre títulos de sección */
+.sec-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--mid); margin-bottom: .55rem; }
+.sec-eyebrow::before, .sec-eyebrow::after { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .7; }
+.sec-eyebrow.center { display: flex; justify-content: center; }
+/* Animaciones suaves al bajar */
+.rv { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+.rv.rv-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; transition: none; } }
 .hero h1 {
   font-family: 'Poppins', sans-serif; font-weight: 900;
   font-size: clamp(2rem, 5vw, 3.5rem); color: var(--white); line-height: 1.05; margin-bottom: 1rem;
@@ -665,6 +672,7 @@ footer span { color: var(--green); }
 /* ─── PARA EMPRESAS ─── */
 .empresas-main { max-width: 1000px; margin: 0 auto; padding: 0 2rem 3rem; }
 .empresas-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.4rem; margin-top: -2.5rem; position: relative; z-index: 2; }
+.sec-eyebrow + .empresas-services { margin-top: .4rem; }
 .service-card {
   background: var(--white); border: 1.5px solid var(--light); border-radius: 12px; padding: 1.8rem 1.6rem;
   box-shadow: 0 6px 24px rgba(6,57,88,0.08);
@@ -1181,7 +1189,8 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 .ww-note { font-size: 11.5px; color: var(--gray); margin-top: .8rem; line-height: 1.5; }
 .ww-lead { font-size: 15px; line-height: 1.7; color: var(--dark); max-width: 720px; margin: 2rem 0 0; }
 .ww-section { margin-top: 3.2rem; }
-.ww-section > .ww-kicker { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mid); margin-bottom: .4rem; }
+.ww-section > .ww-kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--mid); margin-bottom: .55rem; }
+.ww-section > .ww-kicker::before, .ww-section > .ww-kicker::after { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: .7; }
 .ww-section > h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 800; color: var(--dark); margin-bottom: .5rem; }
 .ww-section > p { font-size: 14px; color: var(--gray); line-height: 1.7; max-width: 680px; margin-bottom: 1.4rem; }
 .ww-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
@@ -1285,6 +1294,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
   </div>
   <div class="empresas-main">
     <button class="back-btn" style="margin-top:2rem" onclick="goBack('home')">← Volver</button>
+    <div class="sec-eyebrow" style="margin-top:1.2rem">Nuestros servicios</div>
     <div class="empresas-services">
       <div class="service-card">
         <div class="service-icon">
@@ -1310,6 +1320,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     </div>
 
     <div class="empresas-contact">
+      <div class="sec-eyebrow" style="color:var(--green)">Hablemos</div>
       <h3>¿Listo para encontrar el mejor talento?</h3>
       <p>Escríbenos y conversemos sobre las necesidades de tu empresa.</p>
       <div class="empresas-contact-links">
@@ -1325,6 +1336,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 <div id="page-mujeres" class="page">
   <div class="hero hero-sm ww-hero">
     <div class="hero-inner">
+      <div class="hero-tag"><span>Talento femenino dominicano</span></div>
       <h1>We Recruit <em>Women</em></h1>
       <div class="ww-sello">Oportunidades que impulsan la igualdad.</div>
       <p>Conectamos a mujeres con empresas comprometidas con la igualdad de género y el desarrollo profesional femenino.</p>
@@ -1635,6 +1647,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     </div>
 
     <div>
+      <div class="sec-eyebrow">Oportunidades</div>
       <div class="jobs-header">
         <h2>Vacantes disponibles <span id="jobCount">(cargando...)</span></h2>
         <select class="jobs-sort" id="jobsSort" onchange="filterJobs()"><option value="recientes">Más recientes</option><option value="salario">Mayor salario</option></select>
@@ -1841,6 +1854,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 
   <div class="freelancers-main">
 
+    <div class="sec-eyebrow">Talento creativo</div>
     <div class="freelancers-toolbar">
       <h2>Freelancers disponibles <span id="freelancerCount">(cargando...)</span></h2>
       <div style="display:flex;gap:.6rem;flex-wrap:wrap">
@@ -3053,7 +3067,7 @@ function renderSiteExtras() {
   const t = document.getElementById('trustSection');
   if (t && (SITE.clientes.length || SITE.testimonios.length)) {
     t.innerHTML = `
-      ${SITE.clientes.length ? `<h3 class="trust-title">Empresas que confían en nosotros</h3>
+      ${SITE.clientes.length ? `<div class="sec-eyebrow center">Confianza</div><h3 class="trust-title">Empresas que confían en nosotros</h3>
         <div class="trust-logos">${SITE.clientes.map(c => `<img src="${escHtml(c.logo)}" alt="${escHtml(c.nombre)}" title="${escHtml(c.nombre)}" loading="lazy">`).join('')}</div>` : ''}
       ${SITE.testimonios.length ? `<div class="trust-quotes">${SITE.testimonios.map(q => `
         <figure class="trust-quote"><blockquote>“${escHtml(q.texto)}”</blockquote>
@@ -3402,6 +3416,36 @@ window.addEventListener('popstate', e => {
   } finally { navFromHistory = false; }
 });
 
+// ── Animaciones suaves al bajar (estilo fade-up) ──
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const SEL = '.hero-tag, .hero h1, .hero p, .sec-eyebrow, .ww-section > .ww-kicker, .ww-section > h2, .jobs-header, .job-card, .service-card, .empresas-contact, .ww-card, .blog-card, .freelancer-card, .trust, .salary-calc, .hh-recent';
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const el = e.target; el.classList.add('rv-in'); io.unobserve(el);
+        // al terminar, devolver el elemento a su estado normal (hovers y transiciones propias)
+        setTimeout(() => { el.classList.remove('rv', 'rv-in'); el.style.transitionDelay = ''; }, 1300);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  function scan() {
+    document.querySelectorAll(SEL).forEach((el, i) => {
+      if (el.dataset.rv) return;
+      el.dataset.rv = '1';
+      el.classList.add('rv');
+      // escalonado ligero para elementos hermanos (tarjetas)
+      const idx = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.style.transitionDelay = Math.min(idx, 5) * 70 + 'ms';
+      io.observe(el);
+    });
+  }
+  let t = null;
+  const mo = new MutationObserver(() => { clearTimeout(t); t = setTimeout(scan, 60); });
+  document.addEventListener('DOMContentLoaded', () => { scan(); mo.observe(document.body, { childList: true, subtree: true }); });
+  if (document.readyState !== 'loading') { scan(); mo.observe(document.body, { childList: true, subtree: true }); }
+})();
 function showPage(name) {
   if (name !== 'job-detail' && name !== 'apply') document.title = window.__baseTitle || document.title;
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
