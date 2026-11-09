@@ -1282,6 +1282,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     <a class="nav-ww" onclick="showPage('mujeres');closeMobileNav()">We Recruit Women</a>
     <a onclick="showPage('freelancers');closeMobileNav()">Freelancers</a>
     <a onclick="showPage('para-empresas');closeMobileNav()">Empresas</a>
+    <a onclick="showPage('nosotros');closeMobileNav()">Nosotros</a>
     <div class="nav-dd">
       <button class="nav-dd-btn" onclick="toggleNavDd(this)">Recursos <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
       <div class="nav-dd-menu">
@@ -1337,11 +1338,32 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       </div>
     </div>
 
+     <div class="empresas-contact">
+      <div class="sec-eyebrow" style="color:var(--green)">Hablemos</div>
+      <h3>¿Listo para encontrar el mejor talento?</h3>
+      <p>Escríbenos y conversemos sobre las necesidades de tu empresa.</p>
+      <div class="empresas-contact-links">
+        <a href="mailto:svetlana@werecruitdr.com">✉ svetlana@werecruitdr.com</a>
+        <a class="wa" href="https://wa.me/18493505577" target="_blank">WhatsApp +1 (849) 350-5577</a>
+      </div>
+    </div>
+  </div>
+  <footer class="site-footer"></footer>
+</div>
+
+<!-- ═══════════════ NOSOTROS ═══════════════ -->
+<div id="page-nosotros" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Quiénes somos</span></div>
+      <h1>Conoce al <em>equipo</em></h1>
+      <p>A Human First Recruitment Company. Reclutamos top talent de República Dominicana, con un trato cercano en cada proceso.</p>
+    </div>
   </div>
   <section class="equipo">
     <div class="equipo-inner">
       <div class="equipo-text">
-        <div class="sec-eyebrow">Conoce al equipo</div>
+        <div class="sec-eyebrow">Nuestro equipo</div>
         <h2>Personas reales detrás de cada proceso</h2>
         <p>Somos un equipo de reclutamiento humano y cercano. Conocemos el mercado dominicano y acompañamos a cada empresa y a cada candidato de principio a fin.</p>
       </div>
@@ -1351,16 +1373,16 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           <figcaption><strong>Svetlana Elias</strong><span>Fundadora</span></figcaption>
         </figure>
         <figure class="equipo-card">
-          <div class="equipo-photo"><img src="/img/equipo/daniel-jaar.webp" alt="Daniel Jaar, We Recruit DR" loading="lazy" width="640" height="800"></div>
-          <figcaption><strong>Daniel Jaar</strong></figcaption>
+          <div class="equipo-photo"><img src="/img/equipo/daniel-jaar.webp" alt="Daniel Jaar, Senior Recruiter de We Recruit DR" loading="lazy" width="640" height="800"></div>
+          <figcaption><strong>Daniel Jaar</strong><span>Senior Recruiter</span></figcaption>
         </figure>
       </div>
     </div>
   </section>
-  <div class="empresas-main">
+  <div class="empresas-main" style="padding-top:1rem">
     <div class="empresas-contact">
       <div class="sec-eyebrow" style="color:var(--green)">Hablemos</div>
-      <h3>¿Listo para encontrar el mejor talento?</h3>
+      <h3>¿Quieres trabajar con nosotros?</h3>
       <p>Escríbenos y conversemos sobre las necesidades de tu empresa.</p>
       <div class="empresas-contact-links">
         <a href="mailto:svetlana@werecruitdr.com">✉ svetlana@werecruitdr.com</a>
@@ -1696,27 +1718,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     </div>
   </div>
 
-  <section class="equipo">
-    <div class="equipo-inner">
-      <div class="equipo-text">
-        <div class="sec-eyebrow">Conoce al equipo</div>
-        <h2>Personas reales detrás de cada proceso</h2>
-        <p>Somos un equipo de reclutamiento humano y cercano. Conocemos el mercado dominicano y acompañamos a cada empresa y a cada candidato de principio a fin.</p>
-      </div>
-      <div class="equipo-grid">
-        <figure class="equipo-card">
-          <div class="equipo-photo"><img src="/img/equipo/svetlana-elias.webp" alt="Svetlana Elias, fundadora de We Recruit DR" loading="lazy" width="640" height="800"></div>
-          <figcaption><strong>Svetlana Elias</strong><span>Fundadora</span></figcaption>
-        </figure>
-        <figure class="equipo-card">
-          <div class="equipo-photo"><img src="/img/equipo/daniel-jaar.webp" alt="Daniel Jaar, We Recruit DR" loading="lazy" width="640" height="800"></div>
-          <figcaption><strong>Daniel Jaar</strong></figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <section class="trust" id="trustSection" style="display:none"></section>
+<section class="trust" id="trustSection" style="display:none"></section>
   <footer class="site-footer"></footer>
 </div>
 
@@ -3108,6 +3110,7 @@ function renderSiteExtras() {
       <div class="sf-col">
         <h4>Empresas</h4>
         <a onclick="showPage('para-empresas')">Nuestros servicios</a>
+        <a onclick="showPage('nosotros')">Conoce al equipo</a>
         <a onclick="showPage('publicar-vacante')">Publicar vacante</a>
         <a onclick="showPage('empresa-panel')">Panel de empresa</a>
         <a onclick="showPage('freelancers')">Contratar freelancers</a>
@@ -3445,6 +3448,7 @@ function pageUrl(name, jobId) {
   if (name === 'mujeres') return base + '#we-recruit-women';
   if (name === 'ww-unete') return base + '#unete';
   if (name === 'blog') return base + '#blog';
+  if (name === 'nosotros') return base + '#nosotros';
   if ((name === 'job-detail' || name === 'apply') && jobId) return base + '#vacante=' + encodeURIComponent(jobId);
   return base;
 }
@@ -6346,6 +6350,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (__initHash === '#we-recruit-women') showPage('mujeres');
   if (__initHash === '#unete') showPage('ww-unete');
   if (__initHash === '#blog') showPage('blog');
+  if (__initHash === '#nosotros') showPage('nosotros');
   { const bm = __initHash.match(/^#blog=(.+)$/); if (bm) viewBlogPost(decodeURIComponent(bm[1])); }
 });
 
