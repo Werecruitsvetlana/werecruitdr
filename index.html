@@ -2624,10 +2624,15 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <div class="fh-icon">🏢</div>
         <div>
           <div class="fh-title">Panel de empresa</div>
-          <div class="fh-sub">Accede para ver tus vacantes y las aplicaciones recibidas</div>
+          <div class="fh-sub">Entra o crea tu cuenta para publicar vacantes y ver las aplicaciones recibidas</div>
         </div>
       </div>
       <div class="form-section">
+        <div class="cand-auth-toggle">
+          <div class="cand-auth-tab active" id="epTabLogin" onclick="epToggleAuth('login')">Iniciar sesión</div>
+          <div class="cand-auth-tab" id="epTabReg" onclick="epToggleAuth('register')">Crear cuenta de empresa</div>
+        </div>
+        <div id="epLoginFields">
         <div class="form-row">
           <div class="field"><label>Email</label><input type="email" id="ep-login-email"></div>
           <div class="field"><label>Contraseña</label><input type="password" id="ep-login-pass"></div>
@@ -2635,6 +2640,38 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <button class="submit-btn" onclick="epLogin()" style="margin-top:1rem">Entrar</button>
         <p class="olvide-row"><a href="#" onclick="olvideClave('ep-login-email');return false">¿Olvidaste tu contraseña?</a></p>
         <div class="olvide-msg" id="ep-login-email-msg" role="status"></div>
+        </div>
+        <div id="epRegisterFields" style="display:none">
+          <div class="form-row">
+            <div class="field"><label for="ep-reg-empresa">Nombre de la empresa *</label><input type="text" id="ep-reg-empresa"></div>
+            <div class="field"><label for="ep-reg-sector">Sector</label><select id="ep-reg-sector">
+              <option value="">Seleccionar</option>
+              <option>Tecnología</option>
+              <option>Finanzas</option>
+              <option value="Marketing">Marketing / Mercadeo</option>
+              <option>Ventas</option>
+              <option>Operaciones</option>
+              <option>Recursos Humanos</option>
+              <option>Salud</option>
+              <option>Legal</option>
+              <option>Educación</option>
+              <option>Construcción</option>
+              <option>Comercio</option>
+              <option>Turismo</option>
+              <option>Otro</option>
+            </select></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="ep-reg-contacto">Nombre de contacto *</label><input type="text" id="ep-reg-contacto" autocomplete="name"></div>
+            <div class="field"><label for="ep-reg-telefono">Teléfono</label><input type="tel" id="ep-reg-telefono" autocomplete="tel" placeholder="809-000-0000"></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="ep-reg-email">Email *</label><input type="email" id="ep-reg-email" autocomplete="email"></div>
+            <div class="field"><label for="ep-reg-pass">Contraseña *</label><input type="password" id="ep-reg-pass" autocomplete="new-password" placeholder="Mínimo 6 caracteres"></div>
+          </div>
+          <div class="olvide-msg" id="epRegMsg" role="status"></div>
+          <button class="submit-btn" id="epRegBtn" onclick="epRegister()" style="margin-top:1rem">Crear cuenta</button>
+        </div>
       </div>
     </div>
 
@@ -5366,6 +5403,70 @@ async function pvSubmitVacante() {
 
 let epEmpresa = null;
 
+function epToggleAuth(modo) {
+  const reg = modo === 'register';
+  document.getElementById('epLoginFields').style.display = reg ? 'none' : 'block';
+  document.getElementById('epRegisterFields').style.display = reg ? 'block' : 'none';
+  document.getElementById('epTabLogin').classList.toggle('active', !reg);
+  document.getElementById('epTabReg').classList.toggle('active', reg);
+}
+
+function epMostrarPanel(data) {
+  epEmpresa = data;
+  document.getElementById('epLoginSection').style.display = 'none';
+  document.getElementById('epDashboard').style.display = 'block';
+  document.getElementById('epWelcome').textContent = data.nombre_empresa;
+  document.getElementById('epSubtitle').textContent = 'Bienvenido, ' + data.contacto_nombre;
+  loadEpVacantes();
+}
+
+async function epRegister() {
+  const v = id => document.getElementById(id).value.trim();
+  const empresa = v('ep-reg-empresa'), contacto = v('ep-reg-contacto'), email = v('ep-reg-email');
+  const telefono = v('ep-reg-telefono'), sector = document.getElementById('ep-reg-sector').value;
+  const password = document.getElementById('ep-reg-pass').value;
+  const msg = document.getElementById('epRegMsg');
+  msg.className = 'olvide-msg error';
+  const falta = !empresa ? 'ep-reg-empresa' : !contacto ? 'ep-reg-contacto'
+    : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'ep-reg-email' : password.length < 6 ? 'ep-reg-pass' : '';
+  if (falta) {
+    msg.textContent = falta === 'ep-reg-pass' ? 'La contraseña debe tener al menos 6 caracteres.'
+      : falta === 'ep-reg-email' ? 'Escribe un email válido.' : 'Completa los campos marcados con *.';
+    document.getElementById(falta).focus();
+    return;
+  }
+  const btn = document.getElementById('epRegBtn');
+  btn.disabled = true; btn.textContent = 'Creando cuenta...';
+  try {
+    const estado = await authRegistrar(email, password, {
+      tipo: 'empresa', nombre_empresa: empresa, contacto_nombre: contacto, telefono, sector
+    });
+    if (estado === 'existe') {
+      msg.textContent = 'Ya existe una cuenta con ese email. Inicia sesión o recupera tu contraseña.';
+      epToggleAuth('login');
+      document.getElementById('ep-login-email').value = email;
+      return;
+    }
+    if (estado === 'confirmar') {
+      epToggleAuth('login');
+      document.getElementById('ep-login-email').value = email;
+      const m = document.getElementById('ep-login-email-msg');
+      m.className = 'olvide-msg ok';
+      m.textContent = 'Cuenta creada. Te enviamos un correo a ' + email + ' para confirmarla; después inicia sesión aquí.';
+      return;
+    }
+    const data = await miPerfil('mi_empresa_portal');
+    if (!data) throw new Error('sin perfil de empresa');
+    epMostrarPanel(data);
+    showToast('Cuenta creada', 'success');
+  } catch (err) {
+    console.error(err);
+    msg.textContent = 'No pudimos crear la cuenta. Intenta de nuevo o escríbenos por WhatsApp.';
+  } finally {
+    btn.disabled = false; btn.textContent = 'Crear cuenta';
+  }
+}
+
 async function epLogin() {
   const email = document.getElementById('ep-login-email').value.trim();
   const pass = document.getElementById('ep-login-pass').value;
@@ -5378,12 +5479,7 @@ async function epLogin() {
     const data = await miPerfil('mi_empresa_portal');
     if (!data) { await sb.auth.signOut(); showToast('Esta cuenta no está registrada como empresa', 'error'); return; }
 
-    epEmpresa = data;
-    document.getElementById('epLoginSection').style.display = 'none';
-    document.getElementById('epDashboard').style.display = 'block';
-    document.getElementById('epWelcome').textContent = data.nombre_empresa;
-    document.getElementById('epSubtitle').textContent = 'Bienvenido, ' + data.contacto_nombre;
-    loadEpVacantes();
+    epMostrarPanel(data);
   } catch(err) {
     console.error(err);
     showToast('Error al iniciar sesión', 'error');
