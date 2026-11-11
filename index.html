@@ -1258,6 +1258,8 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
   .ww-stat span { font-size: 11.5px; display: block; }
   .ww-stats { grid-template-columns: repeat(3, 1fr); gap: .5rem; }
 }
+.next-steps { text-align: left; max-width: 440px; margin: 0 auto 1.5rem; padding-left: 1.25rem; color: var(--dark); font-size: .92rem; line-height: 1.7; }
+.next-steps li { margin-bottom: .4rem; }
 </style>
 </head>
 <body>
@@ -1427,7 +1429,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <div class="ww-card">
           <h3>Tu CV, directo a nuestra banca</h3>
           <p>Envía tu CV en un minuto, sin crear cuenta. ¿No tienes uno? Ármalo aquí en 5 pasos y envíalo desde ahí.</p>
-          <button class="ww-link" onclick="showPage('ww-unete')">Unirme a la banca →</button>
+          <button class="ww-link" onclick="showPage('ww-unete')">Únete a la banca de talento →</button>
           <button class="ww-link" onclick="wwIrACVBuilder()">Crear mi CV →</button>
         </div>
         <div class="ww-card">
@@ -1509,7 +1511,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           <div class="field">
             <label>WhatsApp / Teléfono <span class="req">*</span></label>
             <input type="tel" id="wwj-telefono" placeholder="+1 (809) 000-0000">
-            <div class="error-msg" id="err-wwj-telefono">Campo requerido</div>
+            <div class="error-msg" id="err-wwj-telefono">Escribe un teléfono de 10 dígitos, por ejemplo 809-555-0123</div>
           </div>
         </div>
         <div class="form-row">
@@ -1594,7 +1596,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       <label class="ww-consent"><input type="checkbox" id="wwj-consent"> Acepto que We Recruit DR guarde mis datos y mi CV en su banca de candidatos para contactarme por oportunidades de empleo, y que use mis respuestas opcionales solo en estadísticas confidenciales. <span class="req">*</span></label>
 
       <button class="submit-btn" id="wwjSubmitBtn" onclick="wwjEnviar()">
-        Enviar a la banca
+        Enviar mi CV a la banca
         <div class="spinner" id="wwjSpinner"></div>
       </button>
     </div>
@@ -1752,7 +1754,12 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     <div class="success-screen" id="successScreen">
       <div class="success-icon">✅</div>
       <h3>¡Aplicación enviada!</h3>
-      <p>Tu perfil fue enviado exitosamente a We Recruit DR.<br>Revisaremos tu aplicación y te contactaremos pronto.</p>
+      <p id="successVacante" style="margin-bottom:1rem"></p>
+      <ol class="next-steps">
+        <li><b>Revisamos tu CV.</b> Lo lee una persona de nuestro equipo, no un robot.</li>
+        <li><b>Si tu perfil encaja,</b> te escribimos por WhatsApp o al email <span id="successEmail"></span> para coordinar una entrevista.</li>
+        <li><b>Mientras tanto,</b> puedes aplicar a otras vacantes con el mismo CV.</li>
+      </ol>
       <button onclick="showPage('home')">Ver más vacantes</button>
     </div>
 
@@ -1781,7 +1788,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           <div class="field">
             <label>Teléfono <span class="req">*</span></label>
             <input type="tel" id="f-telefono" placeholder="+1 (809) 000-0000">
-            <div class="error-msg" id="err-telefono">Campo requerido</div>
+            <div class="error-msg" id="err-telefono">Escribe un teléfono de 10 dígitos, por ejemplo 809-555-0123</div>
           </div>
         </div>
         <div class="form-row">
@@ -1811,7 +1818,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <div class="error-msg" id="err-experiencia">Campo requerido</div>
           </div>
           <div class="field">
-            <label>Salario esperado (DOP)</label>
+            <label>Salario esperado (RD$)</label>
             <input type="text" id="f-salario" placeholder="Ej: 80,000">
           </div>
         </div>
@@ -1955,7 +1962,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     <div class="success-screen" id="freelancerSuccessScreen">
       <div class="success-icon">✅</div>
       <h3>¡Perfil enviado!</h3>
-      <p>Tu perfil fue enviado. Lo revisaremos y lo publicaremos pronto.</p>
+      <p>Revisamos cada perfil antes de publicarlo en el directorio de freelancers. Si necesitamos algo más, te escribimos al email que nos diste.</p>
       <button onclick="showPage('freelancers')">Ver freelancers</button>
     </div>
 
@@ -2105,7 +2112,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       <div class="fh-icon">✏️</div>
       <div>
         <div class="fh-title">Editar mi perfil freelancer</div>
-        <div class="fh-sub">Ingresa tu email para cargar y editar tu perfil</div>
+        <div class="fh-sub">Te enviamos un enlace a tu correo para confirmar que eres tú</div>
       </div>
     </div>
 
@@ -2118,10 +2125,11 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <input type="email" id="fe-email-lookup" placeholder="correo@ejemplo.com">
           </div>
           <div class="field" style="display:flex;align-items:flex-end">
-            <button class="submit-btn" onclick="feLoadProfile()" style="width:100%;margin:0">Cargar mi perfil</button>
+            <button class="submit-btn" onclick="feLoadProfile()" style="width:100%;margin:0">Enviarme el enlace</button>
           </div>
         </div>
-        <div id="feEmailError" style="display:none;color:#ef4444;font-size:.85rem;margin-top:.5rem">No encontramos un perfil con ese email.</div>
+        <div id="feEmailError" role="alert" style="display:none;color:#ef4444;font-size:.85rem;margin-top:.5rem">No encontramos un perfil con ese email.</div>
+        <div id="feLinkSent" role="status" style="display:none;background:var(--cream);border:1.5px solid var(--green);border-radius:8px;padding:12px 14px;font-size:.9rem;color:var(--dark);margin-top:.75rem;line-height:1.6"></div>
       </div>
     </div>
 
@@ -2256,7 +2264,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <div class="field">
               <label>Teléfono <span class="req">*</span></label>
               <input type="tel" id="cv-telefono" placeholder="+1 (809) 000-0000">
-              <div class="error-msg" id="err-cv-telefono">Campo requerido</div>
+              <div class="error-msg" id="err-cv-telefono">Escribe un teléfono de 10 dígitos, por ejemplo 809-555-0123</div>
             </div>
             <div class="field">
               <label>Ciudad</label>
@@ -2954,6 +2962,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         </div>
       </div>
       <button class="calc-btn" onclick="calcularSalario()">Calcular rango →</button>
+      <div id="calcError" role="alert" style="display:none;color:var(--red);font-size:13px;margin-top:8px">Elige un sector y un puesto para calcular el rango.</div>
     </div>
 
     <div class="calc-card" style="background:var(--dark);border-color:var(--dark);">
@@ -3238,7 +3247,8 @@ async function loadVacantes() {
     filterJobs();
   } catch(err) {
     console.error(err);
-    el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray)"><p>Error al cargar vacantes. Por favor recarga la página.</p></div>';
+    el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray)"><p style="margin-bottom:1rem">No pudimos cargar las vacantes. Puede ser la conexión.</p><button class="submit-btn" style="width:auto;padding:10px 22px;margin:0 auto" onclick="loadVacantes().then(() => checkJobHash())">Reintentar</button><p style="margin-top:1rem;font-size:.9rem">¿Sigue fallando? <a href="https://wa.me/18493505577" target="_blank" rel="noopener" style="color:var(--mid);font-weight:600">Escríbenos por WhatsApp</a></p></div>';
+    document.getElementById('jobCount').textContent = '';
   }
 }
 
@@ -3522,6 +3532,7 @@ function showPage(name) {
     feProfileId = null; feFotoUrl = null; fePortafolioNewUrls = []; fePortafolioExisting = [];
     document.getElementById('fe-email-lookup').value = '';
     document.getElementById('feEmailError').style.display = 'none';
+    document.getElementById('feLinkSent').style.display = 'none';
     document.getElementById('feLoginSection').style.display = 'block';
     document.getElementById('feFormSection').style.display = 'none';
   }
@@ -3920,6 +3931,21 @@ async function handleFileUpload(input) {
 //  📨  ENVÍO A SUPABASE
 // ═══════════════════════════════════════════════════════
 
+// Lleva a la persona al primer campo marcado con error dentro de un formulario
+function irAlPrimerError(contenedorId) {
+  const c = document.getElementById(contenedorId);
+  const el = c && [...c.querySelectorAll('.error')].find(e => e.offsetParent !== null);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  try { el.focus({ preventScroll: true }); } catch (e) {}
+}
+
+// Teléfono: 10 dígitos en RD (809/829/849) o hasta 15 si es internacional
+function esTelefono(v) {
+  const d = String(v || '').replace(/\D/g, '');
+  return d.length >= 10 && d.length <= 15;
+}
+
 function validateField(id, errId, check) {
   const el = document.getElementById(id);
   const err = document.getElementById(errId);
@@ -3939,7 +3965,7 @@ function validateForm() {
   const v1 = validateField('f-nombre',      'err-nombre',      notEmpty);
   const v2 = validateField('f-apellido',    'err-apellido',    notEmpty);
   const v3 = validateField('f-email',       'err-email',       isEmail);
-  const v4 = validateField('f-telefono',    'err-telefono',    notEmpty);
+  const v4 = validateField('f-telefono',    'err-telefono',    esTelefono);
   const v5 = validateField('f-experiencia', 'err-experiencia', notEmpty);
   const v6 = validateField('f-motivacion',  'err-motivacion',  notEmpty);
   return v1 && v2 && v3 && v4 && v5 && v6;
@@ -3969,7 +3995,8 @@ async function submitApplication() {
     return;
   }
   if (!validateForm()) {
-    showToast('Por favor completa los campos requeridos', 'error');
+    showToast('Revisa los campos marcados en rojo', 'error');
+    irAlPrimerError('applicationForm');
     return;
   }
 
@@ -4034,6 +4061,8 @@ async function submitApplication() {
     }
 
     document.getElementById('applicationForm').style.display = 'none';
+    document.getElementById('successVacante').textContent = currentJob ? 'Recibimos tu aplicación para ' + currentJob.title + '.' : 'Recibimos tu aplicación.';
+    document.getElementById('successEmail').textContent = record.email;
     document.getElementById('successScreen').style.display = 'block';
     showToast('¡Aplicación enviada exitosamente! ✅', 'success');
 
@@ -4105,7 +4134,7 @@ async function loadFreelancers() {
     renderFreelancerList();
   } catch (err) {
     console.error(err);
-    el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray);grid-column:1/-1"><p>Error al cargar freelancers. Por favor recarga la página.</p></div>';
+    el.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--gray);grid-column:1/-1"><p style="margin-bottom:1rem">No pudimos cargar los freelancers. Puede ser la conexión.</p><button class="submit-btn" style="width:auto;padding:10px 22px;margin:0 auto" onclick="loadFreelancers()">Reintentar</button></div>';
   }
 }
 
@@ -4361,7 +4390,8 @@ async function submitFreelancerRegistration() {
     return;
   }
   if (!validateFreelancerForm()) {
-    showToast('Por favor completa los campos requeridos', 'error');
+    showToast('Revisa los campos marcados en rojo', 'error');
+    irAlPrimerError('freelancerForm');
     return;
   }
 
@@ -4417,15 +4447,53 @@ let fePortafolioExisting = [];
 let isFeFotoUploading = false;
 let isFePortafolioUploading = false;
 
+// Editar perfil: solo con sesión verificada por correo (enlace mágico de Supabase).
+// La base de datos además solo deja actualizar la fila cuyo email es el de la sesión (DB/seguridad-freelancers.sql).
+const FE_PARAM = 'editar-freelancer';
+
 async function feLoadProfile() {
   const email = document.getElementById('fe-email-lookup').value.trim().toLowerCase();
-  if (!email) return;
   const errEl = document.getElementById('feEmailError');
+  const sentEl = document.getElementById('feLinkSent');
   errEl.style.display = 'none';
+  sentEl.style.display = 'none';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = 'Escribe el email con el que te registraste.';
+    errEl.style.display = 'block';
+    return;
+  }
+  const { data: { session } } = await sb.auth.getSession();
+  if ((session?.user?.email || '').toLowerCase() === email) { await feCargarDeSesion(); return; }
 
-  const { data, error } = await sb.from('freelancers').select('*').ilike('email', email).single();
-  if (error || !data) { errEl.style.display = 'block'; return; }
+  const { error } = await sb.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: location.origin + location.pathname + '?' + FE_PARAM + '=1' }
+  });
+  if (error) {
+    errEl.textContent = 'No pudimos enviar el enlace. Intenta de nuevo en unos minutos o escríbenos por WhatsApp.';
+    errEl.style.display = 'block';
+    return;
+  }
+  sentEl.textContent = 'Te enviamos un enlace a ' + email + '. Ábrelo en este mismo navegador para editar tu perfil. Si no lo ves, revisa la carpeta de spam.';
+  sentEl.style.display = 'block';
+}
 
+async function feCargarDeSesion() {
+  const errEl = document.getElementById('feEmailError');
+  const { data: { session } } = await sb.auth.getSession();
+  const email = (session?.user?.email || '').toLowerCase();
+  if (!email) return false;
+  const { data, error } = await sb.from('freelancers').select('*').ilike('email', email).maybeSingle();
+  if (error || !data) {
+    errEl.textContent = 'No encontramos un perfil de freelancer con ' + email + '.';
+    errEl.style.display = 'block';
+    return false;
+  }
+  feMostrarPerfil(data);
+  return true;
+}
+
+function feMostrarPerfil(data) {
   feProfileId = data.id;
   feFotoUrl = data.foto_url || null;
   fePortafolioExisting = Array.isArray(data.portafolio_urls) ? data.portafolio_urls : [];
@@ -4616,7 +4684,7 @@ function cvbValidateStep(n) {
   if (n === 1) {
     const v1 = validateField('cv-nombre', 'err-cv-nombre', notEmpty);
     const v2 = validateField('cv-email', 'err-cv-email', isEmail);
-    const v3 = validateField('cv-telefono', 'err-cv-telefono', notEmpty);
+    const v3 = validateField('cv-telefono', 'err-cv-telefono', esTelefono);
     return v1 && v2 && v3;
   }
   if (n === 2) {
@@ -4629,7 +4697,8 @@ function cvbValidateStep(n) {
 
 function cvbNextStep() {
   if (!cvbValidateStep(cvbCurrentStep)) {
-    showToast('Por favor completa los campos requeridos', 'error');
+    showToast('Revisa los campos marcados en rojo', 'error');
+    irAlPrimerError('cvbForm');
     return;
   }
   if (cvbCurrentStep < CVB_TOTAL_STEPS) {
@@ -5096,6 +5165,12 @@ async function pvSubmitVacante() {
 
   if (!titulo || !descripcion) {
     showToast('El título y la descripción son requeridos', 'error');
+    document.getElementById(titulo ? 'pv-descripcion' : 'pv-titulo').focus();
+    return;
+  }
+  if (salarioMin && salarioMax && Number(salarioMin) > Number(salarioMax)) {
+    showToast('El salario mínimo no puede ser mayor que el máximo', 'error');
+    document.getElementById('pv-salario-min').focus();
     return;
   }
 
@@ -6285,10 +6360,13 @@ function calcularSalario() {
   const nivel = document.getElementById('calcNivel').value;
   const modalidad = document.getElementById('calcModalidad').value;
 
+  const calcErr = document.getElementById('calcError');
   if (!sector || !puesto) {
-    alert('Por favor selecciona sector y puesto.');
+    calcErr.style.display = 'block';
+    (sector ? document.getElementById('calcPuesto') : document.getElementById('calcSector')).focus();
     return;
   }
+  calcErr.style.display = 'none';
 
   const bonus = REMOTE_BONUS[modalidad] || 0;
   const [rawMin, rawMax] = SALARY_DATA[sector].puestos[puesto][nivel];
@@ -6347,6 +6425,20 @@ function wwVerVacantes(value, label) {
   try { selectFcd('tipo', value, label); } catch (e) {}
 }
 window.addEventListener('DOMContentLoaded', () => {
+  if (new URLSearchParams(location.search).has(FE_PARAM)) {
+    // Vuelve del enlace del correo: abrir la edición cuando Supabase termine de leer la sesión
+    showPage('freelancer-edit');
+    let hecho = false;
+    const abrir = async () => {
+      if (hecho) return;
+      if (await feCargarDeSesion()) {
+        hecho = true;
+        try { history.replaceState(history.state, '', location.pathname); } catch (e) {}
+      }
+    };
+    sb.auth.onAuthStateChange((ev, ses) => { if (ses) abrir(); });
+    abrir();
+  }
   if (__initHash === '#we-recruit-women') showPage('mujeres');
   if (__initHash === '#unete') showPage('ww-unete');
   if (__initHash === '#blog') showPage('blog');
@@ -6432,14 +6524,14 @@ async function wwjEnviar() {
     archivo: wwjArchivo, origen: 'formulario de la banca',
   };
   let ok = true;
-  [['wwj-nombre', datos.nombre], ['wwj-telefono', datos.telefono], ['wwj-ciudad', datos.ciudad], ['wwj-puesto', datos.puesto],
+  [['wwj-nombre', datos.nombre], ['wwj-telefono', esTelefono(datos.telefono)], ['wwj-ciudad', datos.ciudad], ['wwj-puesto', datos.puesto],
    ['wwj-email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(datos.email)]].forEach(([id, v]) => {
     const err = document.getElementById('err-' + id);
     document.getElementById(id).classList.toggle('error', !v);
     if (err) err.style.display = v ? 'none' : 'block';
     if (!v) ok = false;
   });
-  if (!ok) { showToast('Completa los campos requeridos', 'error'); return; }
+  if (!ok) { showToast('Revisa los campos marcados en rojo', 'error'); irAlPrimerError('wwjForm'); return; }
   if (!document.getElementById('wwj-consent').checked) { showToast('Debes aceptar que guardemos tus datos', 'error'); return; }
 
   const btn = document.getElementById('wwjSubmitBtn');
