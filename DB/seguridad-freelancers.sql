@@ -1,26 +1,25 @@
--- Seguridad: solo el dueño del perfil de freelancer puede editarlo.
--- Ejecutar en Supabase > SQL Editor. Requiere que el portal use el enlace por correo (feLoadProfile).
+-- Seguridad freelancers — EJECUTADO en Supabase el 2026-11-11.
+-- Antes existía "Freelancer puede actualizar su perfil" (UPDATE USING true): cualquiera podía editar cualquier perfil.
 
-ALTER TABLE public.freelancers ENABLE ROW LEVEL SECURITY;
+begin;
+-- Quitar toda política de UPDATE abierta (qual = true) en freelancers
+do $$ declare r record; begin
+  for r in select policyname from pg_policies
+           where schemaname = 'public' and tablename = 'freelancers' and cmd = 'UPDATE' and qual = 'true'
+  loop execute format('drop policy %I on public.freelancers', r.policyname); end loop;
+end $$;
 
--- 1) Ver las políticas actuales (revisar antes de borrar nada):
--- SELECT policyname, cmd, qual, with_check FROM pg_policies WHERE tablename = 'freelancers';
+-- Solo edita quien inició sesión (enlace por correo) con el mismo email del perfil
+create policy "Freelancer edita su propio perfil" on public.freelancers
+  for update to authenticated
+  using (lower(email) = lower(auth.jwt() ->> 'email'))
+  with check (lower(email) = lower(auth.jwt() ->> 'email'));
 
--- 2) Quitar cualquier política que permita UPDATE a todo el mundo (ajusta el nombre al que salga en el paso 1):
--- DROP POLICY IF EXISTS "<nombre de la política de update abierta>" ON public.freelancers;
+-- Que pueda cargar su perfil aunque todavía no esté aprobado
+create policy "Freelancer ve su propio perfil" on public.freelancers
+  for select to authenticated
+  using (lower(email) = lower(auth.jwt() ->> 'email'));
+commit;
 
--- 3) Solo puede actualizar quien inició sesión con el mismo email del perfil
-CREATE POLICY "Freelancer edita su propio perfil" ON public.freelancers
-  FOR UPDATE TO authenticated
-  USING (lower(email) = lower(auth.jwt() ->> 'email'))
-  WITH CHECK (lower(email) = lower(auth.jwt() ->> 'email'));
-
--- 4) OJO: si freelancers (o cualquier otra tabla) tiene una política tipo
---    FOR ALL USING (auth.role() = 'authenticated'), cualquier persona con cuenta
---    (candidatas, empresas o freelancers que entren por enlace) tendría acceso total.
---    Revísalo con:
--- SELECT tablename, policyname, cmd, qual FROM pg_policies
---  WHERE qual ILIKE '%authenticated%' OR qual = 'true';
-
--- 5) En Supabase > Authentication > URL Configuration, agrega como Redirect URL:
---    https://www.werecruitdr.com/?editar-freelancer=1
+-- Pendiente en Supabase > Authentication > URL Configuration > Redirect URLs:
+--   https://www.werecruitdr.com/?editar-freelancer=1
