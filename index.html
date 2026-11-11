@@ -3887,10 +3887,9 @@ function qcvPicked(input) {
   qcvUploading = (async () => {
     const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
     const path = `cvs/${Date.now()}_${safe}`;
-    const { error } = await sb.storage.from('archivos').upload(path, file, { contentType: file.type || undefined, upsert: false });
+    const { error } = await sb.storage.from(CV_BUCKET).upload(path, file, { contentType: file.type || undefined, upsert: false });
     if (error) throw error;
-    const { data } = sb.storage.from('archivos').getPublicUrl(path);
-    return data.publicUrl;
+    return cvUrlDe(path);
   })();
   qcvUploading.then(url => {
     if (qcvFile !== file) return;
@@ -4046,23 +4045,21 @@ async function handleFileUpload(input) {
     const path     = `cvs/${Date.now()}_${safeName}`;
 
     const { error: uploadError } = await sb.storage
-      .from('archivos')
+      .from(CV_BUCKET)
       .upload(path, file, { contentType: file.type, upsert: false });
 
     if (uploadError) throw uploadError;
 
     bar.style.width = '80%';
 
-    const { data: urlData } = sb.storage.from('archivos').getPublicUrl(path);
-
-    uploadedFileUrl  = urlData.publicUrl;
+    uploadedFileUrl  = cvUrlDe(path);
     uploadedFileName = file.name;
 
     bar.style.width = '100%';
     box.classList.remove('uploading');
     box.classList.add('uploaded'); const ecv = document.getElementById('err-cv'); if (ecv) ecv.style.display = 'none';
     label.textContent = '✅ ' + file.name;
-    linkAnchor.href = uploadedFileUrl;
+    linkAnchor.href = '#'; linkAnchor.onclick = e => { e.preventDefault(); abrirCV(uploadedFileUrl); };
     linkDisplay.style.display = 'block';
     showToast('CV subido correctamente ✅', 'success');
 
@@ -5241,6 +5238,34 @@ async function authEntrar(email, password) {
     : 'Email o contraseña incorrectos';
 }
 
+// ─── CVs privados ───
+// Los CVs viven en el bucket privado CV_BUCKET. En la base de datos se guarda una URL con la forma
+// https://<proyecto>.supabase.co/storage/v1/object/public/<bucket>/<ruta>; para abrirla se pide un enlace firmado.
+const CV_BUCKET = 'cvs-privados';
+function cvUrlDe(path) { return SB_URL + '/storage/v1/object/public/' + CV_BUCKET + '/' + path; }
+function cvPartes(url) {
+  const m = String(url || '').match(/\/storage\/v1\/object\/(?:public|sign|authenticated)\/([^/]+)\/(.+?)(?:\?.*)?$/);
+  return m ? { bucket: m[1], path: decodeURIComponent(m[2]) } : null;
+}
+async function enlaceCV(url, segundos) {
+  const p = cvPartes(url);
+  if (!p) return url;
+  const { data, error } = await sb.storage.from(p.bucket).createSignedUrl(p.path, segundos || 3600);
+  if (error || !data) throw error || new Error('sin enlace');
+  return data.signedUrl;
+}
+async function abrirCV(url) {
+  const w = window.open('', '_blank');
+  try {
+    const u = await enlaceCV(url);
+    if (w) w.location = u; else location.href = u;
+  } catch (e) {
+    if (w) w.close();
+    console.error('CV:', e);
+    showToast('No pudimos abrir el CV. Si el problema sigue, escríbenos.', 'error');
+  }
+}
+
 // ─── Teclado: todo lo clicable que no es botón ni enlace real se puede usar con Tab + Enter ───
 const CLICABLE = 'a[onclick]:not([href]), div[onclick], span[onclick], li[onclick]';
 function hacerAccesible(el) {
@@ -5600,7 +5625,7 @@ async function loadEpApps(vacanteId, titulo) {
             ${a.motivacion ? `<div style="color:var(--gray);font-size:.85rem;margin-top:.5rem;font-style:italic">"${a.motivacion.substring(0, 150)}${a.motivacion.length > 150 ? '...' : ''}"</div>` : ''}
             ${a.linkedin ? `<a href="${a.linkedin}" target="_blank" style="color:var(--mid);font-size:.85rem">LinkedIn</a>` : ''}
           </div>
-          ${a.cv_url ? `<a href="${a.cv_url}" target="_blank" class="ep-app-cv">📄 Ver CV</a>` : '<span style="color:var(--gray);font-size:.8rem">Sin CV</span>'}
+          ${a.cv_url ? `<a href="#" onclick="abrirCV(${JSON.stringify(a.cv_url).replace(/"/g, '&quot;')});return false" class="ep-app-cv">📄 Ver CV</a>` : '<span style="color:var(--gray);font-size:.8rem">Sin CV</span>'}
         </div>`;
     }).join('');
   } catch(err) {
@@ -5742,7 +5767,7 @@ function cpPintarCV() {
     const fecha = cpPerfil.cv_actualizado ? new Date(cpPerfil.cv_actualizado).toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
     info.innerHTML = '';
     const a = document.createElement('a');
-    a.href = cpPerfil.cv_url; a.target = '_blank'; a.rel = 'noopener';
+    a.href = '#'; a.onclick = e => { e.preventDefault(); abrirCV(cpPerfil.cv_url); };
     a.textContent = '📄 ' + (cpPerfil.cv_nombre || 'Mi CV');
     info.appendChild(a);
     if (fecha) { const sm = document.createElement('small'); sm.textContent = ' · actualizado el ' + fecha; info.appendChild(sm); }
@@ -5763,10 +5788,9 @@ async function cpSubirCV(input) {
   try {
     const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
     const path = `cvs/perfiles/${cpPerfil.id}_${Date.now()}_${safe}`;
-    const { error: upErr } = await sb.storage.from('archivos').upload(path, file, { contentType: file.type || undefined, upsert: false });
+    const { error: upErr } = await sb.storage.from(CV_BUCKET).upload(path, file, { contentType: file.type || undefined, upsert: false });
     if (upErr) throw upErr;
-    const { data } = sb.storage.from('archivos').getPublicUrl(path);
-    const cambios = { cv_url: data.publicUrl, cv_nombre: file.name, cv_actualizado: new Date().toISOString() };
+    const cambios = { cv_url: cvUrlDe(path), cv_nombre: file.name, cv_actualizado: new Date().toISOString() };
     const { error } = await sb.from('perfiles_candidato').update(cambios).eq('id', cpPerfil.id);
     if (error) throw error;
     Object.assign(cpPerfil, cambios);
