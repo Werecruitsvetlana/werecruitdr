@@ -330,6 +330,7 @@ nav {
 }
 .upload-box:hover { border-color: var(--mid); background: #EBF4FA; }
 .upload-box.uploaded { border-color: var(--success); background: #F0FDF4; border-style: solid; }
+.upload-box.error:not(.uploaded) { border-color: var(--red); background: #FEF2F2; }
 .upload-box.uploading { border-color: var(--mid); background: #EBF4FA; border-style: solid; cursor: not-allowed; }
 .upload-box p { font-size: 13px; color: var(--gray); margin-top: 6px; }
 .upload-box strong { font-size: 14px; color: var(--dark); display: block; margin-top: 4px; }
@@ -1258,6 +1259,19 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
   .ww-stat span { font-size: 11.5px; display: block; }
   .ww-stats { grid-template-columns: repeat(3, 1fr); gap: .5rem; }
 }
+.faq-list { max-width: 760px; margin: 1.2rem auto 3rem; padding: 0 2rem; }
+.faq-item { background: var(--white); border: 1.5px solid var(--light); border-radius: 10px; margin-bottom: .7rem; }
+.faq-item summary { cursor: pointer; padding: 1rem 1.2rem; font-weight: 700; color: var(--dark); font-size: .98rem; }
+.faq-item p { padding: 0 1.2rem 1.1rem; margin: 0; color: var(--dark); line-height: 1.7; font-size: .93rem; }
+.faq-item a, .faq-contact a, .jd-proceso a { color: var(--mid); font-weight: 600; cursor: pointer; }
+.faq-contact { text-align: center; margin-top: 1.5rem; color: var(--gray); }
+.jd-proceso ol { margin: .3rem 0 0; padding-left: 1.2rem; line-height: 1.8; color: var(--dark); font-size: .93rem; }
+[tabindex="0"]:focus-visible, a:focus-visible, button:focus-visible { outline: 3px solid var(--mid); outline-offset: 2px; }
+.olvide-row { text-align: center; margin-top: .8rem; font-size: .88rem; }
+.olvide-row a { color: var(--mid); font-weight: 600; }
+.olvide-msg { font-size: .88rem; line-height: 1.6; margin-top: .5rem; }
+.olvide-msg.ok { background: var(--cream); border: 1.5px solid var(--green); border-radius: 8px; padding: 10px 12px; color: var(--dark); }
+.olvide-msg.error { color: var(--red); }
 .next-steps { text-align: left; max-width: 440px; margin: 0 auto 1.5rem; padding-left: 1.25rem; color: var(--dark); font-size: .92rem; line-height: 1.7; }
 .next-steps li { margin-bottom: .4rem; }
 </style>
@@ -1282,21 +1296,11 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
   <div class="nav-links" id="navLinks">
     <a onclick="showPage('home');closeMobileNav()">Vacantes</a>
     <a class="nav-ww" onclick="showPage('mujeres');closeMobileNav()">We Recruit Women</a>
-    <a onclick="showPage('freelancers');closeMobileNav()">Freelancers</a>
     <a onclick="showPage('para-empresas');closeMobileNav()">Empresas</a>
-    <a onclick="showPage('nosotros');closeMobileNav()">Nosotros</a>
-    <div class="nav-dd">
-      <button class="nav-dd-btn" onclick="toggleNavDd(this)">Recursos <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
-      <div class="nav-dd-menu">
-        <a onclick="showPage('blog');closeMobileNav()">Blog</a>
-        <a onclick="showPage('salarios');closeMobileNav()">Calculadora de salarios</a>
-        <a onclick="showPage('directorio');closeMobileNav()">Directorio de empresas</a>
-      </div>
-    </div>
     <div class="nav-dd">
       <button class="nav-dd-btn" onclick="toggleNavDd(this)">Iniciar sesión <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
       <div class="nav-dd-menu">
-        <a onclick="showPage('mi-perfil');closeMobileNav()">Soy candidato</a>
+        <a onclick="showPage('mi-perfil');closeMobileNav()">Soy candidata/o</a>
         <a onclick="showPage('empresa-panel');closeMobileNav()">Soy empresa</a>
       </div>
     </div>
@@ -1774,9 +1778,8 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <div class="error-msg" id="err-nombre">Campo requerido</div>
           </div>
           <div class="field">
-            <label>Apellido <span class="req">*</span></label>
+            <label>Apellido</label>
             <input type="text" id="f-apellido" placeholder="Pérez">
-            <div class="error-msg" id="err-apellido">Campo requerido</div>
           </div>
         </div>
         <div class="form-row">
@@ -1807,7 +1810,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <h3>Perfil profesional</h3>
         <div class="form-row">
           <div class="field">
-            <label>Años de experiencia <span class="req">*</span></label>
+            <label>Años de experiencia</label>
             <select id="f-experiencia">
               <option value="">Seleccionar</option>
               <option value="0-2 años">0–2 años</option>
@@ -1815,7 +1818,6 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
               <option value="5-10 años">5–10 años</option>
               <option value="10+ años">10+ años</option>
             </select>
-            <div class="error-msg" id="err-experiencia">Campo requerido</div>
           </div>
           <div class="field">
             <label>Salario esperado (RD$)</label>
@@ -1824,9 +1826,8 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         </div>
         <div class="form-row full">
           <div class="field">
-            <label>¿Por qué eres el candidato ideal? <span class="req">*</span></label>
+            <label>¿Por qué eres el candidato ideal?</label>
             <textarea id="f-motivacion" placeholder="Cuéntanos tu experiencia relevante y motivación para este puesto..."></textarea>
-            <div class="error-msg" id="err-motivacion">Campo requerido</div>
           </div>
         </div>
       </div>
@@ -1862,7 +1863,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       </div>
 
       <div class="form-section">
-        <h3>CV / Hoja de vida</h3>
+        <h3>CV / Hoja de vida <span class="req" style="color:var(--red)">*</span></h3>
 
         <div class="upload-box" id="uploadBox" onclick="triggerUpload()">
           <input type="file" id="cvInput" accept=".pdf,.doc,.docx" style="display:none" onchange="handleFileUpload(this)">
@@ -1879,6 +1880,8 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <div class="upload-progress-bar" id="uploadProgressBar"></div>
           </div>
         </div>
+
+        <div id="err-cv" role="alert" style="display:none;color:var(--red);font-size:12px;margin-top:6px">Sube tu CV en PDF o Word para enviar la aplicación</div>
 
         <!-- Muestra la URL del CV una vez subido -->
         <div class="cv-link-display" id="cvLinkDisplay">
@@ -2503,6 +2506,8 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           <div class="field"><label>Contraseña</label><input type="password" id="pv-login-pass"></div>
         </div>
         <button class="submit-btn" onclick="pvLogin()" style="margin-top:1rem">Iniciar sesión</button>
+        <p class="olvide-row"><a href="#" onclick="olvideClave('pv-login-email');return false">¿Olvidaste tu contraseña?</a></p>
+        <div class="olvide-msg" id="pv-login-email-msg" role="status"></div>
         <p style="text-align:center;margin-top:1rem;color:var(--gray);font-size:.9rem">¿Primera vez? <a href="#" onclick="pvShowRegister();return false" style="color:var(--mid);font-weight:600">Crea tu cuenta gratis</a></p>
       </div>
     </div>
@@ -2628,6 +2633,8 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           <div class="field"><label>Contraseña</label><input type="password" id="ep-login-pass"></div>
         </div>
         <button class="submit-btn" onclick="epLogin()" style="margin-top:1rem">Entrar</button>
+        <p class="olvide-row"><a href="#" onclick="olvideClave('ep-login-email');return false">¿Olvidaste tu contraseña?</a></p>
+        <div class="olvide-msg" id="ep-login-email-msg" role="status"></div>
       </div>
     </div>
 
@@ -2655,6 +2662,32 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 </div>
 
 <!-- ═══════════════ CANDIDATE PROFILE PAGE ═══════════════ -->
+<div id="page-nueva-clave" class="page">
+  <div class="form-page" style="max-width:520px">
+    <div class="form-header">
+      <div class="fh-icon">🔑</div>
+      <div>
+        <div class="fh-title">Crea una contraseña nueva</div>
+        <div class="fh-sub">Escríbela dos veces para confirmarla</div>
+      </div>
+    </div>
+    <div class="form-section" id="ncForm">
+      <div class="field"><label for="nc-pass">Contraseña nueva</label><input type="password" id="nc-pass" autocomplete="new-password" placeholder="Mínimo 6 caracteres"></div>
+      <div class="field" style="margin-top:.8rem"><label for="nc-pass2">Repite la contraseña</label><input type="password" id="nc-pass2" autocomplete="new-password"></div>
+      <div class="olvide-msg error" id="ncError" role="alert"></div>
+      <button class="submit-btn" id="ncBtn" onclick="guardarNuevaClave()" style="margin-top:1rem">Guardar contraseña</button>
+    </div>
+    <div class="form-section" id="ncDone" style="display:none;text-align:center">
+      <h3>Contraseña actualizada</h3>
+      <p style="color:var(--gray);margin:.5rem 0 1.2rem">Ya puedes entrar con tu nueva contraseña.</p>
+      <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+        <button class="submit-btn" style="width:auto;padding:10px 20px" onclick="showPage('mi-perfil')">Ir a mi perfil</button>
+        <button class="submit-btn" style="width:auto;padding:10px 20px;background:var(--mid)" onclick="showPage('empresa-panel')">Ir al panel de empresa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="page-mi-perfil" class="page">
   <div class="form-page" style="max-width:800px">
     <div id="cpAuthSection">
@@ -2676,6 +2709,8 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
             <div class="field"><label>Contraseña</label><input type="password" id="cp-login-pass"></div>
           </div>
           <button class="submit-btn" onclick="cpLogin()" style="margin-top:1rem">Entrar</button>
+          <p class="olvide-row"><a href="#" onclick="olvideClave('cp-login-email');return false">¿Olvidaste tu contraseña?</a></p>
+        <div class="olvide-msg" id="cp-login-email-msg" role="status"></div>
         </div>
         <div id="cpRegisterFields" style="display:none">
           <div class="form-row">
@@ -2811,6 +2846,33 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 </div>
 
 <!-- ═══════════════ BLOG PAGE ═══════════════ -->
+<div id="page-preguntas" class="page">
+  <div class="hero hero-sm">
+    <div class="hero-inner">
+      <div class="hero-tag"><span>Ayuda</span></div>
+      <h1>Preguntas <em>frecuentes</em></h1>
+      <p>Cómo aplicar, qué pasa después y cómo usar el portal.</p>
+    </div>
+  </div>
+  <div style="max-width:760px;margin:.8rem auto 0;padding:0 2rem">
+    <button class="back-btn" onclick="goBack('home')">← Volver</button>
+  </div>
+  <div class="faq-list">
+      <details class="faq-item"><summary>¿Cuesta algo aplicar?</summary><p>No. Aplicar a vacantes, unirte a la banca de talento y crear tu CV en el portal es gratis.</p></details>
+      <details class="faq-item"><summary>¿Cómo aplico a una vacante?</summary><p>Abre la vacante y toca «Sube tu CV y aplica»: eliges tu CV y escribes nombre, correo y WhatsApp. Si tienes perfil guardado, usa «Aplicar con mi perfil». También puedes llenar el formulario completo si quieres contarnos más.</p></details>
+      <details class="faq-item"><summary>¿Qué pasa después de aplicar?</summary><p>Una persona de nuestro equipo revisa tu CV. Si tu perfil encaja con la vacante, te escribimos por WhatsApp o correo para coordinar una entrevista.</p></details>
+      <details class="faq-item"><summary>¿Me avisan si no quedo?</summary><p>Te contactamos cuando tu perfil avanza en un proceso. Mientras tanto, puedes aplicar a otras vacantes con el mismo CV.</p></details>
+      <details class="faq-item"><summary>¿Puedo aplicar a varias vacantes?</summary><p>Sí. Aplica a todas las que encajen con tu experiencia.</p></details>
+      <details class="faq-item"><summary>No tengo CV, ¿qué hago?</summary><p>Créalo gratis con nuestro <a onclick="showPage('cv-builder')">CV Builder</a> en 5 pasos y descárgalo en PDF.</p></details>
+      <details class="faq-item"><summary>¿Qué es la banca de talento?</summary><p>Es nuestra base de candidatos. Si te unes, te tenemos en cuenta para vacantes que encajen con tu perfil aunque hoy no estés aplicando a una. <a onclick="showPage('ww-unete')">Únete a la banca de talento</a>.</p></details>
+      <details class="faq-item"><summary>¿Por qué me preguntan sexo o si regreso de una pausa por cuidado?</summary><p>Son preguntas opcionales de <a onclick="showPage('mujeres')">We Recruit Women</a>. Las usamos solo en estadísticas agregadas para medir si más mujeres consiguen empleo formal. No afectan tu candidatura.</p></details>
+      <details class="faq-item"><summary>Olvidé mi contraseña</summary><p>En «Iniciar sesión», escribe tu email y toca «¿Olvidaste tu contraseña?». Te llegará un enlace para crear una nueva.</p></details>
+      <details class="faq-item"><summary>Soy empresa, ¿cómo publico una vacante?</summary><p>Toca «Publicar vacante», crea tu cuenta de empresa y envía la vacante. La revisamos antes de publicarla. Si prefieres que hagamos la búsqueda por ti, mira <a onclick="showPage('para-empresas')">nuestros servicios</a>.</p></details>
+    <p class="faq-contact">¿No encontraste tu respuesta? <a class="faq-wa" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></p>
+  </div>
+  <footer class="site-footer"></footer>
+</div>
+
 <div id="page-blog" class="page">
   <div class="hero hero-sm">
     <div class="hero-inner">
@@ -3115,6 +3177,14 @@ function renderSiteExtras() {
         <a onclick="showPage('cv-builder')">Crear mi CV</a>
         <a onclick="showPage('salarios')">Calculadora de salarios</a>
         <a onclick="showPage('mujeres')">We Recruit Women</a>
+        <a onclick="showPage('preguntas')">Preguntas frecuentes</a>
+      </div>
+      <div class="sf-col">
+        <h4>Recursos</h4>
+        <a onclick="showPage('freelancers')">Freelancers</a>
+        <a onclick="showPage('blog')">Blog</a>
+        <a onclick="showPage('directorio')">Directorio de empresas</a>
+        <a onclick="showPage('nosotros')">Nosotros</a>
       </div>
       <div class="sf-col">
         <h4>Empresas</h4>
@@ -3133,6 +3203,7 @@ function renderSiteExtras() {
     </div>
     <div class="sf-bottom">© ${new Date().getFullYear()} <span>We Recruit DR</span> · Todos los derechos reservados</div>`;
   document.querySelectorAll('footer.site-footer').forEach(f => f.innerHTML = html);
+  document.querySelectorAll('.faq-wa').forEach(a => { a.href = SITE.whatsapp ? waLink() : 'https://wa.me/18493505577'; });
 
   // Sección de confianza (solo si hay contenido)
   const t = document.getElementById('trustSection');
@@ -3459,6 +3530,7 @@ function pageUrl(name, jobId) {
   if (name === 'ww-unete') return base + '#unete';
   if (name === 'blog') return base + '#blog';
   if (name === 'nosotros') return base + '#nosotros';
+  if (name === 'preguntas') return base + '#preguntas';
   if ((name === 'job-detail' || name === 'apply') && jobId) return base + '#vacante=' + encodeURIComponent(jobId);
   return base;
 }
@@ -3626,6 +3698,7 @@ function openJobDetail(jobId) {
     </div>
     <div class="jd-facts">${facts}</div>
     ${sections || '<div class="jd-section"><div class="jd-text" style="color:var(--gray)">Pronto agregaremos más detalles de esta posición.</div></div>'}
+    <div class="jd-section jd-proceso"><h3>Cómo es el proceso</h3><ol><li>Envías tu CV desde aquí.</li><li>Una persona de nuestro equipo lo revisa.</li><li>Si tu perfil encaja, te escribimos por WhatsApp o correo para una entrevista.</li></ol><p style="margin:.5rem 0 0;font-size:.88rem"><a onclick="showPage('preguntas')">Más preguntas frecuentes</a></p></div>
     <div class="jd-apply-row">${buttons}</div>
     <div class="jd-sticky" id="jdSticky"><button class="jd-apply-btn" onclick="qcvStart()">📄 Sube tu CV y aplica</button></div>
   `;
@@ -3762,10 +3835,10 @@ async function qcvSubmit() {
   const nEl = document.getElementById('qcvNombre'), eEl = document.getElementById('qcvEmail'), tEl = document.getElementById('qcvTel');
   const nombreFull = nEl.value.trim().replace(/\s+/g, ' ');
   const email = eEl.value.trim(), tel = tEl.value.trim();
-  const okN = nombreFull.length > 1, okE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), okT = tel.replace(/\D/g, '').length >= 7;
+  const okN = nombreFull.length > 1, okE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), okT = esTelefono(tel);
   nEl.classList.toggle('error', !okN); eEl.classList.toggle('error', !okE); tEl.classList.toggle('error', !okT);
   if (!qcvFile) { showToast('Elige tu CV primero', 'error'); document.getElementById('qcvInput').click(); return; }
-  if (!okN || !okE || !okT) { showToast('Completa nombre, correo y WhatsApp', 'error'); return; }
+  if (!okN || !okE || !okT) { showToast(!okT && okN && okE ? 'Escribe un WhatsApp de 10 dígitos, por ejemplo 809-555-0123' : 'Completa nombre, correo y WhatsApp', 'error'); (!okN ? nEl : !okE ? eEl : tEl).focus(); return; }
 
   const btn = document.getElementById('qcvSend');
   qcvSending = true; btn.disabled = true; btn.textContent = 'Enviando...';
@@ -3842,6 +3915,7 @@ function openApply(jobId) {
   document.getElementById('successScreen').style.display = 'none';
   document.getElementById('applicationForm').style.display = 'block';
   resetForm();
+  restaurarBorrador();
   showPage('apply');
 }
 
@@ -3908,7 +3982,7 @@ async function handleFileUpload(input) {
 
     bar.style.width = '100%';
     box.classList.remove('uploading');
-    box.classList.add('uploaded');
+    box.classList.add('uploaded'); const ecv = document.getElementById('err-cv'); if (ecv) ecv.style.display = 'none';
     label.textContent = '✅ ' + file.name;
     linkAnchor.href = uploadedFileUrl;
     linkDisplay.style.display = 'block';
@@ -3963,12 +4037,12 @@ function validateForm() {
   const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   const notEmpty = v => v.trim().length > 0;
   const v1 = validateField('f-nombre',      'err-nombre',      notEmpty);
-  const v2 = validateField('f-apellido',    'err-apellido',    notEmpty);
   const v3 = validateField('f-email',       'err-email',       isEmail);
   const v4 = validateField('f-telefono',    'err-telefono',    esTelefono);
-  const v5 = validateField('f-experiencia', 'err-experiencia', notEmpty);
-  const v6 = validateField('f-motivacion',  'err-motivacion',  notEmpty);
-  return v1 && v2 && v3 && v4 && v5 && v6;
+  const vCv = !!uploadedFileUrl;
+  document.getElementById('uploadBox').classList.toggle('error', !vCv);
+  document.getElementById('err-cv').style.display = vCv ? 'none' : 'block';
+  return v1 && v3 && v4 && vCv;
 }
 
 function resetForm() {
@@ -3988,6 +4062,26 @@ function resetForm() {
   ['ww-sexo','ww-salario-anterior','ww-pausa'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
   const wwc = document.getElementById('ww-consent'); if (wwc) wwc.checked = false;
 }
+
+// ─── Borrador del formulario completo (se guarda en este navegador) ───
+const BORRADOR_KEY = 'wr-borrador-aplicar';
+const BORRADOR_CAMPOS = ['f-nombre','f-apellido','f-email','f-telefono','f-ciudad','f-linkedin','f-experiencia','f-salario','f-motivacion'];
+function guardarBorrador() {
+  const d = {};
+  BORRADOR_CAMPOS.forEach(id => { const v = document.getElementById(id)?.value; if (v) d[id] = v; });
+  try { localStorage.setItem(BORRADOR_KEY, JSON.stringify(d)); } catch (e) {}
+}
+function restaurarBorrador() {
+  let d = null;
+  try { d = JSON.parse(localStorage.getItem(BORRADOR_KEY) || 'null'); } catch (e) {}
+  if (!d) return;
+  BORRADOR_CAMPOS.forEach(id => { if (d[id] && document.getElementById(id)) document.getElementById(id).value = d[id]; });
+}
+function borrarBorrador() { try { localStorage.removeItem(BORRADOR_KEY); } catch (e) {} }
+BORRADOR_CAMPOS.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) { el.addEventListener('input', guardarBorrador); el.addEventListener('change', guardarBorrador); }
+});
 
 async function submitApplication() {
   if (isUploading) {
@@ -4064,6 +4158,7 @@ async function submitApplication() {
     document.getElementById('successVacante').textContent = currentJob ? 'Recibimos tu aplicación para ' + currentJob.title + '.' : 'Recibimos tu aplicación.';
     document.getElementById('successEmail').textContent = record.email;
     document.getElementById('successScreen').style.display = 'block';
+    borrarBorrador();
     showToast('¡Aplicación enviada exitosamente! ✅', 'success');
 
   } catch (err) {
@@ -5067,6 +5162,73 @@ async function authEntrar(email, password) {
     ? 'Confirma tu email antes de iniciar sesión (revisa tu correo)'
     : 'Email o contraseña incorrectos';
 }
+
+// ─── Teclado: todo lo clicable que no es botón ni enlace real se puede usar con Tab + Enter ───
+const CLICABLE = 'a[onclick]:not([href]), div[onclick], span[onclick], li[onclick]';
+function hacerAccesible(el) {
+  if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '0');
+  if (!el.hasAttribute('role')) el.setAttribute('role', el.tagName === 'A' ? 'link' : 'button');
+}
+function hacerAccesibles(root) {
+  if (root.matches && root.matches(CLICABLE)) hacerAccesible(root);
+  root.querySelectorAll && root.querySelectorAll(CLICABLE).forEach(hacerAccesible);
+}
+document.addEventListener('keydown', e => {
+  const el = e.target;
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  if (!el || !el.matches || !el.matches(CLICABLE)) return;
+  e.preventDefault();
+  el.click();
+});
+hacerAccesibles(document);
+new MutationObserver(muts => muts.forEach(m => m.addedNodes.forEach(n => { if (n.nodeType === 1) hacerAccesibles(n); }))).observe(document.body, { childList: true, subtree: true });
+
+// ─── Recuperar contraseña ───
+async function olvideClave(inputId) {
+  const email = (document.getElementById(inputId).value || '').trim();
+  const msg = document.getElementById(inputId + '-msg');
+  msg.className = 'olvide-msg';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    msg.classList.add('error');
+    msg.textContent = 'Escribe arriba tu email y vuelve a tocar «¿Olvidaste tu contraseña?».';
+    document.getElementById(inputId).focus();
+    return;
+  }
+  const { error } = await sb.auth.resetPasswordForEmail(email, {
+    redirectTo: location.origin + location.pathname + '?nueva-clave=1'
+  });
+  if (error) {
+    msg.classList.add('error');
+    msg.textContent = 'No pudimos enviar el correo. Espera unos minutos e intenta de nuevo.';
+    return;
+  }
+  msg.classList.add('ok');
+  msg.textContent = 'Si ' + email + ' tiene cuenta, te llegará un correo con un enlace para crear una contraseña nueva. Revisa también spam.';
+}
+
+async function guardarNuevaClave() {
+  const p1 = document.getElementById('nc-pass').value, p2 = document.getElementById('nc-pass2').value;
+  const err = document.getElementById('ncError');
+  err.textContent = '';
+  if (p1.length < 6) { err.textContent = 'La contraseña debe tener al menos 6 caracteres.'; document.getElementById('nc-pass').focus(); return; }
+  if (p1 !== p2) { err.textContent = 'Las dos contraseñas no coinciden.'; document.getElementById('nc-pass2').focus(); return; }
+  const btn = document.getElementById('ncBtn');
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  const { error } = await sb.auth.updateUser({ password: p1 });
+  btn.disabled = false; btn.textContent = 'Guardar contraseña';
+  if (error) {
+    err.textContent = /session|jwt|auth/i.test(error.message)
+      ? 'El enlace venció. Vuelve a pedir uno desde «¿Olvidaste tu contraseña?».'
+      : 'No pudimos guardar la contraseña. Intenta de nuevo.';
+    return;
+  }
+  await sb.auth.signOut();
+  try { history.replaceState(history.state, '', location.pathname); } catch (e) {}
+  document.getElementById('ncForm').style.display = 'none';
+  document.getElementById('ncDone').style.display = 'block';
+}
+
+sb.auth.onAuthStateChange(ev => { if (ev === 'PASSWORD_RECOVERY') showPage('nueva-clave'); });
 
 async function miPerfil(funcion) {
   const { data, error } = await sb.rpc(funcion);
@@ -6425,6 +6587,7 @@ function wwVerVacantes(value, label) {
   try { selectFcd('tipo', value, label); } catch (e) {}
 }
 window.addEventListener('DOMContentLoaded', () => {
+  if (new URLSearchParams(location.search).has('nueva-clave')) showPage('nueva-clave');
   if (new URLSearchParams(location.search).has(FE_PARAM)) {
     // Vuelve del enlace del correo: abrir la edición cuando Supabase termine de leer la sesión
     showPage('freelancer-edit');
@@ -6443,6 +6606,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (__initHash === '#unete') showPage('ww-unete');
   if (__initHash === '#blog') showPage('blog');
   if (__initHash === '#nosotros') showPage('nosotros');
+  if (__initHash === '#preguntas') showPage('preguntas');
   { const bm = __initHash.match(/^#blog=(.+)$/); if (bm) viewBlogPost(decodeURIComponent(bm[1])); }
 });
 
