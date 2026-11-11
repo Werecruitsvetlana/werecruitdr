@@ -1267,6 +1267,21 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 .faq-contact { text-align: center; margin-top: 1.5rem; color: var(--gray); }
 .jd-proceso ol { margin: .3rem 0 0; padding-left: 1.2rem; line-height: 1.8; color: var(--dark); font-size: .93rem; }
 [tabindex="0"]:focus-visible, a:focus-visible, button:focus-visible { outline: 3px solid var(--mid); outline-offset: 2px; }
+.cp-post-list { display: flex; flex-direction: column; gap: .5rem; }
+.cp-post-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; border: 1.5px solid var(--light); border-radius: 10px; padding: .75rem 1rem; background: var(--white); }
+.cp-post-title { font-weight: 700; color: var(--dark); font-size: .95rem; }
+.cp-post-sub { color: var(--gray); font-size: .82rem; margin-top: 2px; }
+.cp-post-st { font-size: .78rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
+.st-recibida { background: var(--light); color: var(--dark); }
+.st-proceso { background: #E0EEF8; color: var(--mid); }
+.st-contratada { background: var(--green); color: #1F4D1C; }
+.cp-post-empty { color: var(--gray); font-size: .9rem; margin: 0; }
+.cp-post-empty a { color: var(--mid); font-weight: 600; cursor: pointer; }
+.cp-cv-help { color: var(--gray); font-size: .85rem; line-height: 1.6; display: block; margin: 0 0 .7rem; }
+.cp-cv-box { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; border: 2px dashed var(--green-dk); background: var(--cream); border-radius: 12px; padding: .9rem 1rem; margin-bottom: .4rem; }
+.cp-cv-box a { color: var(--mid); font-weight: 700; }
+.cp-cv-box small { color: var(--gray); }
+.cp-cv-btn { width: auto !important; padding: 8px 18px !important; margin: 0 !important; font-size: .85rem !important; }
 .olvide-row { text-align: center; margin-top: .8rem; font-size: .88rem; }
 .olvide-row a { color: var(--mid); font-weight: 600; }
 .olvide-msg { font-size: .88rem; line-height: 1.6; margin-top: .5rem; }
@@ -2773,6 +2788,22 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       </div>
 
       <div class="form-section">
+        <h3>Mis postulaciones</h3>
+        <div id="cpPostulaciones" class="cp-post-list"><p class="cp-post-empty">Cargando…</p></div>
+      </div>
+
+      <div class="form-section">
+        <h3>Mi CV <span class="req" style="color:var(--red)">*</span></h3>
+        <p class="cp-cv-help">Tu CV queda guardado aquí. Lo usamos cuando aplicas con «Aplicar con mi perfil» o «Sube tu CV y aplica», y puedes cambiarlo cuando quieras.</p>
+        <div class="cp-cv-box" id="cpCvBox">
+          <div id="cpCvInfo">Todavía no has subido tu CV.</div>
+          <button type="button" class="submit-btn cp-cv-btn" id="cpCvBtn" onclick="document.getElementById('cpCvInput').click()">Subir mi CV</button>
+        </div>
+        <input type="file" id="cpCvInput" accept=".pdf,.doc,.docx" style="display:none" onchange="cpSubirCV(this)">
+        <small class="cp-cv-help">PDF o Word · máximo 5MB</small>
+      </div>
+
+      <div class="form-section">
         <h3>Datos personales</h3>
         <div class="form-row">
           <div class="field"><label>Nombre *</label><input type="text" id="cp-nombre"></div>
@@ -3821,6 +3852,16 @@ function qcvStart(jobId) {
   }
   document.getElementById('qcvOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Si el perfil ya tiene CV, se usa ese (se puede cambiar tocando la caja)
+  if (typeof cpPerfil !== 'undefined' && cpPerfil && cpPerfil.cv_url) {
+    qcvFile = { name: cpPerfil.cv_nombre || 'CV de tu perfil' };
+    qcvUrl = cpPerfil.cv_url;
+    qcvUploading = Promise.resolve(qcvUrl);
+    document.getElementById('qcvFileBox').classList.add('ok');
+    document.getElementById('qcvFileLbl').textContent = '✅ ' + qcvFile.name;
+    document.getElementById('qcvFileSub').textContent = 'El CV de tu perfil · toca para usar otro';
+    return;
+  }
   // Abre el selector de archivos de una vez (mismo toque del usuario)
   document.getElementById('qcvInput').click();
 }
@@ -5689,7 +5730,84 @@ function cpShowEdit() {
   document.getElementById('cp-portafolio').value = p.portafolio_url || '';
   document.getElementById('cp-disponible').checked = p.disponible !== false;
   document.getElementById('cp-publico').checked = p.perfil_publico !== false;
+  cpPintarCV();
+  cpCargarPostulaciones();
   // cpLoadTestResults(); // evaluaciones no activas aún
+}
+
+// ─── Mi CV (se guarda en el perfil) ───
+function cpPintarCV() {
+  const info = document.getElementById('cpCvInfo'), btn = document.getElementById('cpCvBtn');
+  if (cpPerfil && cpPerfil.cv_url) {
+    const fecha = cpPerfil.cv_actualizado ? new Date(cpPerfil.cv_actualizado).toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+    info.innerHTML = '';
+    const a = document.createElement('a');
+    a.href = cpPerfil.cv_url; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = '📄 ' + (cpPerfil.cv_nombre || 'Mi CV');
+    info.appendChild(a);
+    if (fecha) { const sm = document.createElement('small'); sm.textContent = ' · actualizado el ' + fecha; info.appendChild(sm); }
+    btn.textContent = 'Cambiar CV';
+  } else {
+    info.textContent = 'Todavía no has subido tu CV.';
+    btn.textContent = 'Subir mi CV';
+  }
+}
+
+async function cpSubirCV(input) {
+  const file = input.files[0];
+  if (!file || !cpPerfil) return;
+  if (file.size > 5 * 1024 * 1024) { showToast('El CV debe pesar menos de 5MB', 'error'); input.value = ''; return; }
+  if (!/\.(pdf|doc|docx)$/i.test(file.name)) { showToast('Solo PDF o Word', 'error'); input.value = ''; return; }
+  const btn = document.getElementById('cpCvBtn');
+  btn.disabled = true; btn.textContent = 'Subiendo...';
+  try {
+    const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `cvs/perfiles/${cpPerfil.id}_${Date.now()}_${safe}`;
+    const { error: upErr } = await sb.storage.from('archivos').upload(path, file, { contentType: file.type || undefined, upsert: false });
+    if (upErr) throw upErr;
+    const { data } = sb.storage.from('archivos').getPublicUrl(path);
+    const cambios = { cv_url: data.publicUrl, cv_nombre: file.name, cv_actualizado: new Date().toISOString() };
+    const { error } = await sb.from('perfiles_candidato').update(cambios).eq('id', cpPerfil.id);
+    if (error) throw error;
+    Object.assign(cpPerfil, cambios);
+    showToast('CV guardado en tu perfil', 'success');
+  } catch (e) {
+    console.error('CV perfil:', e);
+    showToast('No se pudo subir el CV. Intenta de nuevo.', 'error');
+  } finally {
+    btn.disabled = false; input.value = '';
+    cpPintarCV();
+  }
+}
+
+// ─── Mis postulaciones (función segura mis_postulaciones en la base de datos) ───
+const ESTADO_POSTULACION = {
+  recibida: { txt: 'Recibida', cls: 'st-recibida' },
+  en_proceso: { txt: 'En proceso', cls: 'st-proceso' },
+  contratada: { txt: '¡Contratada/o!', cls: 'st-contratada' },
+};
+async function cpCargarPostulaciones() {
+  const el = document.getElementById('cpPostulaciones');
+  el.innerHTML = '<p class="cp-post-empty">Cargando…</p>';
+  try {
+    const { data, error } = await sb.rpc('mis_postulaciones');
+    if (error) throw error;
+    if (!data || !data.length) {
+      el.innerHTML = '<p class="cp-post-empty">Todavía no tienes postulaciones con este email. <a onclick="showPage(\'home\')">Ver vacantes</a></p>';
+      return;
+    }
+    el.innerHTML = data.map(r => {
+      const st = ESTADO_POSTULACION[r.estado] || ESTADO_POSTULACION.recibida;
+      const fecha = r.fecha ? new Date(r.fecha).toLocaleDateString('es-DO', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+      return `<div class="cp-post-row">
+        <div><div class="cp-post-title">${escHtml(r.titulo || 'Vacante')}</div>
+        <div class="cp-post-sub">${escHtml([r.empresa, fecha && 'Aplicaste el ' + fecha].filter(Boolean).join(' · '))}</div></div>
+        <span class="cp-post-st ${st.cls}">${st.txt}</span></div>`;
+    }).join('');
+  } catch (e) {
+    console.error('Postulaciones:', e);
+    el.innerHTML = '<p class="cp-post-empty">No pudimos cargar tus postulaciones. <a onclick="cpCargarPostulaciones()">Reintentar</a></p>';
+  }
 }
 
 async function cpSave() {
@@ -5748,6 +5866,12 @@ async function quickApply(jobId) {
     showPage('mi-perfil');
     return;
   }
+  if (!cpPerfil.cv_url) {
+    showToast('Sube tu CV en tu perfil para aplicar con un clic', 'error');
+    showPage('mi-perfil');
+    setTimeout(() => document.getElementById('cpCvBox')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+    return;
+  }
   const job = jobs.find(j => j.id === jobId);
   if (!job) return;
 
@@ -5761,7 +5885,7 @@ async function quickApply(jobId) {
     experiencia: cpPerfil.anos_experiencia,
     salario_esperado: cpPerfil.salario_esperado,
     motivacion: cpPerfil.resumen,
-    cv_url: null,
+    cv_url: cpPerfil.cv_url,
   } : {
     nombre: cpPerfil.nombre,
     apellido: cpPerfil.apellido,
@@ -5772,6 +5896,7 @@ async function quickApply(jobId) {
     anos_experiencia: cpPerfil.anos_experiencia,
     salario_esperado_dop: cpPerfil.salario_esperado,
     notas: cpPerfil.resumen,
+    cv_url: cpPerfil.cv_url,
     fuente: 'Quick Apply',
     vacante_aplicada: [job.title, job.company].filter(Boolean).join(' · '),
     posicion_id: job.id,
@@ -5791,6 +5916,7 @@ async function quickApply(jobId) {
         anos_experiencia: cpPerfil.anos_experiencia,
         salario_esperado_dop: cpPerfil.salario_esperado,
         notas: cpPerfil.resumen,
+        cv_url: cpPerfil.cv_url,
         fuente: 'portal',
         vacante_aplicada: [job.title, job.company].filter(Boolean).join(' · '),
         posicion_id: job.id,
@@ -5807,7 +5933,7 @@ async function quickApply(jobId) {
         await sb.from('candidato_posicion').insert([{ candidato_id: candId, posicion_id: record.posicion_id, estado: 'identificado' }]);
       }
     }
-    showToast('¡Aplicación enviada! ' + job.company + ' recibirá tu perfil.', 'success');
+    showToast('¡Aplicación enviada! La verás en «Mis postulaciones».', 'success');
   } catch(e) {
     console.error(e);
     showToast('Error al aplicar. Intenta de nuevo.', 'error');
