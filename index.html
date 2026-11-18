@@ -2829,9 +2829,10 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           <div class="field"><label>Teléfono</label><input type="tel" id="cp-telefono"></div>
         </div>
         <div class="form-row">
+          <div class="field"><label>País *</label><select id="cp-pais"><option value="RD">República Dominicana</option></select></div>
           <div class="field"><label>Ciudad</label><input type="text" id="cp-ciudad"></div>
-          <div class="field"><label>LinkedIn</label><input type="url" id="cp-linkedin" placeholder="https://linkedin.com/in/..."></div>
         </div>
+        <div class="field"><label>LinkedIn</label><input type="url" id="cp-linkedin" placeholder="https://linkedin.com/in/..."></div>
       </div>
 
       <div class="form-section">
@@ -5751,10 +5752,56 @@ async function cpLogin() {
   } catch(e) { console.error(e); showToast('Error al iniciar sesión', 'error'); }
 }
 
+const CP_COUNTRY_CODES = 'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS XK YE YT ZA ZM ZW'.split(' ');
+const CP_REGION_NAMES = typeof Intl.DisplayNames === 'function' ? new Intl.DisplayNames(['es'], { type: 'region' }) : null;
+const cpNormalizarNombrePais = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase();
+const cpNombrePais = code => CP_REGION_NAMES ? (CP_REGION_NAMES.of(code) || code) : code;
+
+function cpPoblarPaises() {
+  const select = document.getElementById('cp-pais');
+  if (select.dataset.ready) return;
+  const paises = CP_COUNTRY_CODES.map(code => ({
+    value: code === 'DO' ? 'RD' : code,
+    label: code === 'DO' ? 'República Dominicana' : cpNombrePais(code)
+  }));
+  paises.sort((a, b) => a.label.localeCompare(b.label, 'es'));
+  paises.forEach(pais => {
+    if ([...select.options].some(option => option.value === pais.value)) return;
+    const option = document.createElement('option');
+    option.value = pais.value;
+    option.textContent = pais.label;
+    select.appendChild(option);
+  });
+  select.dataset.ready = 'true';
+}
+
+function cpPaisGuardado(pais) {
+  const raw = String(pais || '').trim();
+  if (!raw) return 'RD';
+  const code = raw.toUpperCase();
+  if (code === 'RD' || code === 'DO') return 'RD';
+  if (CP_COUNTRY_CODES.includes(code)) return code;
+  const normalized = cpNormalizarNombrePais(raw);
+  const match = CP_COUNTRY_CODES.find(countryCode =>
+    cpNormalizarNombrePais(countryCode === 'DO' ? 'República Dominicana' : cpNombrePais(countryCode)) === normalized
+  );
+  return match ? (match === 'DO' ? 'RD' : match) : raw;
+}
+
 function cpShowEdit() {
   document.getElementById('cpAuthSection').style.display = 'none';
   document.getElementById('cpEditSection').style.display = 'block';
   const p = cpPerfil;
+  cpPoblarPaises();
+  const pais = cpPaisGuardado(p.pais);
+  const selectorPais = document.getElementById('cp-pais');
+  if (![...selectorPais.options].some(option => option.value === pais)) {
+    const option = document.createElement('option');
+    option.value = pais;
+    option.textContent = pais;
+    selectorPais.appendChild(option);
+  }
+  selectorPais.value = pais;
   document.getElementById('cp-nombre').value = p.nombre || '';
   document.getElementById('cp-apellido').value = p.apellido || '';
   document.getElementById('cp-email').value = p.email || '';
@@ -5824,12 +5871,13 @@ async function cpSubirFoto(input) {
     });
     if (uploadError) throw uploadError;
     uploadedPath = path;
+    const pais = document.getElementById('cp-pais').value || 'RD';
     const { error } = await sb.from('perfiles_candidato')
-      .update({ foto_path: path, foto_url: null })
+      .update({ foto_path: path, foto_url: null, pais })
       .eq('id', cpPerfil.id);
     if (error) throw error;
     profileSaved = true;
-    Object.assign(cpPerfil, { foto_path: path, foto_url: null });
+    Object.assign(cpPerfil, { foto_path: path, foto_url: null, pais });
     await cpPintarFoto();
     showToast('Foto guardada en tu perfil', 'success');
   } catch (e) {
@@ -5887,7 +5935,8 @@ async function cpSubirCV(input) {
       cv_url: storageUrlDe(MY_PAGE_BUCKET, path),
       cv_path: path,
       cv_nombre: file.name,
-      cv_actualizado: new Date().toISOString()
+      cv_actualizado: new Date().toISOString(),
+      pais: document.getElementById('cp-pais').value || 'RD'
     };
     const { error } = await sb.from('perfiles_candidato').update(cambios).eq('id', cpPerfil.id);
     if (error) throw error;
@@ -5941,6 +5990,7 @@ async function cpSave() {
   const update = {
     nombre: document.getElementById('cp-nombre').value.trim(),
     apellido: document.getElementById('cp-apellido').value.trim(),
+    pais: document.getElementById('cp-pais').value || 'RD',
     telefono: document.getElementById('cp-telefono').value.trim(),
     ciudad: document.getElementById('cp-ciudad').value.trim(),
     linkedin: document.getElementById('cp-linkedin').value.trim() || null,
