@@ -1282,6 +1282,9 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 .cp-cv-box a { color: var(--mid); font-weight: 700; }
 .cp-cv-box small { color: var(--gray); }
 .cp-cv-btn { width: auto !important; padding: 8px 18px !important; margin: 0 !important; font-size: .85rem !important; }
+.cp-photo-box { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.cp-photo-preview { width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--cream); color: var(--gray); font-size: .75rem; border: 2px solid var(--light); }
+.cp-photo-preview img { width: 100%; height: 100%; object-fit: cover; }
 .olvide-row { text-align: center; margin-top: .8rem; font-size: .88rem; }
 .olvide-row a { color: var(--mid); font-weight: 600; }
 .olvide-msg { font-size: .88rem; line-height: 1.6; margin-top: .5rem; }
@@ -2746,8 +2749,8 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       <div class="form-header">
         <div class="fh-icon">👤</div>
         <div>
-          <div class="fh-title">Mi perfil profesional</div>
-          <div class="fh-sub">Crea tu perfil para aplicar en un clic y ser visible para empresas</div>
+          <div class="fh-title">My Page</div>
+          <div class="fh-sub">Tu espacio personal para mantener tu perfil, CV y postulaciones al día</div>
         </div>
       </div>
       <div class="form-section">
@@ -2780,7 +2783,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 
     <div id="cpEditSection" style="display:none">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
-        <h2 style="font-family:'Poppins',sans-serif;color:var(--dark);margin:0">Mi perfil</h2>
+        <h2 style="font-family:'Poppins',sans-serif;color:var(--dark);margin:0">My Page</h2>
         <div style="display:flex;gap:.6rem">
           <button class="submit-btn" onclick="cpSave()" style="padding:.5rem 1.2rem;font-size:.85rem">Guardar cambios</button>
           <button style="padding:.5rem 1rem;font-size:.85rem;border:1px solid #ddd;background:#fff;border-radius:8px;cursor:pointer" onclick="cpLogout()">Salir</button>
@@ -2794,7 +2797,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
 
       <div class="form-section">
         <h3>Mi CV <span class="req" style="color:var(--red)">*</span></h3>
-        <p class="cp-cv-help">Tu CV queda guardado aquí. Lo usamos cuando aplicas con «Aplicar con mi perfil» o «Sube tu CV y aplica», y puedes cambiarlo cuando quieras.</p>
+        <p class="cp-cv-help">Tu CV queda guardado aquí y conectado con nuestra banca de candidatos. Lo usamos cuando aplicas con «Aplicar con mi perfil» y puedes cambiarlo cuando quieras.</p>
         <div class="cp-cv-box" id="cpCvBox">
           <div id="cpCvInfo">Todavía no has subido tu CV.</div>
           <button type="button" class="submit-btn cp-cv-btn" id="cpCvBtn" onclick="document.getElementById('cpCvInput').click()">Subir mi CV</button>
@@ -2817,7 +2820,17 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           <div class="field"><label>Ciudad</label><input type="text" id="cp-ciudad"></div>
           <div class="field"><label>LinkedIn</label><input type="url" id="cp-linkedin" placeholder="https://linkedin.com/in/..."></div>
         </div>
-        <div class="field"><label>URL de foto</label><input type="url" id="cp-foto" placeholder="https://..."></div>
+        <div class="field">
+          <label>Foto de perfil</label>
+          <div class="cp-photo-box">
+            <div class="cp-photo-preview" id="cpFotoPreview">Sin foto</div>
+            <div>
+              <button type="button" class="submit-btn cp-cv-btn" onclick="document.getElementById('cpFotoInput').click()">Subir foto</button>
+              <small class="cp-cv-help" style="margin:.4rem 0 0">JPG, PNG o WebP · máximo 5MB</small>
+            </div>
+          </div>
+          <input type="file" id="cpFotoInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="cpSubirFoto(this)">
+        </div>
       </div>
 
       <div class="form-section">
@@ -2835,6 +2848,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           </div>
         </div>
         <div class="field"><label>Resumen profesional</label><textarea id="cp-resumen" rows="3" placeholder="Describe tu experiencia y lo que te hace un gran candidato..."></textarea></div>
+        <div class="field"><label>Carta de presentación</label><textarea id="cp-carta" rows="4" placeholder="Cuéntanos qué aportas y qué tipo de oportunidad estás buscando..."></textarea></div>
         <div class="form-row">
           <div class="field"><label>Años de experiencia</label><input type="number" id="cp-experiencia" min="0" max="50"></div>
           <div class="field"><label>Nivel</label>
@@ -2863,8 +2877,9 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <h3>Visibilidad</h3>
         <div class="form-row">
           <div class="field"><label><input type="checkbox" id="cp-disponible" checked> Estoy disponible para ofertas</label></div>
-          <div class="field"><label><input type="checkbox" id="cp-publico" checked> Perfil visible para empresas</label></div>
+          <div class="field"><label><input type="checkbox" id="cp-publico"> Perfil visible en el directorio público</label></div>
         </div>
+        <small class="cp-cv-help" style="margin-top:.5rem">Tu perfil es privado por defecto. Solo aparecerá en el directorio si activas esta opción.</small>
       </div>
 
       <div class="form-section" style="display:none">
@@ -5242,7 +5257,9 @@ async function authEntrar(email, password) {
 // Los CVs viven en el bucket privado CV_BUCKET. En la base de datos se guarda una URL con la forma
 // https://<proyecto>.supabase.co/storage/v1/object/public/<bucket>/<ruta>; para abrirla se pide un enlace firmado.
 const CV_BUCKET = 'cvs-privados';
-function cvUrlDe(path) { return SB_URL + '/storage/v1/object/public/' + CV_BUCKET + '/' + path; }
+const MY_PAGE_BUCKET = 'banca-cvs';
+function storageUrlDe(bucket, path) { return SB_URL + '/storage/v1/object/public/' + bucket + '/' + path; }
+function cvUrlDe(path) { return storageUrlDe(CV_BUCKET, path); }
 function cvPartes(url) {
   const m = String(url || '').match(/\/storage\/v1\/object\/(?:public|sign|authenticated)\/([^/]+)\/(.+?)(?:\?.*)?$/);
   return m ? { bucket: m[1], path: decodeURIComponent(m[2]) } : null;
@@ -5743,10 +5760,10 @@ function cpShowEdit() {
   document.getElementById('cp-telefono').value = p.telefono || '';
   document.getElementById('cp-ciudad').value = p.ciudad || '';
   document.getElementById('cp-linkedin').value = p.linkedin || '';
-  document.getElementById('cp-foto').value = p.foto_url || '';
   document.getElementById('cp-titulo').value = p.titulo_profesional || '';
   document.getElementById('cp-sector').value = p.sector || '';
   document.getElementById('cp-resumen').value = p.resumen || '';
+  document.getElementById('cp-carta').value = p.carta_presentacion || '';
   document.getElementById('cp-experiencia').value = p.anos_experiencia || '';
   document.getElementById('cp-nivel').value = p.nivel || 'mid';
   document.getElementById('cp-salario').value = p.salario_esperado || '';
@@ -5754,20 +5771,92 @@ function cpShowEdit() {
   document.getElementById('cp-habilidades').value = (p.habilidades || []).join(', ');
   document.getElementById('cp-portafolio').value = p.portafolio_url || '';
   document.getElementById('cp-disponible').checked = p.disponible !== false;
-  document.getElementById('cp-publico').checked = p.perfil_publico !== false;
+  document.getElementById('cp-publico').checked = p.perfil_publico === true;
+  cpPintarFoto().catch(e => {
+    console.error('Foto perfil:', e);
+    showToast('No se pudo cargar la foto del perfil', 'error');
+  });
   cpPintarCV();
   cpCargarPostulaciones();
   // cpLoadTestResults(); // evaluaciones no activas aún
 }
 
+async function cpPintarFoto() {
+  const preview = document.getElementById('cpFotoPreview');
+  preview.textContent = 'Sin foto';
+  let url = '';
+  if (cpPerfil && cpPerfil.foto_path) {
+    const { data, error } = await sb.storage.from(MY_PAGE_BUCKET).createSignedUrl(cpPerfil.foto_path, 3600);
+    if (error || !data) throw error || new Error('No se recibió el enlace firmado de la foto');
+    url = data.signedUrl;
+  } else if (cpPerfil && /^https?:\/\//i.test(cpPerfil.foto_url || '')) {
+    url = cpPerfil.foto_url;
+  }
+  if (!url) return;
+  preview.textContent = '';
+  const img = document.createElement('img');
+  img.src = url;
+  img.alt = 'Foto de ' + (cpPerfil.nombre || 'perfil');
+  preview.appendChild(img);
+}
+
+async function cpSubirFoto(input) {
+  const file = input.files[0];
+  if (!file || !cpPerfil) return;
+  const ext = (file.name.split('.').pop() || '').toLowerCase();
+  const validExt = ['jpg', 'jpeg', 'png', 'webp'].includes(ext);
+  const validType = !file.type || ['image/jpeg', 'image/png', 'image/webp'].includes(file.type);
+  if (file.size > 5 * 1024 * 1024) { showToast('La foto debe pesar menos de 5MB', 'error'); input.value = ''; return; }
+  if (!validExt || !validType) { showToast('Solo se permiten fotos JPG, PNG o WebP', 'error'); input.value = ''; return; }
+  if (!cpPerfil.auth_uid) { showToast('No se pudo identificar tu cuenta. Inicia sesión de nuevo.', 'error'); input.value = ''; return; }
+  const button = input.parentElement.querySelector('button');
+  button.disabled = true;
+  button.textContent = 'Subiendo...';
+  let uploadedPath = null;
+  let profileSaved = false;
+  try {
+    const storageExt = ext === 'jpeg' ? 'jpg' : ext;
+    const path = `candidates/${cpPerfil.auth_uid}/photo-${Date.now()}.${storageExt}`;
+    const { error: uploadError } = await sb.storage.from(MY_PAGE_BUCKET).upload(path, file, {
+      contentType: file.type || (storageExt === 'jpg' ? 'image/jpeg' : 'image/' + storageExt),
+      upsert: false
+    });
+    if (uploadError) throw uploadError;
+    uploadedPath = path;
+    const { error } = await sb.from('perfiles_candidato')
+      .update({ foto_path: path, foto_url: null })
+      .eq('id', cpPerfil.id);
+    if (error) throw error;
+    profileSaved = true;
+    Object.assign(cpPerfil, { foto_path: path, foto_url: null });
+    await cpPintarFoto();
+    showToast('Foto guardada en tu perfil', 'success');
+  } catch (e) {
+    if (uploadedPath && !profileSaved) {
+      const { error: cleanupError } = await sb.storage.from(MY_PAGE_BUCKET).remove([uploadedPath]);
+      if (cleanupError) console.error('No se pudo limpiar la foto sin guardar:', cleanupError);
+    }
+    console.error('Foto perfil:', e);
+    showToast(profileSaved ? 'La foto se guardó, pero no se pudo mostrar. Recarga tu perfil.' : 'No se pudo subir la foto. Intenta de nuevo.', 'error');
+  } finally {
+    button.disabled = false;
+    button.textContent = 'Subir foto';
+    input.value = '';
+  }
+}
+
 // ─── Mi CV (se guarda en el perfil) ───
 function cpPintarCV() {
   const info = document.getElementById('cpCvInfo'), btn = document.getElementById('cpCvBtn');
-  if (cpPerfil && cpPerfil.cv_url) {
+  if (cpPerfil && (cpPerfil.cv_path || cpPerfil.cv_url)) {
     const fecha = cpPerfil.cv_actualizado ? new Date(cpPerfil.cv_actualizado).toLocaleDateString('es-DO', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
     info.innerHTML = '';
     const a = document.createElement('a');
-    a.href = '#'; a.onclick = e => { e.preventDefault(); abrirCV(cpPerfil.cv_url); };
+    a.href = '#'; a.onclick = e => {
+      e.preventDefault();
+      const url = cpPerfil.cv_path ? storageUrlDe(MY_PAGE_BUCKET, cpPerfil.cv_path) : cpPerfil.cv_url;
+      abrirCV(url);
+    };
     a.textContent = '📄 ' + (cpPerfil.cv_nombre || 'Mi CV');
     info.appendChild(a);
     if (fecha) { const sm = document.createElement('small'); sm.textContent = ' · actualizado el ' + fecha; info.appendChild(sm); }
@@ -5783,19 +5872,31 @@ async function cpSubirCV(input) {
   if (!file || !cpPerfil) return;
   if (file.size > 5 * 1024 * 1024) { showToast('El CV debe pesar menos de 5MB', 'error'); input.value = ''; return; }
   if (!/\.(pdf|doc|docx)$/i.test(file.name)) { showToast('Solo PDF o Word', 'error'); input.value = ''; return; }
+  if (!cpPerfil.auth_uid) { showToast('No se pudo identificar tu cuenta. Inicia sesión de nuevo.', 'error'); input.value = ''; return; }
   const btn = document.getElementById('cpCvBtn');
   btn.disabled = true; btn.textContent = 'Subiendo...';
+  let uploadedPath = null;
   try {
-    const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const path = `cvs/perfiles/${cpPerfil.id}_${Date.now()}_${safe}`;
-    const { error: upErr } = await sb.storage.from(CV_BUCKET).upload(path, file, { contentType: file.type || undefined, upsert: false });
+    const ext = file.name.split('.').pop().toLowerCase();
+    const path = `candidates/${cpPerfil.auth_uid}/cv-${Date.now()}.${ext}`;
+    const { error: upErr } = await sb.storage.from(MY_PAGE_BUCKET).upload(path, file, { contentType: file.type || undefined, upsert: false });
     if (upErr) throw upErr;
-    const cambios = { cv_url: cvUrlDe(path), cv_nombre: file.name, cv_actualizado: new Date().toISOString() };
+    uploadedPath = path;
+    const cambios = {
+      cv_url: storageUrlDe(MY_PAGE_BUCKET, path),
+      cv_path: path,
+      cv_nombre: file.name,
+      cv_actualizado: new Date().toISOString()
+    };
     const { error } = await sb.from('perfiles_candidato').update(cambios).eq('id', cpPerfil.id);
     if (error) throw error;
     Object.assign(cpPerfil, cambios);
     showToast('CV guardado en tu perfil', 'success');
   } catch (e) {
+    if (uploadedPath) {
+      const { error: cleanupError } = await sb.storage.from(MY_PAGE_BUCKET).remove([uploadedPath]);
+      if (cleanupError) console.error('No se pudo limpiar el CV sin guardar:', cleanupError);
+    }
     console.error('CV perfil:', e);
     showToast('No se pudo subir el CV. Intenta de nuevo.', 'error');
   } finally {
@@ -5842,10 +5943,10 @@ async function cpSave() {
     telefono: document.getElementById('cp-telefono').value.trim(),
     ciudad: document.getElementById('cp-ciudad').value.trim(),
     linkedin: document.getElementById('cp-linkedin').value.trim() || null,
-    foto_url: document.getElementById('cp-foto').value.trim() || null,
     titulo_profesional: document.getElementById('cp-titulo').value.trim(),
     sector: document.getElementById('cp-sector').value || null,
     resumen: document.getElementById('cp-resumen').value.trim(),
+    carta_presentacion: document.getElementById('cp-carta').value.trim() || null,
     anos_experiencia: parseInt(document.getElementById('cp-experiencia').value) || null,
     nivel: document.getElementById('cp-nivel').value,
     salario_esperado: parseFloat(document.getElementById('cp-salario').value) || null,
@@ -5890,8 +5991,8 @@ async function quickApply(jobId) {
     showPage('mi-perfil');
     return;
   }
-  if (!cpPerfil.cv_url) {
-    showToast('Sube tu CV en tu perfil para aplicar con un clic', 'error');
+  if (!cpPerfil.cv_path) {
+    showToast('Actualiza tu CV en My Page antes de aplicar; así se guardará en la banca de candidatos.', 'error');
     showPage('mi-perfil');
     setTimeout(() => document.getElementById('cpCvBox')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
     return;
@@ -5908,8 +6009,15 @@ async function quickApply(jobId) {
     linkedin: cpPerfil.linkedin,
     experiencia: cpPerfil.anos_experiencia,
     salario_esperado: cpPerfil.salario_esperado,
-    motivacion: cpPerfil.resumen,
-    cv_url: cpPerfil.cv_url,
+    motivacion: cpPerfil.carta_presentacion || cpPerfil.resumen,
+    cv_url: null,
+    cv_path: cpPerfil.cv_path,
+    pais: cpPerfil.pais || 'RD',
+    ciudad: cpPerfil.ciudad,
+    carrera: cpPerfil.titulo_profesional,
+    foto_path: cpPerfil.foto_path,
+    auth_uid: cpPerfil.auth_uid,
+    estado: 'recibida',
   } : {
     nombre: cpPerfil.nombre,
     apellido: cpPerfil.apellido,
@@ -5919,8 +6027,8 @@ async function quickApply(jobId) {
     ciudad: cpPerfil.ciudad,
     anos_experiencia: cpPerfil.anos_experiencia,
     salario_esperado_dop: cpPerfil.salario_esperado,
-    notas: cpPerfil.resumen,
-    cv_url: cpPerfil.cv_url,
+    notas: cpPerfil.carta_presentacion || cpPerfil.resumen,
+    cv_url: storageUrlDe(MY_PAGE_BUCKET, cpPerfil.cv_path),
     fuente: 'Quick Apply',
     vacante_aplicada: [job.title, job.company].filter(Boolean).join(' · '),
     posicion_id: job.id,
@@ -5939,8 +6047,8 @@ async function quickApply(jobId) {
         ciudad: cpPerfil.ciudad,
         anos_experiencia: cpPerfil.anos_experiencia,
         salario_esperado_dop: cpPerfil.salario_esperado,
-        notas: cpPerfil.resumen,
-        cv_url: cpPerfil.cv_url,
+        notas: cpPerfil.carta_presentacion || cpPerfil.resumen,
+        cv_url: storageUrlDe(MY_PAGE_BUCKET, cpPerfil.cv_path),
         fuente: 'portal',
         vacante_aplicada: [job.title, job.company].filter(Boolean).join(' · '),
         posicion_id: job.id,
