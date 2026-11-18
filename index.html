@@ -2791,6 +2791,18 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       </div>
 
       <div class="form-section">
+        <h3>Foto de perfil</h3>
+        <div class="cp-photo-box">
+          <div class="cp-photo-preview" id="cpFotoPreview">Sin foto</div>
+          <div>
+            <button type="button" class="submit-btn cp-cv-btn" onclick="document.getElementById('cpFotoInput').click()">Subir foto</button>
+            <small class="cp-cv-help" style="margin:.4rem 0 0">JPG, PNG o WebP · máximo 5MB</small>
+          </div>
+        </div>
+        <input type="file" id="cpFotoInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="cpSubirFoto(this)">
+      </div>
+
+      <div class="form-section">
         <h3>Mis postulaciones</h3>
         <div id="cpPostulaciones" class="cp-post-list"><p class="cp-post-empty">Cargando…</p></div>
       </div>
@@ -2819,17 +2831,6 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <div class="form-row">
           <div class="field"><label>Ciudad</label><input type="text" id="cp-ciudad"></div>
           <div class="field"><label>LinkedIn</label><input type="url" id="cp-linkedin" placeholder="https://linkedin.com/in/..."></div>
-        </div>
-        <div class="field">
-          <label>Foto de perfil</label>
-          <div class="cp-photo-box">
-            <div class="cp-photo-preview" id="cpFotoPreview">Sin foto</div>
-            <div>
-              <button type="button" class="submit-btn cp-cv-btn" onclick="document.getElementById('cpFotoInput').click()">Subir foto</button>
-              <small class="cp-cv-help" style="margin:.4rem 0 0">JPG, PNG o WebP · máximo 5MB</small>
-            </div>
-          </div>
-          <input type="file" id="cpFotoInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="cpSubirFoto(this)">
         </div>
       </div>
 
