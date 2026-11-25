@@ -845,7 +845,29 @@ footer span { color: var(--green); }
 .calc-disclaimer { font-size: 11.5px; color: var(--gray); line-height: 1.6; border-top: 1px solid var(--light); padding-top: 1rem; margin-top: 0.5rem; }
 .calc-sector-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .calc-sector-tag { font-size: 11px; background: var(--white); border: 1px solid var(--light); border-radius: 20px; padding: 4px 12px; color: var(--gray); }
-@media (max-width: 600px) { .calc-row { grid-template-columns: 1fr; } }
+.calc-bruto-nota { font-size: 12.5px; color: var(--dark); background: var(--white); border-left: 3px solid var(--mid); border-radius: 6px; padding: .6rem .9rem; margin: -.4rem 0 1rem; }
+.calc-help { font-size: 13px; color: var(--gray); line-height: 1.6; margin: -.6rem 0 1rem; }
+.calc-field-btn { display: flex; align-items: flex-end; }
+.calc-field-btn .calc-btn { width: 100%; }
+.calc-sub { font-family: 'Poppins', sans-serif; font-size: .95rem; font-weight: 800; color: var(--dark); margin: 1.4rem 0 .7rem; }
+.calc-contexto { font-size: 13px; color: var(--dark); line-height: 1.6; background: var(--white); border-radius: 10px; padding: .9rem 1.1rem; border: 1.5px solid var(--light); }
+.calc-contexto b { color: var(--mid); }
+.calc-oferta { border-radius: 10px; padding: .9rem 1.1rem; margin-bottom: 1rem; font-size: 13.5px; line-height: 1.6; border: 1.5px solid var(--light); background: var(--white); }
+.calc-oferta.baja { border-color: #F5C2C0; background: #FDF1F0; }
+.calc-oferta.ok { border-color: var(--green-dk); background: #F0F8EF; }
+.calc-oferta.alta { border-color: #9CC8E6; background: #EBF4FA; }
+.calc-tabla { width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--white); border-radius: 10px; overflow: hidden; }
+.calc-tabla td { padding: .55rem .9rem; border-bottom: 1px solid var(--light); color: var(--dark); }
+.calc-tabla td:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.calc-tabla tr.menos td:last-child { color: var(--red); }
+.calc-tabla tr.total td { font-weight: 800; background: #EBF4FA; color: var(--dark); }
+.calc-tabla tr.nota td { font-size: 12px; color: var(--gray); }
+.calc-dos { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.calc-dos h5 { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: var(--gray); margin-bottom: .4rem; }
+.calc-fuentes summary { cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 800; font-size: .95rem; color: var(--dark); }
+.calc-fuentes ul { margin: 1rem 0 0 1.1rem; font-size: 12.5px; color: var(--gray); line-height: 1.65; }
+.calc-fuentes li + li { margin-top: .5rem; }
+@media (max-width: 600px) { .calc-row { grid-template-columns: 1fr; } .calc-dos { grid-template-columns: 1fr; } }
 
 /* SKILL TEST */
 .test-container { max-width: 650px; margin: 2rem auto; padding: 0 2rem; }
@@ -3051,16 +3073,21 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       <div id="calcResultRole" class="calc-result-role"></div>
       <div id="calcResultLevel" class="calc-result-level"></div>
       <div class="calc-range-row">
-        <div class="calc-range-box"><div class="crb-label">Mínimo</div><div class="crb-val" id="calcMin"></div></div>
-        <div class="calc-range-box mid"><div class="crb-label">Promedio</div><div class="crb-val" id="calcMid"></div></div>
-        <div class="calc-range-box"><div class="crb-label">Máximo</div><div class="crb-val" id="calcMax"></div></div>
+        <div class="calc-range-box"><div class="crb-label">Mínimo bruto</div><div class="crb-val" id="calcMin"></div></div>
+        <div class="calc-range-box mid"><div class="crb-label">Promedio bruto</div><div class="crb-val" id="calcMid"></div></div>
+        <div class="calc-range-box"><div class="crb-label">Máximo bruto</div><div class="crb-val" id="calcMax"></div></div>
       </div>
+      <p class="calc-bruto-nota">Montos en <b>salario bruto mensual</b>: lo que se pacta en la oferta, antes de descontar AFP, SFS e ISR. Abajo ves cuánto queda neto.</p>
       <div class="calc-bar-wrap">
         <div class="calc-bar-track"><div class="calc-bar-fill" id="calcBar"></div></div>
         <div class="calc-bar-labels"><span id="calcBarMin"></span><span id="calcBarMax"></span></div>
       </div>
       <div id="calcSectorTags" class="calc-sector-tags"></div>
-      <div class="calc-disclaimer">💡 Salario base mensual bruto en RD$, sin bonos ni comisiones, para empresas medianas y grandes. Rangos de referencia 2026 elaborados por We Recruit DR a partir de nuestros procesos de reclutamiento y referencias del mercado dominicano. Pueden variar según empresa, beneficios y negociación individual. Ningún rango está por debajo del salario mínimo vigente (RD$29,988 en empresa grande; RD$21,840 en hoteles).</div>
+      <div id="calcOferta" class="calc-oferta" style="display:none"></div>
+      <div id="calcContexto" class="calc-contexto"></div>
+      <h4 class="calc-sub">Del bruto al neto: el salario promedio del puesto</h4>
+      <div id="calcDesglose"></div>
+      <div class="calc-disclaimer">💡 Rangos en salario base mensual bruto (RD$), sin bonos ni comisiones. Los rangos por puesto son referencias 2026 de We Recruit DR a partir de nuestros procesos de reclutamiento; pueden variar según empresa, beneficios y negociación. Los descuentos, el salario mínimo y el costo para la empresa usan las tasas oficiales vigentes (ver fuentes al final).</div>
     </div>
 
     <div class="calc-card">
@@ -3108,9 +3135,54 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
           </select>
         </div>
       </div>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Tamaño de la empresa</label>
+          <select class="calc-select" id="calcEmpresa">
+            <option value="grande">Grande</option>
+            <option value="mediana">Mediana</option>
+            <option value="pequena">Pequeña</option>
+            <option value="micro">Micro</option>
+            <option value="hotel">Hotel, bar o restaurante</option>
+            <option value="zf">Zona franca</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label>¿Tienes una oferta? Salario bruto (opcional)</label>
+          <input class="calc-select" id="calcOfertaMonto" inputmode="numeric" placeholder="RD$ bruto mensual, ej: 45,000">
+        </div>
+      </div>
       <button class="calc-btn" onclick="calcularSalario()">Calcular rango →</button>
       <div id="calcError" role="alert" style="display:none;color:var(--red);font-size:13px;margin-top:8px">Elige un sector y un puesto para calcular el rango.</div>
     </div>
+
+    <div class="calc-card">
+      <h3>Calcula tu salario neto y el costo para la empresa</h3>
+      <p class="calc-help">Escribe cualquier salario bruto mensual y te mostramos los descuentos de ley (AFP, SFS e ISR), lo que recibes y lo que le cuesta a la empresa.</p>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Salario bruto mensual (RD$)</label>
+          <input class="calc-select" id="calcNetoMonto" inputmode="numeric" placeholder="Ej: 60,000" onkeydown="if(event.key==='Enter')calcularNeto()">
+        </div>
+        <div class="calc-field calc-field-btn">
+          <button class="calc-btn" onclick="calcularNeto()">Calcular neto →</button>
+        </div>
+      </div>
+      <div id="calcNetoResult"></div>
+    </div>
+
+    <details class="calc-card calc-fuentes">
+      <summary>Fuentes y supuestos del cálculo</summary>
+      <ul>
+        <li><b>Salario mínimo</b> (desde el 1 de febrero de 2026, Res. CNS-01-2025): grande RD$29,988.00; mediana RD$27,489.60; pequeña RD$18,421.20; micro RD$16,993.20. Hoteles, bares y restaurantes RD$21,840.00 (Res. CNS-04-2025) y zonas francas RD$20,875.00 (Res. CNS-03-2025), desde el 1 de junio de 2026.</li>
+        <li><b>Seguridad social (TSS)</b>: la persona aporta AFP 2.87% y SFS 3.04%. La empresa aporta AFP 7.10%, SFS 7.09%, riesgos laborales desde 1.10% e INFOTEP 1%. Topes cotizables desde febrero 2026 (salario mínimo cotizable RD$23,223): SFS RD$232,230, AFP RD$464,460 y riesgos laborales RD$92,892.</li>
+        <li><b>ISR asalariados 2026 (DGII)</b>, escala anual sobre el salario menos AFP y SFS: exento hasta RD$416,220; 15% del excedente hasta RD$624,329; RD$31,216 + 20% del excedente hasta RD$867,123; RD$79,776 + 25% del excedente.</li>
+        <li><b>Regalía pascual</b> (salario 13): un salario adicional al año, libre de ISR y de aportes a la TSS.</li>
+        <li><b>Mercado formal</b>: salario promedio cotizable en la TSS de RD$39,565.63 (abril 2026, Boletín del Régimen Contributivo).</li>
+        <li><b>Ajustes salariales</b>: según la XXVII Encuesta de Compensación y Beneficios de Macros Consulting (casi 500 empresas, julio 2026), el 85% de las empresas dio aumentos en 2026, con un ajuste promedio de 9% entre las que aumentaron, y proyectan aumentos cercanos al 8% para 2027. Tecnología, finanzas, energía e infraestructura ofrecen los paquetes más competitivos.</li>
+        <li>El cálculo es una guía y no sustituye la nómina de la empresa: no incluye horas extra, comisiones, otros descuentos ni dependientes adicionales del SFS.</li>
+      </ul>
+    </details>
 
     <div class="calc-card" style="background:var(--dark);border-color:var(--dark);">
       <h3 style="color:var(--green);">¿Buscas talento para tu empresa?</h3>
@@ -6908,6 +6980,88 @@ const SALARY_DATA = {
 
 const REMOTE_BONUS = { presencial: 0, hibrido: 0, remoto: 0 };
 
+// ─── Parámetros oficiales 2026 (fuentes en la sección "Fuentes y supuestos") ───
+const SALARIO_MINIMO = {
+  grande: { monto: 29988, label: 'empresa grande' },
+  mediana: { monto: 27489.60, label: 'empresa mediana' },
+  pequena: { monto: 18421.20, label: 'empresa pequeña' },
+  micro: { monto: 16993.20, label: 'microempresa' },
+  hotel: { monto: 21840, label: 'hoteles, bares y restaurantes' },
+  zf: { monto: 20875, label: 'zonas francas' },
+};
+const TSS = {
+  afpEmpleado: 0.0287, sfsEmpleado: 0.0304,
+  afpEmpresa: 0.0710, sfsEmpresa: 0.0709, srlEmpresa: 0.0110, infotep: 0.01,
+  topeSFS: 232230, topeAFP: 464460, topeSRL: 92892,
+};
+const ISR_ESCALA = [ // anual: [desde, hasta, fijo, tasa]
+  [0, 416220, 0, 0],
+  [416220, 624329, 0, 0.15],
+  [624329, 867123, 31216, 0.20],
+  [867123, Infinity, 79776, 0.25],
+];
+const SALARIO_PROMEDIO_TSS = 39565.63; // abril 2026
+
+function isrAnual(baseAnual) {
+  const t = ISR_ESCALA.find(([d, h]) => baseAnual > d && baseAnual <= h);
+  return t ? t[2] + (baseAnual - t[0]) * t[3] : 0;
+}
+
+function desgloseSalario(bruto) {
+  const afp = Math.min(bruto, TSS.topeAFP) * TSS.afpEmpleado;
+  const sfs = Math.min(bruto, TSS.topeSFS) * TSS.sfsEmpleado;
+  const isr = isrAnual((bruto - afp - sfs) * 12) / 12;
+  const neto = bruto - afp - sfs - isr;
+  const empresa = {
+    afp: Math.min(bruto, TSS.topeAFP) * TSS.afpEmpresa,
+    sfs: Math.min(bruto, TSS.topeSFS) * TSS.sfsEmpresa,
+    srl: Math.min(bruto, TSS.topeSRL) * TSS.srlEmpresa,
+    infotep: bruto * TSS.infotep,
+  };
+  const aportesEmpresa = empresa.afp + empresa.sfs + empresa.srl + empresa.infotep;
+  return { bruto, afp, sfs, isr, neto, empresa, aportesEmpresa,
+    costoMensual: bruto + aportesEmpresa,
+    // 12 salarios netos + regalía (exenta de ISR y TSS)
+    netoAnual: neto * 12 + bruto,
+    costoAnual: (bruto + aportesEmpresa) * 12 + bruto };
+}
+
+function fmtRD(n) { return 'RD$ ' + Math.round(n).toLocaleString('es-DO'); }
+
+function htmlDesglose(d) {
+  const fila = (t, v, cls) => `<tr class="${cls || ''}"><td>${t}</td><td>${cls === 'menos' ? '− ' : ''}${fmtRD(v)}</td></tr>`;
+  return `<div class="calc-dos">
+    <div><h5>Para la persona</h5><table class="calc-tabla">
+      ${fila('Salario bruto mensual', d.bruto)}
+      ${fila('AFP (2.87%)', d.afp, 'menos')}
+      ${fila('SFS (3.04%)', d.sfs, 'menos')}
+      ${fila('ISR', d.isr, 'menos')}
+      ${fila('Neto mensual', d.neto, 'total')}
+      <tr class="nota"><td>Neto al año, con regalía pascual</td><td>${fmtRD(d.netoAnual)}</td></tr>
+    </table></div>
+    <div><h5>Para la empresa</h5><table class="calc-tabla">
+      ${fila('Salario bruto mensual', d.bruto)}
+      ${fila('AFP (7.10%)', d.empresa.afp)}
+      ${fila('SFS (7.09%)', d.empresa.sfs)}
+      ${fila('Riesgos laborales (desde 1.10%)', d.empresa.srl)}
+      ${fila('INFOTEP (1%)', d.empresa.infotep)}
+      ${fila('Costo mensual', d.costoMensual, 'total')}
+      <tr class="nota"><td>Costo al año, con regalía pascual</td><td>${fmtRD(d.costoAnual)}</td></tr>
+    </table></div>
+  </div>`;
+}
+
+function leerMonto(id) { return Number((document.getElementById(id).value || '').replace(/[^\d.]/g, '')) || 0; }
+
+function calcularNeto() {
+  const bruto = leerMonto('calcNetoMonto');
+  const out = document.getElementById('calcNetoResult');
+  if (!bruto) { out.innerHTML = '<p style="color:var(--red);font-size:13px;margin-top:8px">Escribe un salario mensual.</p>'; return; }
+  const aviso = bruto < SALARIO_MINIMO.micro.monto
+    ? `<p class="calc-help" style="margin:.8rem 0 0">Ojo: ese monto está por debajo de todos los salarios mínimos vigentes (el más bajo es ${fmtRD(SALARIO_MINIMO.micro.monto)} en microempresas).</p>` : '';
+  out.innerHTML = aviso + htmlDesglose(desgloseSalario(bruto));
+}
+
 function updateCalcPuestos() {
   const sector = document.getElementById('calcSector').value;
   const sel = document.getElementById('calcPuesto');
@@ -6956,6 +7110,33 @@ function calcularSalario() {
 
   const tags = ['Santo Domingo', 'Santiago', 'Empresas medianas y grandes'];
   document.getElementById('calcSectorTags').innerHTML = tags.map(t => `<span class="calc-sector-tag">${t}</span>`).join('');
+
+  // Contexto oficial: salario mínimo del tamaño de empresa y promedio formal
+  const emp = SALARIO_MINIMO[document.getElementById('calcEmpresa').value] || SALARIO_MINIMO.grande;
+  const vsProm = Math.round((mid / SALARIO_PROMEDIO_TSS - 1) * 100);
+  document.getElementById('calcContexto').innerHTML =
+    `El salario mínimo en ${emp.label} es <b>${fmtRD(emp.monto)}</b>. ` +
+    `El promedio de este puesto está <b>${Math.abs(vsProm)}% ${vsProm >= 0 ? 'por encima' : 'por debajo'}</b> del salario promedio del empleo formal en RD (${fmtRD(SALARIO_PROMEDIO_TSS)}, TSS abril 2026).` +
+    (min < emp.monto ? ` En una ${emp.label} el piso legal es ${fmtRD(emp.monto)}: ningún salario puede quedar por debajo.` : '') +
+    (emp.label !== 'empresa grande' && emp.label !== 'empresa mediana' ? ' Los rangos de puesto reflejan empresas medianas y grandes; en empresas más pequeñas suelen ser menores.' : '') +
+    ' Las empresas proyectan aumentos cercanos al 8% para 2027 (Macros Consulting, 2026).';
+
+  // Comparación con una oferta, si la escribió
+  const oferta = leerMonto('calcOfertaMonto');
+  const ofEl = document.getElementById('calcOferta');
+  if (oferta) {
+    let cls, txt;
+    if (oferta < emp.monto) { cls = 'baja'; txt = `Tu oferta de <b>${fmtRD(oferta)}</b> está por debajo del salario mínimo legal para ${emp.label} (${fmtRD(emp.monto)}).`; }
+    else if (oferta < min) { cls = 'baja'; txt = `Tu oferta de <b>${fmtRD(oferta)}</b> está <b>${Math.round((1 - oferta / min) * 100)}% por debajo</b> del mínimo del rango para este puesto. Tienes espacio para negociar.`; }
+    else if (oferta > max) { cls = 'alta'; txt = `Tu oferta de <b>${fmtRD(oferta)}</b> está <b>por encima</b> del rango para este puesto. Es una buena oferta.`; }
+    else { cls = 'ok'; txt = `Tu oferta de <b>${fmtRD(oferta)}</b> está <b>dentro del rango</b> del mercado, ${oferta >= mid ? 'en la mitad alta' : 'en la mitad baja'}.`; }
+    const dOf = desgloseSalario(oferta);
+    ofEl.className = 'calc-oferta ' + cls;
+    ofEl.innerHTML = txt + ` Neto estimado: <b>${fmtRD(dOf.neto)}</b> al mes.`;
+    ofEl.style.display = 'block';
+  } else ofEl.style.display = 'none';
+
+  document.getElementById('calcDesglose').innerHTML = htmlDesglose(desgloseSalario(mid));
 
   const result = document.getElementById('calcResult');
   result.classList.add('visible');
