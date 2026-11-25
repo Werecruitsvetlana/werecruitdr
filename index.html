@@ -1337,6 +1337,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     <a onclick="showPage('home');closeMobileNav()">Vacantes</a>
     <a class="nav-ww" onclick="showPage('mujeres');closeMobileNav()">We Recruit Women</a>
     <a onclick="showPage('para-empresas');closeMobileNav()">Empresas</a>
+    <a onclick="showPage('freelancers');closeMobileNav()">Creativos</a>
     <div class="nav-dd">
       <button class="nav-dd-btn" onclick="toggleNavDd(this)">Iniciar sesión <svg viewBox="0 0 10 10" fill="currentColor"><path d="M1 3l4 4 4-4"/></svg></button>
       <div class="nav-dd-menu">
@@ -3062,7 +3063,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
     <div class="hero-inner">
       <div class="hero-tag"><span>Referencia salarial RD 2026</span></div>
       <h1>Calculadora de <em>Salarios</em></h1>
-      <p>¿Cuánto debería ganar un profesional en República Dominicana? Consulta rangos reales por puesto, sector y nivel de experiencia.</p>
+      <p>¿Cuánto debería ganar un profesional en República Dominicana? Consulta rangos de más de 350 puestos, por área y nivel, y calcula tu salario neto.</p>
     </div>
   </div>
 
@@ -3087,7 +3088,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
       <div id="calcContexto" class="calc-contexto"></div>
       <h4 class="calc-sub">Del bruto al neto: el salario promedio del puesto</h4>
       <div id="calcDesglose"></div>
-      <div class="calc-disclaimer">💡 Rangos en salario base mensual bruto (RD$), sin bonos ni comisiones. Los rangos por puesto son referencias 2026 de We Recruit DR a partir de nuestros procesos de reclutamiento; pueden variar según empresa, beneficios y negociación. Los descuentos, el salario mínimo y el costo para la empresa usan las tasas oficiales vigentes (ver fuentes al final).</div>
+      <div class="calc-disclaimer">💡 Rangos en salario base mensual bruto (RD$), sin bonos ni comisiones. Rangos de referencia 2026 de We Recruit DR, redondeados a miles: Junior corresponde a la parte baja del mercado, Mid al centro y Senior a la parte alta. Pueden variar según empresa, beneficios y negociación. Los descuentos, el salario mínimo y el costo para la empresa usan las tasas oficiales vigentes (ver fuentes al final).</div>
     </div>
 
     <div class="calc-card">
@@ -3096,18 +3097,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <div class="calc-field">
           <label>Sector</label>
           <select class="calc-select" id="calcSector" onchange="updateCalcPuestos()">
-            <option value="">— Selecciona sector —</option>
-            <option value="tecnologia">Tecnología</option>
-            <option value="marketing">Marketing & Creativos</option>
-            <option value="finanzas">Finanzas & Contabilidad</option>
-            <option value="rrhh">Recursos Humanos</option>
-            <option value="ventas">Ventas & Comercial</option>
-            <option value="operaciones">Operaciones & Logística</option>
-            <option value="legal">Legal</option>
-            <option value="salud">Salud</option>
-            <option value="ingenieria">Ingeniería &amp; Construcción</option>
-            <option value="servicio">Servicio al Cliente & Call Center</option>
-            <option value="turismo">Turismo & Hotelería</option>
+            <option value="">— Selecciona área —</option>
           </select>
         </div>
         <div class="calc-field">
@@ -3178,9 +3168,7 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
         <li><b>Seguridad social (TSS)</b>: la persona aporta AFP 2.87% y SFS 3.04%. La empresa aporta AFP 7.10%, SFS 7.09%, riesgos laborales desde 1.10% e INFOTEP 1%. Topes cotizables desde febrero 2026 (salario mínimo cotizable RD$23,223): SFS RD$232,230, AFP RD$464,460 y riesgos laborales RD$92,892.</li>
         <li><b>ISR asalariados 2026 (DGII)</b>, escala anual sobre el salario menos AFP y SFS: exento hasta RD$416,220; 15% del excedente hasta RD$624,329; RD$31,216 + 20% del excedente hasta RD$867,123; RD$79,776 + 25% del excedente.</li>
         <li><b>Regalía pascual</b> (salario 13): un salario adicional al año, libre de ISR y de aportes a la TSS.</li>
-        <li><b>Mercado formal</b>: salario promedio cotizable en la TSS de RD$39,565.63 (abril 2026, Boletín del Régimen Contributivo).</li>
-        <li><b>Ajustes salariales</b>: según la XXVII Encuesta de Compensación y Beneficios de Macros Consulting (casi 500 empresas, julio 2026), el 85% de las empresas dio aumentos en 2026, con un ajuste promedio de 9% entre las que aumentaron, y proyectan aumentos cercanos al 8% para 2027. Tecnología, finanzas, energía e infraestructura ofrecen los paquetes más competitivos.</li>
-        <li>El cálculo es una guía y no sustituye la nómina de la empresa: no incluye horas extra, comisiones, otros descuentos ni dependientes adicionales del SFS.</li>
+        <li><b>Mercado formal</b>: salario promedio cotizable en la TSS de RD$39,565.63 (abril 2026, Boletín del Régimen Contributivo).</li>        <li>El cálculo es una guía y no sustituye la nómina de la empresa: no incluye horas extra, comisiones, otros descuentos ni dependientes adicionales del SFS.</li>
       </ul>
     </details>
 
@@ -6784,199 +6772,357 @@ function toggleMobileFilters() {
 //  CALCULADORA DE SALARIOS
 // ═══════════════════════════════════════════════════════
 
-const SALARY_DATA = {
-  tecnologia: {
-    label: 'Tecnología',
-    puestos: {
-      'Desarrollador Web': { junior: [35000,48000], mid: [55000,85000], senior: [90000,150000] },
-      'Desarrollador Mobile': { junior: [40000,58000], mid: [60000,100000], senior: [100000,170000] },
-      'Data Analyst': { junior: [35000,52000], mid: [55000,88000], senior: [88000,140000] },
-      'UX/UI Designer': { junior: [30000,48000], mid: [50000,82000], senior: [82000,135000] },
-      'DevOps / Cloud Engineer': { junior: [45000,65000], mid: [68000,110000], senior: [110000,180000] },
-      'Product Manager': { junior: [40000,60000], mid: [65000,105000], senior: [105000,170000] },
-      'QA / Tester': { junior: [30000,42000], mid: [45000,72000], senior: [72000,110000] },
-      'Soporte Técnico / Help Desk': { junior: [30000,38000], mid: [38000,52000], senior: [52000,75000] },
-      'Data Scientist': { junior: [45000,65000], mid: [70000,115000], senior: [115000,185000] },
-      'Ingeniero de Ciberseguridad': { junior: [45000,65000], mid: [70000,115000], senior: [115000,190000] },
-      'Administrador de Redes / Sistemas': { junior: [30000,45000], mid: [46000,75000], senior: [75000,120000] },
-      'Administrador de Base de Datos (DBA)': { junior: [40000,58000], mid: [60000,98000], senior: [98000,155000] },
-      'Scrum Master / Agile Coach': { junior: [45000,65000], mid: [68000,105000], senior: [105000,165000] },
-      'Gerente de TI': { junior: [60000,85000], mid: [88000,140000], senior: [140000,220000] },
-      'CTO / Director de Tecnología': { junior: [90000,125000], mid: [130000,200000], senior: [200000,350000] },
-    }
-  },
-  marketing: {
-    label: 'Marketing & Creativos',
-    puestos: {
-      'Diseñador Gráfico': { junior: [30000,38000], mid: [40000,65000], senior: [65000,105000] },
-      'Director Creativo': { junior: [50000,70000], mid: [75000,120000], senior: [120000,200000] },
-      'Community Manager': { junior: [30000,34000], mid: [35000,55000], senior: [55000,90000] },
-      'Content Creator / Copywriter': { junior: [30000,35000], mid: [36000,58000], senior: [58000,90000] },
-      'Fotógrafo / Videógrafo': { junior: [30000,40000], mid: [40000,70000], senior: [70000,120000] },
-      'Social Media Manager': { junior: [30000,38000], mid: [38000,62000], senior: [62000,100000] },
-      'Marketing Digital Manager': { junior: [35000,52000], mid: [55000,90000], senior: [90000,145000] },
-      'SEO / SEM Specialist': { junior: [30000,44000], mid: [45000,72000], senior: [72000,115000] },
-      'Brand Manager': { junior: [50000,70000], mid: [75000,120000], senior: [120000,190000] },
-      'Assistant Brand Manager': { junior: [35000,48000], mid: [50000,72000], senior: [72000,100000] },
-      'Trade Marketing Manager': { junior: [60000,85000], mid: [90000,140000], senior: [140000,230000] },
-      'Trade Marketing Analyst': { junior: [30000,42000], mid: [43000,68000], senior: [68000,100000] },
-      'Gerente de Marketing': { junior: [65000,90000], mid: [95000,150000], senior: [150000,250000] },
-      'Director de Marketing (CMO)': { junior: [110000,150000], mid: [150000,240000], senior: [240000,400000] },
-      'Product Marketing Manager': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
-      'Analista de Marketing': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
-      'Coordinador de Marketing': { junior: [30000,42000], mid: [45000,70000], senior: [70000,95000] },
-      'Ejecutivo de Cuentas (Agencia)': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
-      'Director de Cuentas (Agencia)': { junior: [60000,85000], mid: [88000,140000], senior: [140000,220000] },
-      'Planner / Estratega': { junior: [35000,52000], mid: [55000,88000], senior: [88000,140000] },
-      'Media Planner / Buyer': { junior: [30000,45000], mid: [46000,75000], senior: [75000,120000] },
-      'Director de Arte': { junior: [38000,55000], mid: [58000,92000], senior: [92000,145000] },
-      'Ejecutivo de Relaciones Públicas': { junior: [30000,42000], mid: [43000,70000], senior: [70000,110000] },
-      'Gerente de Comunicación': { junior: [50000,70000], mid: [72000,115000], senior: [115000,180000] },
-      'Gerente de E-commerce': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
-      'Performance Marketing Specialist': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
-      'Event Manager / Eventos': { junior: [30000,42000], mid: [43000,70000], senior: [70000,110000] },
-    }
-  },
-  finanzas: {
-    label: 'Finanzas & Contabilidad',
-    puestos: {
-      'Contador': { junior: [30000,42000], mid: [45000,72000], senior: [72000,115000] },
-      'Analista Financiero': { junior: [35000,52000], mid: [55000,88000], senior: [88000,140000] },
-      'Auditor': { junior: [32000,48000], mid: [50000,82000], senior: [82000,130000] },
-      'Tesorero': { junior: [38000,55000], mid: [58000,95000], senior: [95000,155000] },
-      'CFO / Director Financiero': { junior: [80000,110000], mid: [115000,180000], senior: [180000,300000] },
-      'Analista de Crédito': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
-      'Auxiliar Contable': { junior: [30000,36000], mid: [36000,46000], senior: [46000,62000] },
-      'Gerente de Contabilidad': { junior: [55000,78000], mid: [80000,125000], senior: [125000,190000] },
-      'Gerente Financiero': { junior: [65000,90000], mid: [95000,150000], senior: [150000,240000] },
-      'Controller': { junior: [60000,85000], mid: [88000,140000], senior: [140000,220000] },
-      'Analista de Impuestos': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
-      'Analista de Riesgo': { junior: [35000,52000], mid: [55000,88000], senior: [88000,140000] },
-      'Oficial de Negocios (Banca)': { junior: [30000,45000], mid: [46000,75000], senior: [75000,120000] },
-      'Cajero/a': { junior: [30000,34000], mid: [34000,40000], senior: [40000,52000] },
-      'Gestor de Cobros': { junior: [30000,35000], mid: [35000,48000], senior: [48000,70000] },
-    }
-  },
-  rrhh: {
-    label: 'Recursos Humanos',
-    puestos: {
-      'Asistente de RRHH': { junior: [30000,36000], mid: [36000,48000], senior: [48000,68000] },
-      'Generalista de RRHH': { junior: [35000,50000], mid: [55000,85000], senior: [80000,120000] },
-      'Reclutador / Talent Acquisition': { junior: [30000,42000], mid: [43000,70000], senior: [70000,115000] },
-      'Gerente de RRHH': { junior: [65000,90000], mid: [95000,140000], senior: [140000,210000] },
-      'Especialista en Nómina': { junior: [30000,38000], mid: [39000,62000], senior: [62000,95000] },
-      'Capacitador / L&D': { junior: [30000,42000], mid: [43000,68000], senior: [68000,110000] },
-      'HR Business Partner': { junior: [50000,70000], mid: [72000,115000], senior: [115000,180000] },
-      'Analista de Compensación y Beneficios': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
-      'Especialista en Clima y Cultura': { junior: [30000,45000], mid: [46000,72000], senior: [72000,112000] },
-      'Director de Gestión Humana': { junior: [85000,120000], mid: [125000,190000], senior: [190000,320000] },
-    }
-  },
-  ventas: {
-    label: 'Ventas & Comercial',
-    puestos: {
-      'Ejecutivo de Ventas': { junior: [30000,42000], mid: [42000,65000], senior: [65000,95000] },
-      'Gerente de Ventas': { junior: [60000,85000], mid: [90000,130000], senior: [130000,200000] },
-      'Director Comercial': { junior: [80000,110000], mid: [115000,180000], senior: [180000,300000] },
-      'Key Account Manager': { junior: [40000,58000], mid: [60000,95000], senior: [95000,155000] },
-      'Representante de Ventas': { junior: [30000,35000], mid: [36000,55000], senior: [55000,85000] },
-      'Supervisor de Ventas': { junior: [35000,50000], mid: [52000,80000], senior: [80000,120000] },
-      'Business Development Manager': { junior: [50000,70000], mid: [72000,115000], senior: [115000,185000] },
-      'Ejecutivo Comercial B2B': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
-      'Asesor de Ventas Inmobiliarias': { junior: [30000,40000], mid: [42000,70000], senior: [70000,120000] },
-      'Gerente de Tienda / Retail': { junior: [35000,50000], mid: [52000,80000], senior: [80000,125000] },
-      'Vendedor / Asesor de Tienda': { junior: [30000,34000], mid: [34000,40000], senior: [40000,55000] },
-      'Category Manager': { junior: [60000,85000], mid: [90000,140000], senior: [140000,220000] },
-    }
-  },
-  operaciones: {
-    label: 'Operaciones & Logística',
-    puestos: {
-      'Asistente Administrativo': { junior: [30000,36000], mid: [36000,48000], senior: [48000,65000] },
-      'Coordinador de Operaciones': { junior: [32000,48000], mid: [50000,80000], senior: [80000,125000] },
-      'Gerente de Operaciones': { junior: [55000,75000], mid: [78000,125000], senior: [125000,195000] },
-      'Analista de Logística': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
-      'Gerente de Proyectos': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
-      'Asistente de Compras': { junior: [30000,34000], mid: [35000,55000], senior: [55000,85000] },
-      'Gerente de Compras': { junior: [55000,75000], mid: [78000,120000], senior: [120000,180000] },
-      'Supply Chain Manager': { junior: [60000,85000], mid: [88000,140000], senior: [140000,220000] },
-      'Supervisor de Almacén': { junior: [30000,40000], mid: [42000,62000], senior: [62000,92000] },
-      'Encargado de Inventario': { junior: [30000,35000], mid: [36000,55000], senior: [55000,80000] },
-      'Recepcionista': { junior: [30000,33000], mid: [33000,38000], senior: [38000,46000] },
-      'Asistente Ejecutivo/a': { junior: [30000,40000], mid: [42000,65000], senior: [65000,95000] },
-      'Gerente General': { junior: [100000,140000], mid: [145000,230000], senior: [230000,400000] },
-    }
-  },
-  legal: {
-    label: 'Legal',
-    puestos: {
-      'Abogado Corporativo': { junior: [35000,52000], mid: [55000,90000], senior: [90000,155000] },
-      'Abogado Laboral': { junior: [32000,48000], mid: [50000,82000], senior: [82000,140000] },
-      'Paralegal': { junior: [30000,35000], mid: [36000,55000], senior: [55000,85000] },
-      'Compliance Officer': { junior: [38000,56000], mid: [58000,95000], senior: [95000,160000] },
-      'Director Legal / General Counsel': { junior: [80000,110000], mid: [115000,185000], senior: [185000,320000] },
-      'Abogado Litigante': { junior: [32000,50000], mid: [52000,88000], senior: [88000,150000] },
-      'Abogado Tributario': { junior: [38000,56000], mid: [58000,95000], senior: [95000,160000] },
-      'Oficial de Cumplimiento (AML)': { junior: [40000,58000], mid: [60000,98000], senior: [98000,160000] },
-    }
-  },
-  salud: {
-    label: 'Salud',
-    puestos: {
-      'Médico General': { junior: [45000,65000], mid: [68000,105000], senior: [105000,170000] },
-      'Enfermero/a': { junior: [30000,42000], mid: [43000,68000], senior: [68000,105000] },
-      'Administrador Hospitalario': { junior: [40000,58000], mid: [60000,95000], senior: [95000,155000] },
-      'Fisioterapeuta': { junior: [30000,42000], mid: [43000,68000], senior: [68000,108000] },
-      'Nutricionista': { junior: [30000,38000], mid: [39000,62000], senior: [62000,98000] },
-      'Médico Especialista': { junior: [70000,100000], mid: [105000,170000], senior: [170000,300000] },
-      'Odontólogo/a': { junior: [40000,60000], mid: [62000,100000], senior: [100000,170000] },
-      'Psicólogo/a': { junior: [30000,42000], mid: [43000,68000], senior: [68000,110000] },
-      'Farmacéutico/a': { junior: [30000,45000], mid: [46000,72000], senior: [72000,110000] },
-      'Bioanalista': { junior: [30000,40000], mid: [42000,62000], senior: [62000,95000] },
-      'Visitador Médico': { junior: [32000,48000], mid: [50000,78000], senior: [78000,120000] },
-    }
-  },
-  ingenieria: {
-    label: 'Ingeniería & Construcción',
-    puestos: {
-      'Ingeniero Civil': { junior: [40000,55000], mid: [58000,85000], senior: [85000,130000] },
-      'Ingeniero Residente': { junior: [42000,55000], mid: [58000,85000], senior: [85000,125000] },
-      'Ingeniero Estructural': { junior: [50000,68000], mid: [72000,105000], senior: [105000,160000] },
-      'Ingeniero Eléctrico': { junior: [45000,62000], mid: [65000,100000], senior: [100000,160000] },
-      'Ingeniero de Calidad': { junior: [45000,62000], mid: [65000,95000], senior: [95000,140000] },
-      'Ingeniero SSMA / Seguridad Industrial': { junior: [40000,55000], mid: [58000,88000], senior: [88000,130000] },
-      'Ingeniero Industrial': { junior: [38000,52000], mid: [55000,85000], senior: [85000,130000] },
-      'Analista de Presupuesto (Obras)': { junior: [40000,55000], mid: [58000,85000], senior: [85000,120000] },
-      'Arquitecto/a': { junior: [35000,48000], mid: [50000,80000], senior: [80000,130000] },
-      'Gerente de Producción / Planta': { junior: [55000,75000], mid: [78000,120000], senior: [120000,190000] },
-      'Gerente de Proyectos de Construcción': { junior: [65000,90000], mid: [95000,150000], senior: [150000,240000] },
-      'Supervisor de Mantenimiento': { junior: [30000,42000], mid: [45000,65000], senior: [65000,95000] },
-    }
-  },
-  servicio: {
-    label: 'Servicio al Cliente & Call Center',
-    puestos: {
-      'Agente de Call Center (Español)': { junior: [30000,34000], mid: [34000,38000], senior: [38000,45000] },
-      'Agente de Call Center (Bilingüe)': { junior: [30000,36000], mid: [37000,48000], senior: [48000,62000] },
-      'Supervisor de Call Center': { junior: [35000,48000], mid: [50000,70000], senior: [70000,95000] },
-      'Representante de Servicio al Cliente': { junior: [30000,35000], mid: [35000,42000], senior: [42000,55000] },
-      'Gerente de Servicio al Cliente': { junior: [50000,70000], mid: [72000,110000], senior: [110000,170000] },
-      'Customer Success Manager': { junior: [38000,55000], mid: [58000,90000], senior: [90000,140000] },
-    }
-  },
-  turismo: {
-    label: 'Turismo & Hotelería',
-    puestos: {
-      'Recepcionista de Hotel': { junior: [22000,27000], mid: [27000,34000], senior: [34000,45000] },
-      'Gerente de Hotel': { junior: [70000,100000], mid: [105000,170000], senior: [170000,280000] },
-      'Revenue Manager': { junior: [45000,65000], mid: [68000,108000], senior: [108000,170000] },
-      'Chef / Jefe de Cocina': { junior: [35000,50000], mid: [52000,85000], senior: [85000,140000] },
-      'Gerente de Alimentos y Bebidas': { junior: [50000,70000], mid: [72000,115000], senior: [115000,180000] },
-      'Ejecutivo de Ventas Hoteleras': { junior: [30000,45000], mid: [46000,72000], senior: [72000,115000] },
-      'Guest Relations': { junior: [24000,30000], mid: [30000,40000], senior: [40000,58000] },
-    }
-  },
-};
+const SALARY_DATA = {"direccion":{"label":"Dirección General","puestos":{"Presidente / CEO":{"q":[300000,515000,893000]},
+"Vicepresidente Ejecutivo / Gerente General":{"q":[284000,460000,640000]},
+"Asistente de Dirección":{"q":[49000,70000,91000]},
+"Gerente de Asuntos Corporativos":{"q":[156000,207000,225000]},
+"Vicepresidente de Operaciones de Servicio":{"q":[314000,502000,690000]},
+"Gerente de Investigación y Desarrollo":{"q":[280000,290000,401000]}}},
+"operaciones":{"label":"Operaciones y Producción","puestos":{"Director de Operaciones":{"q":[255000,400000,532000]},
+"Gerente de Operaciones":{"q":[142000,193000,279000]},
+"Director / Gerente de Planta":{"q":[207000,243000,343000]},
+"Gerente de Producción o Manufactura":{"q":[140000,208000,327000]},
+"Planificador (Planner)":{"q":[52000,66000,97000]},
+"Superintendente de Producción":{"q":[78000,103000,131000]},
+"Supervisor de Producción":{"q":[42000,56000,72000]},
+"Operador A":{"q":[23000,32000,39000]},
+"Operador B":{"q":[24000,28000,32000]},
+"Operador C":{"q":[16000,24000,28000]},
+"Prensista":{"q":[23000,36000,66000]},
+"Gerente de Ingeniería":{"q":[150000,200000,288000]},
+"Ingeniero Industrial o de Procesos":{"q":[60000,78000,96000]},
+"Ingeniero de Manufactura":{"q":[59000,70000,102000]},
+"Técnico de Ingeniería":{"q":[46000,58000,75000]},
+"Ingeniero de Proyectos":{"q":[69000,87000,108000]},
+"Ingeniero Eléctrico":{"q":[79000,97000,130000]},
+"Arquitecto/a":{"q":[75000,90000,127000]},
+"Ingeniero de Automatización y Control":{"q":[96000,116000,147000]},
+"Encargado de Programación y Control de Producción":{"q":[97000,118000,162000]}}},
+"calidad":{"label":"Calidad y Seguridad (SSMA)","puestos":{"Gerente de Aseguramiento de Calidad":{"q":[124000,162000,218000]},
+"Asistente de Calidad":{"q":[30000,41000,53000]},
+"Ingeniero de Calidad":{"q":[61000,80000,104000]},
+"Inspector de Calidad":{"q":[23000,31000,40000]},
+"Auditor del Sistema de Gestión de Calidad":{"q":[37000,54000,74000]},
+"Documentador del Sistema de Gestión de Calidad":{"q":[40000,61000,76000]},
+"Coordinador de Calidad":{"q":[59000,81000,103000]},
+"Gerente de Seguridad, Salud y Medio Ambiente":{"q":[146000,185000,244000]},
+"Coordinador de Seguridad, Salud y Medio Ambiente":{"q":[67000,87000,112000]},
+"Inspector de Seguridad, Salud y Medio Ambiente":{"q":[39000,50000,65000]},
+"Analista de Seguridad, Salud y Medio Ambiente":{"q":[35000,45000,58000]},
+"Gerente de Salud Ocupacional":{"q":[110000,147000,187000]},
+"Encargado de Seguridad y Salud Ocupacional":{"q":[64000,76000,103000]}}},
+"mantenimiento":{"label":"Mantenimiento y Oficios Técnicos","puestos":{"Gerente de Mantenimiento":{"q":[122000,181000,227000]},
+"Ingeniero de Mantenimiento":{"q":[62000,82000,113000]},
+"Encargado de Mantenimiento":{"q":[61000,81000,111000]},
+"Mecánico A":{"q":[38000,45000,54000]},
+"Mecánico B":{"q":[31000,36000,42000]},
+"Mecánico C":{"q":[26000,31000,36000]},
+"Mecánico Automotriz":{"q":[34000,40000,50000]},
+"Auxiliar de Mantenimiento":{"q":[27000,31000,37000]},
+"Técnico Electricista Sr.":{"q":[39000,48000,58000]},
+"Técnico Electricista":{"q":[33000,40000,48000]},
+"Técnico Electrónico":{"q":[40000,49000,59000]},
+"Técnico de Calibración Sr.":{"q":[44000,50000,62000]},
+"Soldador":{"q":[36000,40000,45000]},
+"Albañil":{"q":[34000,42000,67000]},
+"Plomero":{"q":[26000,32000,39000]},
+"Tornero":{"q":[56000,57000,62000]},
+"Ajustador de Moldes":{"q":[35000,46000,55000]},
+"Ebanista":{"q":[32000,34000,40000]}}},
+"logistica":{"label":"Almacén, Logística y Compras","puestos":{"Director / VP de Logística":{"q":[188000,262000,384000]},
+"Gerente de Logística":{"q":[121000,175000,225000]},
+"Gerente de Almacén":{"q":[105000,150000,212000]},
+"Encargado de Almacén":{"q":[43000,57000,76000]},
+"Almacenista":{"q":[27000,32000,38000]},
+"Ayudante de Almacén":{"q":[22000,27000,31000]},
+"Montacarguista":{"q":[22000,28000,35000]},
+"Encargado de Inventario":{"q":[43000,50000,75000]},
+"Auxiliar de Inventario":{"q":[30000,33000,37000]},
+"Encargado de Tráfico y Aduanas":{"q":[50000,65000,92000]},
+"Auxiliar de Tráfico y Aduanas":{"q":[30000,37000,47000]},
+"Encargado de Transportación":{"q":[53000,77000,113000]},
+"Supervisor de Transporte":{"q":[47000,58000,73000]},
+"Gerente de Importaciones y Exportaciones":{"q":[95000,126000,189000]},
+"Gerente de Materiales":{"q":[112000,171000,238000]},
+"Gerente de Compras":{"q":[154000,189000,238000]},
+"Planeador de Compras":{"q":[58000,75000,90000]},
+"Encargado de Compras y Suministro":{"q":[60000,77000,101000]},
+"Comprador":{"q":[43000,57000,75000]},
+"Encargado de Licitación":{"q":[85000,137000,202000]}}},
+"ventas":{"label":"Ventas y Comercial","puestos":{"Vicepresidente o Director Comercial":{"q":[237000,340000,469000]},
+"Vicepresidente de Mercadeo y Ventas":{"q":[246000,325000,473000]},
+"Director de Negocios":{"q":[309000,371000,474000]},
+"Director de Ventas":{"q":[131000,241000,356000]},
+"Gerente de Ventas":{"q":[115000,157000,197000]},
+"Gerente de Desarrollo de Negocios":{"q":[153000,194000,236000]},
+"Coordinador de Negocios":{"q":[84000,125000,161000]},
+"Supervisor de Ventas":{"q":[43000,62000,87000]},
+"Analista Comercial":{"q":[45000,60000,93000]},
+"Key Account Manager (Cuentas Clave)":{"q":[53000,72000,101000]},
+"Ejecutivo de Cuentas":{"q":[38000,54000,83000]},
+"Ingeniero de Ventas Técnicas":{"q":[58000,84000,125000]},
+"Vendedor Técnico Especializado":{"q":[30000,42000,71000]},
+"Vendedor de Productos":{"q":[29000,36000,54000]},
+"Representante de Ventas":{"q":[18000,29000,52000]},
+"Vendedor Repartidor":{"q":[25000,29000,33000]},
+"Asistente de Ventas":{"q":[31000,38000,46000]},
+"Promotor/a":{"q":[20000,27000,31000]},
+"Merchandiser":{"q":[20000,26000,30000]},
+"Category Manager":{"junior":[60000,85000],"mid":[90000,140000],"senior":[140000,220000],"ref":true}}},
+"mercadeo":{"label":"Mercadeo y Comunicación","puestos":{"Gerente de Mercadeo":{"q":[105000,158000,229000]},
+"Gerente de Marca / Producto":{"q":[113000,160000,201000]},
+"Gerente de Publicidad":{"q":[115000,178000,280000]},
+"Gerente de Comunicación":{"q":[165000,187000,231000]},
+"Gerente de Relaciones Públicas":{"q":[101000,138000,172000]},
+"Coordinador de Desarrollo de Productos":{"q":[90000,110000,145000]},
+"Coordinador de Comunicación":{"q":[53000,81000,100000]},
+"Coordinador de Promoción y Eventos":{"q":[54000,69000,99000]},
+"Encargado de Prensa":{"q":[53000,75000,113000]},
+"Encargado de Social Media":{"q":[54000,68000,85000]},
+"Analista de Mercadeo":{"q":[52000,69000,110000]},
+"Analista de Investigación de Mercado":{"q":[48000,69000,92000]},
+"Asistente de Mercadeo":{"q":[36000,42000,52000]},
+"Marketing Digital Manager":{"junior":[35000,52000],"mid":[55000,90000],"senior":[90000,145000],"ref":true},
+"SEO / SEM Specialist":{"junior":[30000,44000],"mid":[45000,72000],"senior":[72000,115000],"ref":true},
+"Performance Marketing Specialist":{"junior":[32000,48000],"mid":[50000,80000],"senior":[80000,125000],"ref":true},
+"Gerente de E-commerce":{"junior":[45000,65000],"mid":[68000,108000],"senior":[108000,170000],"ref":true},
+"Product Marketing Manager":{"junior":[45000,65000],"mid":[68000,108000],"senior":[108000,170000],"ref":true},
+"Trade Marketing Manager":{"junior":[60000,85000],"mid":[90000,140000],"senior":[140000,230000],"ref":true}}},
+"creativos":{"label":"Publicidad y Creativos","puestos":{"Gerente General de Agencia":{"q":[187000,236000,314000]},
+"Planificador de Medios":{"q":[46000,77000,124000]},
+"Planner / Estratega":{"q":[37000,58000,109000]},
+"Ejecutivo de Marcas":{"q":[59000,74000,98000]},
+"Encargado de Trade Marketing":{"q":[52000,74000,101000]},
+"Social Media Manager":{"q":[48000,71000,111000]},
+"Analista de Medios Digitales":{"q":[58000,70000,104000]},
+"Ejecutivo de Cuentas (Agencia)":{"q":[31000,47000,95000]},
+"Encargado de Tráfico (Agencia)":{"q":[40000,66000,90000]},
+"Diseñador Gráfico":{"q":[41000,50000,73000]},
+"Arte Finalista":{"q":[32000,38000,81000]},
+"Dibujante Gráfico":{"q":[33000,47000,75000]},
+"Asistente de Producción":{"q":[38000,44000,56000]},
+"Director Creativo":{"junior":[50000,70000],"mid":[75000,120000],"senior":[120000,200000],"ref":true},
+"Director de Arte":{"junior":[38000,55000],"mid":[58000,92000],"senior":[92000,145000],"ref":true},
+"Community Manager":{"junior":[30000,34000],"mid":[35000,55000],"senior":[55000,90000],"ref":true},
+"Content Creator / Copywriter":{"junior":[30000,35000],"mid":[36000,58000],"senior":[58000,90000],"ref":true},
+"Fotógrafo / Videógrafo":{"junior":[30000,40000],"mid":[40000,70000],"senior":[70000,120000],"ref":true}}},
+"servicio":{"label":"Servicio al Cliente y Call Center","puestos":{"Gerente de Servicios":{"q":[129000,164000,239000]},
+"Gerente de Servicio al Cliente":{"q":[63000,89000,152000]},
+"Ejecutivo de Servicio al Cliente":{"q":[26000,33000,47000]},
+"Agente de Call Center (Español)":{"junior":[30000,34000],"mid":[34000,38000],"senior":[38000,45000],"ref":true},
+"Agente de Call Center (Bilingüe)":{"junior":[30000,36000],"mid":[37000,48000],"senior":[48000,62000],"ref":true},
+"Supervisor de Call Center":{"junior":[35000,48000],"mid":[50000,70000],"senior":[70000,95000],"ref":true},
+"Representante de Servicio al Cliente":{"junior":[30000,35000],"mid":[35000,42000],"senior":[42000,55000],"ref":true},
+"Customer Success Manager":{"junior":[38000,55000],"mid":[58000,90000],"senior":[90000,140000],"ref":true}}},
+"finanzas":{"label":"Finanzas y Contabilidad","puestos":{"Vicepresidente de Finanzas y Administración":{"q":[211000,363000,569000]},
+"Director / VP de Finanzas (CFO)":{"q":[224000,337000,440000]},
+"Contralor (Controller)":{"q":[143000,218000,323000]},
+"Gerente Financiero":{"q":[130000,178000,256000]},
+"Gerente de Tesorería":{"q":[115000,174000,298000]},
+"Gerente de Presupuesto":{"q":[130000,178000,266000]},
+"Gerente de Planificación y Desarrollo del Negocio":{"q":[142000,184000,229000]},
+"Gerente de Auditoría":{"q":[136000,184000,237000]},
+"Gerente de Control Interno":{"q":[155000,192000,230000]},
+"Gerente de Crédito y Cobros":{"q":[86000,139000,217000]},
+"Contador General":{"q":[90000,125000,179000]},
+"Encargado de Administración y Finanzas":{"q":[93000,113000,132000]},
+"Contador de Costos":{"q":[69000,89000,126000]},
+"Encargado de Contabilidad e Impuestos":{"q":[68000,93000,126000]},
+"Sub-Contador":{"q":[53000,71000,96000]},
+"Auditor Interno":{"q":[59000,74000,101000]},
+"Analista Financiero":{"q":[59000,74000,98000]},
+"Analista de Presupuesto":{"q":[53000,69000,90000]},
+"Analista de Proyectos":{"q":[52000,66000,90000]},
+"Analista de Impuestos":{"q":[53000,64000,76000]},
+"Analista de Costos":{"q":[47000,56000,77000]},
+"Analista de Tesorería":{"q":[42000,53000,82000]},
+"Analista de Contabilidad":{"q":[41000,53000,65000]},
+"Analista de Cuentas por Pagar":{"q":[40000,52000,62000]},
+"Analista de Crédito":{"q":[38000,54000,72000]},
+"Analista de Facturación":{"q":[39000,47000,57000]},
+"Encargado de Nómina":{"q":[51000,73000,100000]},
+"Encargado de Facturación":{"q":[41000,54000,70000]},
+"Encargado de Cuentas por Cobrar":{"q":[53000,67000,89000]},
+"Oficial de Caja":{"q":[43000,48000,65000]},
+"Asistente de Contabilidad":{"q":[30000,40000,51000]},
+"Auxiliar de Contabilidad":{"q":[28000,37000,46000]},
+"Auxiliar de Cuentas por Pagar":{"q":[34000,42000,54000]},
+"Auxiliar de Créditos y Cobros":{"q":[30000,36000,45000]},
+"Auxiliar de Facturación":{"q":[30000,36000,42000]},
+"Cajero/a":{"q":[20000,29000,35000]},
+"Cobrador":{"q":[24000,30000,36000]}}},
+"administracion":{"label":"Administración y Servicios Generales","puestos":{"Vicepresidente Administrativo":{"q":[203000,292000,418000]},
+"Gerente Administrativo":{"q":[97000,160000,242000]},
+"Gerente de Seguridad Física":{"q":[111000,148000,207000]},
+"Encargado de Servicios Generales":{"q":[54000,70000,99000]},
+"Encargado de Seguridad":{"q":[57000,75000,101000]},
+"Supervisor de Seguridad Física":{"q":[44000,58000,89000]},
+"Supervisor de Cafetería":{"q":[33000,48000,65000]},
+"Encargado de Mensajería":{"q":[38000,50000,72000]},
+"Asistente o Secretaria Ejecutiva (III)":{"q":[41000,58000,75000]},
+"Asistente o Secretaria (II)":{"q":[31000,44000,49000]},
+"Asistente o Secretaria (I)":{"q":[26000,33000,41000]},
+"Auxiliar Administrativo":{"q":[26000,33000,42000]},
+"Recepcionista":{"q":[22000,27000,32000]},
+"Archivista":{"q":[24000,30000,35000]},
+"Oficial de Seguridad Electrónica":{"q":[37000,50000,64000]},
+"Operador de Monitoreo CCTV":{"q":[30000,35000,41000]},
+"Oficial de Seguridad":{"q":[28000,32000,52000]},
+"Chofer":{"q":[25000,31000,37000]},
+"Chofer de Reparto":{"q":[22000,30000,36000]},
+"Chofer de Patana":{"q":[29000,31000,40000]},
+"Mensajero Interno":{"q":[26000,30000,33000]},
+"Mensajero Externo":{"q":[20000,26000,32000]},
+"Conserje":{"q":[20000,26000,30000]},
+"Vigilante":{"q":[20000,24000,34000]}}},
+"tecnologia":{"label":"Tecnología","puestos":{"Director / VP de Sistemas (CTO)":{"q":[210000,270000,357000]},
+"Gerente de Desarrollo de Sistemas":{"q":[158000,202000,265000]},
+"Gerente de Sistemas (TI)":{"q":[136000,184000,224000]},
+"Gerente de Infraestructura / Seguridad":{"q":[100000,136000,184000]},
+"Gerente de Auditoría de Sistemas":{"q":[95000,131000,163000]},
+"Arquitecto de Software":{"q":[144000,184000,225000]},
+"Líder de Proyecto":{"q":[84000,106000,147000]},
+"Encargado de Seguridad Informática":{"q":[85000,108000,138000]},
+"Encargado de Informática / Base de Datos":{"q":[67000,99000,146000]},
+"Ingeniero de Pruebas / QA Tester":{"q":[58000,96000,144000]},
+"Administrador de Base de Datos (DBA)":{"q":[75000,95000,121000]},
+"Analista Programador":{"q":[70000,88000,110000]},
+"Administrador de Redes":{"q":[62000,81000,107000]},
+"Supervisor de Operaciones TI":{"q":[61000,79000,102000]},
+"Analista de Sistemas":{"q":[54000,72000,89000]},
+"Programador / Desarrollador":{"q":[49000,70000,92000]},
+"Analista de Inteligencia de Negocios (BI)":{"q":[60000,70000,84000]},
+"Analista de Seguridad Informática":{"q":[61000,68000,88000]},
+"Soporte Técnico":{"q":[33000,46000,62000]},
+"Soporte a Usuario (Help Desk)":{"q":[37000,45000,55000]},
+"Operador de Sistemas":{"q":[26000,39000,56000]},
+"Digitador":{"q":[18000,26000,32000]},
+"Desarrollador Mobile":{"junior":[40000,58000],"mid":[60000,100000],"senior":[100000,170000],"ref":true},
+"Data Scientist":{"junior":[45000,65000],"mid":[70000,115000],"senior":[115000,185000],"ref":true},
+"UX/UI Designer":{"junior":[30000,48000],"mid":[50000,82000],"senior":[82000,135000],"ref":true},
+"DevOps / Cloud Engineer":{"junior":[45000,65000],"mid":[68000,110000],"senior":[110000,180000],"ref":true},
+"Product Manager":{"junior":[40000,60000],"mid":[65000,105000],"senior":[105000,170000],"ref":true},
+"Scrum Master / Agile Coach":{"junior":[45000,65000],"mid":[68000,105000],"senior":[105000,165000],"ref":true}}},
+"rrhh":{"label":"Gestión Humana","puestos":{"Director / VP de Gestión Humana":{"q":[227000,307000,396000]},
+"Gerente de Gestión Humana":{"q":[117000,168000,230000]},
+"Encargado de Compensación":{"q":[83000,108000,134000]},
+"Encargado de Desarrollo Organizacional":{"q":[77000,102000,116000]},
+"Encargado de Relaciones Laborales":{"q":[69000,85000,105000]},
+"Encargado de Gestión Humana / Generalista":{"q":[51000,81000,107000]},
+"Encargado de Capacitación":{"q":[56000,79000,105000]},
+"Encargado de Reclutamiento y Selección":{"q":[57000,76000,92000]},
+"Coordinador de Recursos Humanos":{"q":[63000,72000,97000]},
+"Analista de Desarrollo Organizacional":{"q":[50000,67000,78000]},
+"Analista de Compensación":{"q":[45000,58000,76000]},
+"Analista de Gestión Humana":{"q":[43000,51000,69000]},
+"Analista de Reclutamiento y Selección":{"q":[39000,49000,63000]},
+"Asistente de Personal":{"q":[30000,40000,49000]},
+"Auxiliar de Reclutamiento y Selección":{"q":[33000,39000,49000]},
+"Auxiliar de Capacitación":{"q":[23000,36000,47000]},
+"HR Business Partner":{"junior":[50000,70000],"mid":[72000,115000],"senior":[115000,180000],"ref":true}}},
+"legal":{"label":"Legal","puestos":{"Director / Consultor Jurídico":{"q":[168000,220000,350000]},
+"Director de Operaciones (Firma de Abogados)":{"q":[190000,286000,426000]},
+"Gerente Legal":{"q":[132000,179000,221000]},
+"Asociado Sr. / Abogado I":{"q":[99000,123000,167000]},
+"Team Coordinator (Firma de Abogados)":{"q":[115000,117000,143000]},
+"Asociado Jr. / Abogado II":{"q":[70000,102000,124000]},
+"Abogado/a":{"q":[56000,71000,91000]},
+"Analista Legal":{"q":[43000,63000,123000]},
+"Asistente Legal":{"q":[42000,52000,83000]},
+"Abogado Pasante":{"q":[41000,53000,64000]},
+"Paralegal":{"q":[27000,35000,45000]}}},
+"farmaceutica":{"label":"Industria Farmacéutica","puestos":{"Director Técnico":{"q":[158000,273000,426000]},
+"Gerente de Desarrollo de Productos":{"q":[130000,163000,225000]},
+"Supervisor de Desarrollo de Productos":{"q":[80000,97000,121000]},
+"Supervisor de Control de Calidad":{"q":[75000,85000,112000]},
+"Gerente de Almacén (Farmacéutica)":{"q":[73000,90000,114000]},
+"Analista Microbiológico":{"q":[50000,57000,62000]},
+"Bioanalista de Áreas Especializadas":{"q":[46000,54000,71000]},
+"Asistente de Desarrollo de Productos":{"q":[42000,53000,60000]},
+"Diseñador Gráfico (Farmacéutica)":{"q":[44000,54000,67000]},
+"Encargado de Control de Documentación":{"q":[37000,49000,78000]},
+"Analista Físico-Químico":{"q":[40000,49000,55000]},
+"Secretaria de Mercadeo y Servicio al Cliente":{"q":[37000,49000,56000]},
+"Encargado de Calibración":{"q":[36000,47000,103000]},
+"Visitador/a Médico":{"q":[32000,44000,54000]},
+"Promotor/a Médico":{"q":[26000,39000,61000]}}},
+"retail":{"label":"Retail y Supermercados","puestos":{"Gerente de Tienda":{"q":[65000,78000,144000]},
+"Jefe de Sector (Tienda)":{"q":[46000,61000,79000]},
+"Supervisor de Cajas":{"q":[32000,40000,57000]},
+"Jefe de Sección (Tienda)":{"q":[30000,33000,42000]},
+"Cocinero/a":{"q":[25000,31000,37000]},
+"Servicio al Cliente (Tienda)":{"q":[25000,29000,33000]},
+"Cajero/a (Supermercado)":{"q":[23000,28000,32000]},
+"Vendedor de Ferretería":{"q":[20000,28000,31000]},
+"Panadero/a":{"q":[24000,27000,32000]},
+"Gondolero/a":{"q":[21000,25000,28000]}}},
+"seguros":{"label":"Seguros","puestos":{"Vicepresidente Técnico":{"q":[331000,557000,653000]},
+"Director / VP de Negocios (Seguros)":{"q":[171000,352000,434000]},
+"Director de Reclamaciones":{"q":[275000,321000,390000]},
+"Gerente Regional":{"q":[155000,198000,236000]},
+"Gerente de Administración de Riesgos":{"q":[141000,162000,192000]},
+"Gerente de Servicio al Cliente (Seguros)":{"q":[101000,150000,190000]},
+"Gerente de Reclamaciones":{"q":[134000,146000,162000]},
+"Gerente Técnico":{"q":[108000,145000,203000]},
+"Gerente de Reaseguros":{"q":[89000,143000,163000]},
+"Gerente de Seguros de Personas":{"q":[77000,100000,122000]},
+"Encargado de Cumplimiento":{"q":[76000,90000,112000]},
+"Subgerente de Reclamaciones":{"q":[64000,76000,107000]},
+"Inspector de Riesgos":{"q":[55000,72000,89000]},
+"Encargado de Recuperación de Créditos":{"q":[57000,69000,85000]},
+"Ejecutivo de Reclamaciones":{"q":[50000,58000,67000]},
+"Ajustador de Reclamaciones":{"q":[49000,57000,66000]},
+"Analista de Riesgos":{"q":[40000,56000,67000]},
+"Analista de Administración de Pólizas":{"q":[38000,54000,60000]},
+"Ejecutivo de Negocios (Seguros)":{"q":[37000,50000,56000]},
+"Auxiliar Técnico o de Suscripción":{"q":[38000,44000,50000]},
+"Auxiliar de Reclamaciones":{"q":[31000,40000,49000]},
+"Auxiliar de Cobertura":{"q":[31000,36000,40000]}}},
+"banca":{"label":"Banca","puestos":{"VP de Negocios Corporativos y Comerciales":{"q":[311000,510000,565000]},
+"Vicepresidente Ejecutivo de Negocios":{"q":[332000,487000,597000]},
+"Director de Operaciones (Banca)":{"q":[216000,309000,413000]},
+"Director de Proyectos (Banca)":{"q":[132000,201000,299000]},
+"Gerente de Riesgo y Cumplimiento":{"q":[141000,179000,232000]},
+"Gerente de Mercadeo y Desarrollo (Banca)":{"q":[103000,153000,211000]},
+"Gerente de Negocios Banca Corporativa":{"q":[109000,150000,173000]},
+"Gerente de Divisas":{"q":[105000,132000,172000]},
+"Gerente de Tarjeta de Crédito":{"q":[95000,120000,193000]},
+"Gerente de Sucursal":{"q":[71000,97000,131000]},
+"Analista de Crédito (Banca)":{"q":[60000,78000,89000]},
+"Analista de Inversiones":{"q":[60000,78000,135000]},
+"Encargado de Préstamos":{"q":[66000,68000,95000]},
+"Analista de Riesgo Operacional":{"q":[38000,64000,82000]},
+"Encargado de Caja":{"q":[47000,62000,75000]},
+"Analista de Riesgo y Cumplimiento":{"q":[38000,60000,86000]},
+"Ejecutivo de Negocios (Banca)":{"q":[38000,60000,98000]},
+"Trader / Ejecutivo de Divisas":{"q":[53000,60000,90000]},
+"Ejecutivo de Cuentas (Banca)":{"q":[33000,48000,53000]},
+"Analista de Negocios":{"q":[42000,47000,66000]},
+"Cajero/a Bancario":{"q":[30000,36000,43000]},
+"Asistente de Negocios":{"q":[24000,30000,45000]}}},
+"construccion":{"label":"Ingeniería y Construcción","puestos":{"Ingeniero Civil":{"junior":[40000,55000],"mid":[58000,85000],"senior":[85000,130000],"ref":true},
+"Ingeniero Residente":{"junior":[42000,55000],"mid":[58000,85000],"senior":[85000,125000],"ref":true},
+"Ingeniero Estructural":{"junior":[50000,68000],"mid":[72000,105000],"senior":[105000,160000],"ref":true},
+"Analista de Presupuesto (Obras)":{"junior":[40000,55000],"mid":[58000,85000],"senior":[85000,120000],"ref":true},
+"Gerente de Proyectos de Construcción":{"junior":[65000,90000],"mid":[95000,150000],"senior":[150000,240000],"ref":true}}},
+"salud":{"label":"Salud","puestos":{"Médico General":{"junior":[45000,65000],"mid":[68000,105000],"senior":[105000,170000],"ref":true},
+"Enfermero/a":{"junior":[30000,42000],"mid":[43000,68000],"senior":[68000,105000],"ref":true},
+"Administrador Hospitalario":{"junior":[40000,58000],"mid":[60000,95000],"senior":[95000,155000],"ref":true},
+"Fisioterapeuta":{"junior":[30000,42000],"mid":[43000,68000],"senior":[68000,108000],"ref":true},
+"Nutricionista":{"junior":[30000,38000],"mid":[39000,62000],"senior":[62000,98000],"ref":true},
+"Médico Especialista":{"junior":[70000,100000],"mid":[105000,170000],"senior":[170000,300000],"ref":true},
+"Odontólogo/a":{"junior":[40000,60000],"mid":[62000,100000],"senior":[100000,170000],"ref":true},
+"Psicólogo/a":{"junior":[30000,42000],"mid":[43000,68000],"senior":[68000,110000],"ref":true},
+"Farmacéutico/a":{"junior":[30000,45000],"mid":[46000,72000],"senior":[72000,110000],"ref":true},
+"Bioanalista":{"junior":[30000,40000],"mid":[42000,62000],"senior":[62000,95000],"ref":true},
+"Visitador Médico":{"junior":[32000,48000],"mid":[50000,78000],"senior":[78000,120000],"ref":true}}},
+"turismo":{"label":"Turismo y Hotelería","puestos":{"Recepcionista de Hotel":{"junior":[22000,27000],"mid":[27000,34000],"senior":[34000,45000],"ref":true},
+"Gerente de Hotel":{"junior":[70000,100000],"mid":[105000,170000],"senior":[170000,280000],"ref":true},
+"Revenue Manager":{"junior":[45000,65000],"mid":[68000,108000],"senior":[108000,170000],"ref":true},
+"Chef / Jefe de Cocina":{"junior":[35000,50000],"mid":[52000,85000],"senior":[85000,140000],"ref":true},
+"Gerente de Alimentos y Bebidas":{"junior":[50000,70000],"mid":[72000,115000],"senior":[115000,180000],"ref":true},
+"Ejecutivo de Ventas Hoteleras":{"junior":[30000,45000],"mid":[46000,72000],"senior":[72000,115000],"ref":true},
+"Guest Relations":{"junior":[24000,30000],"mid":[30000,40000],"senior":[40000,58000],"ref":true}}}};
 
 const REMOTE_BONUS = { presencial: 0, hibrido: 0, remoto: 0 };
 
@@ -7062,6 +7208,25 @@ function calcularNeto() {
   out.innerHTML = aviso + htmlDesglose(desgloseSalario(bruto));
 }
 
+// Llena el selector de áreas a partir de SALARY_DATA
+(function llenarAreasCalc() {
+  const sel = document.getElementById('calcSector');
+  if (!sel) return;
+  const n = s => Object.keys(SALARY_DATA[s].puestos).length;
+  sel.innerHTML = '<option value="">— Selecciona área —</option>' + Object.keys(SALARY_DATA)
+    .sort((a, b) => SALARY_DATA[a].label.localeCompare(SALARY_DATA[b].label, 'es'))
+    .map(s => `<option value="${s}">${SALARY_DATA[s].label} (${n(s)})</option>`).join('');
+})();
+
+// Rango por nivel a partir de los cuartiles del puesto (Q1, mediana, Q3)
+function rangoPuesto(p, nivel) {
+  if (!p.q) return p[nivel];
+  const [q1, q2, q3] = p.q;
+  if (nivel === 'junior') return [q1, q2];
+  if (nivel === 'senior') return [q2, q3];
+  return [(q1 + q2) / 2, (q2 + q3) / 2];
+}
+
 function updateCalcPuestos() {
   const sector = document.getElementById('calcSector').value;
   const sel = document.getElementById('calcPuesto');
@@ -7090,9 +7255,12 @@ function calcularSalario() {
   calcErr.style.display = 'none';
 
   const bonus = REMOTE_BONUS[modalidad] || 0;
-  const [rawMin, rawMax] = SALARY_DATA[sector].puestos[puesto][nivel];
-  const min = Math.round(rawMin * (1 + bonus) / 1000) * 1000;
-  const max = Math.round(rawMax * (1 + bonus) / 1000) * 1000;
+  const datoPuesto = SALARY_DATA[sector].puestos[puesto];
+  const [rawMin, rawMax] = rangoPuesto(datoPuesto, nivel);
+  // Ningún rango por debajo del salario mínimo legal del tamaño de empresa elegido
+  const piso = (SALARIO_MINIMO[document.getElementById('calcEmpresa').value] || SALARIO_MINIMO.grande).monto;
+  const min = Math.max(Math.round(rawMin * (1 + bonus) / 1000) * 1000, Math.ceil(piso));
+  const max = Math.max(Math.round(rawMax * (1 + bonus) / 1000) * 1000, min);
   const mid = Math.round((min + max) / 2 / 1000) * 1000;
 
   const fmt = n => 'RD$ ' + n.toLocaleString('es-DO');
@@ -7108,7 +7276,9 @@ function calcularSalario() {
   document.getElementById('calcBarMin').textContent = fmt(min);
   document.getElementById('calcBarMax').textContent = fmt(max);
 
-  const tags = ['Santo Domingo', 'Santiago', 'Empresas medianas y grandes'];
+  const tags = datoPuesto.q
+    ? [`Rango general del puesto: ${fmt(datoPuesto.q[0])} – ${fmt(datoPuesto.q[2])}`]
+    : ['Santo Domingo y Santiago'];
   document.getElementById('calcSectorTags').innerHTML = tags.map(t => `<span class="calc-sector-tag">${t}</span>`).join('');
 
   // Contexto oficial: salario mínimo del tamaño de empresa y promedio formal
@@ -7117,9 +7287,8 @@ function calcularSalario() {
   document.getElementById('calcContexto').innerHTML =
     `El salario mínimo en ${emp.label} es <b>${fmtRD(emp.monto)}</b>. ` +
     `El promedio de este puesto está <b>${Math.abs(vsProm)}% ${vsProm >= 0 ? 'por encima' : 'por debajo'}</b> del salario promedio del empleo formal en RD (${fmtRD(SALARIO_PROMEDIO_TSS)}, TSS abril 2026).` +
-    (min < emp.monto ? ` En una ${emp.label} el piso legal es ${fmtRD(emp.monto)}: ningún salario puede quedar por debajo.` : '') +
-    (emp.label !== 'empresa grande' && emp.label !== 'empresa mediana' ? ' Los rangos de puesto reflejan empresas medianas y grandes; en empresas más pequeñas suelen ser menores.' : '') +
-    ' Las empresas proyectan aumentos cercanos al 8% para 2027 (Macros Consulting, 2026).';
+    (rawMin < emp.monto ? ` Parte del mercado de este puesto paga menos que el salario mínimo de una ${emp.label}; por eso el rango empieza en el piso legal de ${fmtRD(emp.monto)}.` : '') +
+    (emp.label !== 'empresa grande' && emp.label !== 'empresa mediana' ? ' Los rangos de puesto reflejan empresas medianas y grandes; en empresas más pequeñas suelen ser menores.' : '');
 
   // Comparación con una oferta, si la escribió
   const oferta = leerMonto('calcOfertaMonto');
