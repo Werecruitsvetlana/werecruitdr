@@ -82,9 +82,14 @@ nav {
 .equipo-card figcaption { margin-top: .9rem; display: flex; flex-direction: column; gap: 2px; }
 .equipo-card figcaption strong { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--dark); font-size: 17px; }
 .equipo-card figcaption span { color: var(--mid); font-size: 13px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; }
+.founder .equipo-inner { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: start; }
+.founder-historia p { max-width: 560px; }
+.founder-historia p + p { margin-top: 1rem; }
+.founder-firma { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--dark) !important; margin-top: 1.4rem !important; }
 @media (max-width: 820px) {
   .equipo { padding: 3.5rem 1.25rem; }
-  .equipo-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .equipo-inner, .founder .equipo-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .founder .equipo-card { max-width: 360px; }
 }
 
 /* Animaciones suaves al bajar */
@@ -1403,26 +1408,22 @@ footer.site-footer { text-align: left; padding: 3rem 2rem 1.5rem; }
   <div class="hero hero-sm">
     <div class="hero-inner">
       <div class="hero-tag"><span>Quiénes somos</span></div>
-      <h1>Conoce al <em>equipo</em></h1>
+      <h1>Conoce a la <em>fundadora</em></h1>
       <p>A Human First Recruitment Company. Reclutamos top talent de República Dominicana, con un trato cercano en cada proceso.</p>
     </div>
   </div>
-  <section class="equipo">
+  <section class="equipo founder">
     <div class="equipo-inner">
-      <div class="equipo-text">
-        <div class="sec-eyebrow">Nuestro equipo</div>
-        <h2>Personas reales detrás de cada proceso</h2>
-        <p>Somos un equipo de reclutamiento humano y cercano. Conocemos el mercado dominicano y acompañamos a cada empresa y a cada candidato de principio a fin.</p>
-      </div>
-      <div class="equipo-grid">
-        <figure class="equipo-card">
-          <div class="equipo-photo"><img src="/img/equipo/svetlana-elias.webp" alt="Svetlana Elias, CEO y fundadora de We Recruit DR" loading="lazy" width="640" height="800"></div>
-          <figcaption><strong>Svetlana Elias</strong><span>CEO y Fundadora</span></figcaption>
-        </figure>
-        <figure class="equipo-card">
-          <div class="equipo-photo"><img src="/img/equipo/daniel-jaar.webp" alt="Daniel Jaar, Senior Recruiter de We Recruit DR" loading="lazy" width="640" height="800"></div>
-          <figcaption><strong>Daniel Jaar</strong><span>Senior Recruiter</span></figcaption>
-        </figure>
+      <figure class="equipo-card">
+        <div class="equipo-photo"><img src="/img/equipo/svetlana-elias.webp" alt="Svetlana Elias, CEO y fundadora de We Recruit DR" loading="lazy" width="640" height="800"></div>
+        <figcaption><strong>Svetlana Elias</strong><span>CEO y Fundadora</span></figcaption>
+      </figure>
+      <div class="equipo-text founder-historia">
+        <div class="sec-eyebrow">Meet our Founder</div>
+        <h2>Svetlana Elias ✨</h2>
+        <p>Profesional en Gestión Humana con más de 10 años de experiencia en capital humano, liderando en multinacionales y empresas americanas.</p>
+        <p>Fundó We Recruit con una visión clara: elevar el estándar del reclutamiento y ayudar a las empresas a contratar el talento correcto.</p>
+        <p class="founder-firma">Porque contratar no es llenar una vacante, es elegir el talento que hará crecer tu negocio.</p>
       </div>
     </div>
   </section>
@@ -3334,7 +3335,7 @@ function renderSiteExtras() {
       <div class="sf-col">
         <h4>Empresas</h4>
         <a onclick="showPage('para-empresas')">Nuestros servicios</a>
-        <a onclick="showPage('nosotros')">Conoce al equipo</a>
+        <a onclick="showPage('nosotros')">Conoce a la fundadora</a>
         <a onclick="showPage('publicar-vacante')">Publicar vacante</a>
         <a onclick="showPage('empresa-panel')">Panel de empresa</a>
         <a onclick="showPage('freelancers')">Contratar freelancers</a>
